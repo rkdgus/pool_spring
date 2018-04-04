@@ -12,14 +12,13 @@
 	z-index: 5;
 	position: absolute;
 	left: 50%;
-	top: 90px;
+	top: 50px;          
 	margin-left: -470px;
 }
 
 #wrap_login {
 	width: 950px;
 	margin: 0 auto;
-	height: 14px;
 	overflow: hidden;
 	margin-bottom:2px;        
 }
@@ -27,12 +26,14 @@
 #wrap_login ul {
 	float: right;
 	overflow: hidden;
+	height: 14px;
+	margin-top:60px;                        
 }
 
 #wrap_login li {
 	float: left;
-	width: 74px;
-	text-align: center;
+	width: 74px;         
+	text-align: center;            
 	line-height: 14px;            
 }
 
@@ -103,11 +104,17 @@ nav ul li a {
 	color: white;
 	font-weight: bold;
 }
+#wrap_login #logo{
+	width:80px;              
+}
 </style>
 </head>
 <body>
 	<div id="wrap_nav">
 		<div id="wrap_login">
+			<div>
+				<img src="${pageContext.request.contextPath}/resources/img/logoBlack.png" id="logo">      
+			</div>
 			<ul>
 				<li><a href="">로그인</a></li>
 				<li><a href="">회원가입</a></li>

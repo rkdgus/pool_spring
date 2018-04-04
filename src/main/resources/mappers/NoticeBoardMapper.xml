@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgit.mapper.NoticeBoardMapper">
+	<select id="selectByAll" resultType="NoticeBoardVO">
+		select * from noticeboard order by regdate desc limit #{page},10
+	</select>
+	<select id="countByAll" resultType="int">
+		select count(*) from noticeboard
+	</select>
+	<select id="read" resultType="NoticeBoardVO">
+		select * from noticeboard where nno = #{nno}
+	</select>
+	<insert id="insert">
+		insert into noticeboard(title,content,imgpath) values(#{title},#{content},#{imgpath})
+	</insert>
+	<update id="update">
+		update noticeboard set title = #{title}, content = #{content} imgpath = #{imgpath} where nno = #{nno}
+	</update>
+	<delete id="delete">
+		delete from noticeboard where nno = #{nno}
+	</delete>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgit.mapper.QnaBoardMapper">
+	<select id="selectByAll" resultType="QnaBoardVO">
+		select * from qnaboard order by regdate desc limit #{page},10
+	</select>
+	<select id="countByAll" resultType="int">
+		select count(*) from qnaboard
+	</select>
+	<select id="read" resultType="QnaBoardVO">
+		select * from qnaboard where bno = #{bno}
+	</select>
+	<insert id="insert">
+		insert into qnaboard(writer,title,content,imgpath) values(#{writer},#{title},#{content},#{imgpath})
+	</insert>
+	<update id="update">
+		update qnaboard set title = #{title}, content = #{content} imgpath = #{imgpath} where bno = #{bno}
+	</update>
+	<update id="answerUpdate">
+		update qnaboard set replycheck = true, answer = #{answer} answerdate = now() where bno = #{bno}
+	</update>
+	<delete id="delete">
+		delete from qnaboard where bno = #{bno}
+	</delete>
+</mapper>

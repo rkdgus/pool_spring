@@ -2,6 +2,8 @@
 #container{
 	width:950px;
 	margin:0 auto;
+	overflow: hidden;
+	
 }
 #leftArea{
 	border:1px solid #6799FF;
@@ -11,3 +13,4 @@
 	background:#f1e3c4;
 }
 
+            

@@ -36,7 +36,6 @@
 		text-align:left;
 	}
 	#container #content #classboard_table table th,#container #content #classboard_table table td{
-		
 		line-height:30px;
 		height:30px;
 	}
@@ -45,10 +44,47 @@
 		height:69px;
 		line-height: 69px;	
 		border-top:2px solid #333333;
+		border-bottom:none;
 	}
 	#paging{
 		height:39px !important;
 		line-height: 69px !important;
+	}
+	#container #content #classboard_table table #search_tr{
+		margin:15px 0;
+		height:40px;
+		border-bottom:none;
+		background:rgb(235, 235, 235);
+		line-height: 40px;	
+	}
+	#search_wrap{
+		height:40px;
+		line-height: 40px;
+	}
+	#search_wrap label{
+		font-size:13px;
+	}
+	#search_wrap input[type='radio']{
+		line-height: 1px;
+	}
+	.pageNum{
+		width:24px;
+		height:25px;
+		line-height: 25px;
+		display: inline-block;
+		border:1px solid #ccc;
+		cursor: pointer;
+	}
+	.paginBtn{
+		width:15px;
+		line-height: 13px;
+		height:14px;
+		display: inline-block;
+		background: #ccc;
+		color:#fff;
+	}
+	.search_img{
+		vertical-align: middle;
 	}
 </style>
 </head>
@@ -91,8 +127,27 @@
 					<tr id="paging_tr">
 						<td colspan="5">
 							<div id="paging">
-								<span>5</span>
+								<span class="paginBtn">&laquo;</span>
+								<span class="pageNum">5</span>
+								<span class="pageNum">5</span>
+								<span class="pageNum">5</span>
+								<span class="paginBtn">&raquo;</span>
 							</div>
+						</td>
+					</tr>
+					<tr id="search_tr">
+						<td colspan="5">
+							<form id="search_wrap">
+								<input id="smode_subject" name="smode" type="radio" value="titleandcontent" checked="checked">
+								<label for="smode_subject">제목+본문</label>
+								<input id="smode_author" name="smode" type="radio" value="title">
+								<label for="smode_author">제목</label>
+								<input id="search_writer" type="radio" name="smode" value="writer">
+								<label for="search_writer">작성자</label>
+								<img src="${pageContext.request.contextPath}/resources/img/search_img.png" class="search_img">
+								<input type="text" name="search">
+								<img src="${pageContext.request.contextPath}/resources/img/btn_search.gif" class="search_img">
+							</form>
 						</td>
 					</tr>
 				</table>

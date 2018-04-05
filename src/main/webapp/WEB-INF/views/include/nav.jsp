@@ -116,7 +116,7 @@ nav ul li a {
 				<img src="${pageContext.request.contextPath}/resources/img/logoBlack.png" id="logo">      
 			</div>
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/login/">로그인</a></li>
+				<li><a href="${pageContext.request.contextPath}/login/login">로그인</a></li>
 				<li><a href="">회원가입</a></li>
 				<li><a href="">ID/PW찾기</a></li>
 			</ul>

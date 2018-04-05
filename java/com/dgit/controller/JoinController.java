@@ -16,4 +16,4 @@ public class JoinController {
 	public void getJoin(){
 		logger.info("=========joinStep1 get==========");
 	}
-}
+}  

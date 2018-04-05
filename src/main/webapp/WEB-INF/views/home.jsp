@@ -19,9 +19,9 @@
 	#main_img{
 		position: absolute; 
 		height:1018px;              
-		width: 1900px;   
+		width: 1910px;   
 		left:50%;
-		margin-left:-950px !important;        
+		margin-left:-955px !important;        
 		
 	}
 </style>

@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +12,7 @@
 	}
 	#container #content{
 		width:730px;
+		height:728px;
 		float:right;
 	}
 	#container #content #classboard_table table{
@@ -55,7 +54,7 @@
 		margin:15px 0;
 		height:40px;
 		border-bottom:none;
-		background:rgb(235, 235, 235);
+		background:rgba(0, 0, 0, 0.6);
 		line-height: 40px;	
 	}
 	#search_wrap{
@@ -104,13 +103,7 @@
 		color:#9a9a9a;
 		padding:3px 6px;	
 	}
-	#content a{
-		color:black;
-		text-decoration: none;
-	}
-	span#active{
-		background: rgb(235, 235, 235);
-	}
+	
 </style>
 </head>
 <body>
@@ -132,30 +125,35 @@
 						<th width="60">조회수</th>
 						<th width="80">작성일</th>
 					</tr>
-					<c:if test="${lists !=null }">
-						<c:forEach var="item" items="${lists }">
-							<tr>
-								<td>${item.bno }</td>
-								<td class="title"><a href="">${item.title }</a></td>
-								<td>${item.id }</td>
-								<td>${item.readcnt }</td>
-								<fmt:formatDate value="${item.regdate }" var="regdate" pattern="yyyy-MM-dd"/>
-								<td>${regdate }</td>
-							</tr>
-						</c:forEach>
-					</c:if>
+					<tr>
+						<td>1</td>
+						<td class="title">2</td>
+						<td>3</td>
+						<td>4</td>
+						<td>4</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td class="title">2</td>
+						<td>3</td>
+						<td>4</td>
+						<td>4</td>
+					</tr>
+					<tr>
+						<td>1</td>
+						<td class="title">2</td>
+						<td>3</td>
+						<td>4</td>
+						<td>4</td>
+					</tr>
 					<tr id="paging_tr">
 						<td colspan="5">
 							<div id="paging">
-								<c:if test="${pageMaker.prev}">
-									<a href="classboard?page=${pageMaker.startPage-1 }"><span class="paginBtn">&laquo;</span></a>
-								</c:if>
-								<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-									<a href="classboard?page=${idx }"><span  class="pageNum" ${pageMaker.cri.page == idx? 'id=active' : ''}>${idx }</span></a>
-								</c:forEach>
-								<c:if test="${pageMaker.next}">
-									<a href="classboard?page=${pageMaker.endPage+1}"><span class="paginBtn">&raquo;</span></a>
-								</c:if>
+								<span class="paginBtn">&laquo;</span>
+								<span class="pageNum">5</span>
+								<span class="pageNum">5</span>
+								<span class="pageNum">5</span>
+								<span class="paginBtn">&raquo;</span>
 							</div>
 						</td>
 					</tr>

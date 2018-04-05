@@ -59,7 +59,7 @@ public class ClassBoardServiceImpl implements ClassBoardService {
 	public int count(int cno) {
 		return dao.countByCno(cno);
 	}
-
+ 
 	@Override
 	public List<ClassVO> selectByClass() {
 		return dao.selectByClass();

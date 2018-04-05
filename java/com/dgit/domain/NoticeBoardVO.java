@@ -11,7 +11,7 @@ public class NoticeBoardVO {
 	private String imgpath;
 	public int getNno() {
 		return nno;
-	}
+	} 
 	public void setNno(int nno) {
 		this.nno = nno;
 	}

@@ -19,7 +19,7 @@ public class TeacherDAOImpl implements TeacherDAO {
 		
 		return session.selectOne(namespace+".findTeacherId",id);
 	}
-
+ 
 	@Override
 	public TeacherVO selectTeacher(TeacherVO vo) {
 		return session.selectOne(namespace+".selectTeacher",vo);

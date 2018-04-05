@@ -17,4 +17,4 @@ private static final Logger logger = LoggerFactory.getLogger(GalleryController.c
 		logger.info("=================gallery Get====================");
 		return "gallery/gallery";
 	}
-}
+} 

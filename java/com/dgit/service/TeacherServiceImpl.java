@@ -20,6 +20,6 @@ public class TeacherServiceImpl implements TeacherService {
 	@Override
 	public TeacherVO selectTeacher(TeacherVO vo) {
 		return dao.selectTeacher(vo);
-	}
+	} 
 
 }

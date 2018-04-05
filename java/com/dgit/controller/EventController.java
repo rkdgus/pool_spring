@@ -17,4 +17,4 @@ private static final Logger logger = LoggerFactory.getLogger(EventController.cla
 		logger.info("=================event Get====================");
 		return "event/event";
 	}
-}
+} 

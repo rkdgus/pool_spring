@@ -33,7 +33,7 @@ public class ClassBoardController {
 		List<ClassVO> classList = service.selectByClass();
 		
 		PageMaker pageMaker = new PageMaker();
-		
+		 
 		pageMaker.setCri(cri);
 		int totalcount = service.count(1);
 		pageMaker.setTotalCount(totalcount);

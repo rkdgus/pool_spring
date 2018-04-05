@@ -13,4 +13,4 @@ public class QnaBoardVO {
 	private Date answerdate;
 	private String imgpath;
 	
-}
+} 

@@ -16,7 +16,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberVO findMemberId(String id) {
 		return dao.findMemberId(id);
-	}
+	} 
 
 	@Override
 	public MemberVO selectMember(MemberVO vo) {

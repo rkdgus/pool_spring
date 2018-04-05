@@ -12,3 +12,4 @@ public interface NoticeBoardDAO {
 	public void delete(int nno);
 	public int countByAll();
 }
+ 

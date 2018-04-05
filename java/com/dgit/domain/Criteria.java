@@ -10,7 +10,7 @@ public class Criteria {
 	}
 
 	public int getPage() {
-		return page;
+		return page; 
 	}
 
 	public void setPage(int page) {

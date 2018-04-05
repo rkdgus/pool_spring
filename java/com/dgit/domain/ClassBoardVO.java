@@ -10,7 +10,7 @@ public class ClassBoardVO {
 	private String content;
 	private Date regdate;
 	private Date updatedate;
-	private String imgpath;
+	private String imgpath; 
 	private int readcnt;
 	public int getBno() {
 		return bno;

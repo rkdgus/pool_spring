@@ -15,7 +15,7 @@ public class PageMaker {
 	private int displayPageNum = 10; //보이는 페이지 번호의 갯수
 	private Criteria cri; //현재 페이지 번호를 알아야 시작과 끝을 구할 수 있음
 	
-	private void calcData(){
+	private void calcData(){ 
 		//현재 페이지의 끝 번호를 구한다. ex)15/10 => 1.5-> 2 * 10 ->20
 		endPage = (int) (Math.ceil(cri.getPage() / (double)displayPageNum) * displayPageNum);
 		//현재 페에지의 시작 번호를 구한다. ex)20-10+1 = 11

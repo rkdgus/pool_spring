@@ -1,4 +1,4 @@
-package com.dgit.controller;
+ package com.dgit.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,5 +16,5 @@ private static final Logger logger = LoggerFactory.getLogger(InfoController.clas
 	public String info(){
 		logger.info("=================info Get====================");
 		return "info/info";
-	}
+	} 
 }

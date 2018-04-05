@@ -14,3 +14,4 @@ public interface ClassBoardService {
 	public int count(int cno);
 	public List<ClassVO> selectByClass();
 }
+ 

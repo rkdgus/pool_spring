@@ -46,7 +46,7 @@ public class ClassBoardDAOImpl implements ClassBoardDAO{
 	public int countByCno(int cno) {
 		return session.selectOne(namespace+".countByCno",cno);
 	}
-
+ 
 	@Override
 	public List<ClassVO> selectByClass() {
 		return session.selectList(namespace+".selectByClass");

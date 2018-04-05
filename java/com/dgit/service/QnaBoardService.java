@@ -13,3 +13,4 @@ public interface QnaBoardService {
 	public int count(int cno);
 	public void modifyAnswer(QnaBoardVO vo);
 }
+ 

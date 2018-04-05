@@ -11,7 +11,7 @@ public class ClassVO {
 		this.cno = cno;
 	}
 	public String getLevel() {
-		return level;
+		return level; 
 	}
 	public void setLevel(String level) {
 		this.level = level;

@@ -6,3 +6,4 @@ public interface MemberService {
 	public MemberVO findMemberId(String id);
 	public MemberVO selectMember(MemberVO vo);
 }
+ 

@@ -12,7 +12,7 @@ public class TeacherVO {
 	
 	public TeacherVO() {}
 	
-	public int getTno() {
+	public int getTno() { 
 		return tno;
 	}
 	public void setTno(int tno) {

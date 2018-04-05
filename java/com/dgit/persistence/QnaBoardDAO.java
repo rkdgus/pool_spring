@@ -13,3 +13,4 @@ public interface QnaBoardDAO {
 	public int countByAll();
 	public void answerUpdate(QnaBoardVO vo);
 }
+ 

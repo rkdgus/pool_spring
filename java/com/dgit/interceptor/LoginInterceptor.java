@@ -20,7 +20,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			ModelAndView modelAndView) throws Exception {
 		logger.info("===========postHandler================");
 		HttpSession session = request.getSession();
-		
+		 
 		if(session.getAttribute("login") !=null){
 			logger.info("===========login success================");
 			response.sendRedirect("/pool/");

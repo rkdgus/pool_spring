@@ -19,7 +19,7 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 
 	@Autowired
 	private QnaBoardDAO dao;
-	
+	 
 	@Override
 	public List<QnaBoardVO> selectByAll(int page) {
 		return dao.selectByAll(page);

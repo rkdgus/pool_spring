@@ -15,3 +15,4 @@ public interface ClassBoardDAO {
 	public int countByCno(int cno);
 	public List<ClassVO> selectByClass();
 }
+ 

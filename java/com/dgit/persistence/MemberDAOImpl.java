@@ -18,7 +18,7 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public MemberVO findMemberId(String id) {
 		return session.selectOne(namespace+".findMemberId",id);
-	}
+	} 
 
 	@Override
 	public MemberVO selectMember(MemberVO vo) {

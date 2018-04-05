@@ -1,2 +1,16 @@
 @CHARSET "UTF-8";
+#container{
+	width:950px;
+	margin:0 auto;
+	overflow: hidden;
+	
+}
+#leftArea{
+	border:1px solid #6799FF;
+	width:180px;
+	float: left;
+	padding:23px;
+	background:#f1e3c4;
+}
 
+            

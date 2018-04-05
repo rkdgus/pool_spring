@@ -7,9 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div>
+	<div id="leftArea">
+		<h2>반별게시판</h2>
 		<ul>
-			<li></li>
+			<li>반별</li>
+			<li>반별</li>
+			<li>반별</li>
+			<li>반별</li>
+			<li>반별</li>
+			<li>반별</li>
 		</ul>
 	</div>
 </body>

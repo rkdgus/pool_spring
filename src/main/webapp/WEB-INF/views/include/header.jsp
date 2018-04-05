@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/common/reset.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/common/common.css">
 <title>Insert title here</title>
 <style>
 	div#header{
@@ -21,7 +22,8 @@
 		height:1018px;              
 		width: 1920px;   
 		left:50%;
-		margin-left:-960px !important;
+		margin-left:-960px !important;        
+
 	}
 </style>
 </head>

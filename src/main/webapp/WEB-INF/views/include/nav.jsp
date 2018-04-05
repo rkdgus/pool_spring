@@ -123,11 +123,11 @@ nav ul li a {
 		</div>
 		<nav>
 			<ul>
-				<li><a href="">수영장소개</a></li>
+				<li><a href="${pageContext.request.contextPath}/info/">수영장소개</a></li>
 				<li><a href="">수업시간</a></li>
 				<li><a href="">수영클리닉</a></li>
-				<li><a href="">갤러리</a></li>
-				<li><a href="${pageContext.request.contextPath}/classboard/classboard">반별게시판</a></li>
+				<li><a href="${pageContext.request.contextPath}/gallery/">갤러리</a></li>
+				<li><a href="${pageContext.request.contextPath}/classboard/">반별게시판</a></li>
 				<li><a href="${pageContext.request.contextPath}/event/">소식</a></li>
 				<li><a href="">문의</a></li>
 			</ul>

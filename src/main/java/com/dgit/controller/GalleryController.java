@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/event")
-public class EventController {
+@RequestMapping("/gallery")
+public class GalleryController {
 	
-private static final Logger logger = LoggerFactory.getLogger(EventController.class);
+private static final Logger logger = LoggerFactory.getLogger(GalleryController.class);
 	
 	@RequestMapping(value="/",method=RequestMethod.GET)
-	public String event(){
-		logger.info("=================event Get====================");
-		return "event/event";
+	public String gallery(){
+		logger.info("=================gallery Get====================");
+		return "gallery/gallery";
 	}
 }

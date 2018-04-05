@@ -31,7 +31,7 @@
 	#join_form form p{
 		margin-bottom: 8px;
 	}
-	#join_form form label{
+	#join_form form p label{
 		float: left;
 		width:160px;
 		margin-left:10px;
@@ -39,7 +39,7 @@
 		color: #555555;
 		font-size: 14px;
 	}
-	#join_form form input{
+	#join_form form p input{
 		width:300px;
 	}
 	#join_form form a{

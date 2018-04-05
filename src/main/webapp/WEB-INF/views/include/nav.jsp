@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE>
 <html>
 <head>
@@ -32,21 +33,15 @@
 
 #wrap_login li {
 	float: left;
-	width: 74px;         
+	width: 80px;         
 	text-align: center;            
-	line-height: 14px;            
+	line-height: 14px; 
+	border-right: 1px solid white;             
 }
 
-#wrap_login li:FIRST-CHILD {
-	width: 50px;
-	border-right: 1px solid white;       
+#wrap_login li:LAST-CHILD{
+	border:none;
 }
-
-#wrap_login li:nth-child(2) {
-	width: 65px;
-	border-right: 1px solid white;
-}            
-
 #wrap_login li a {
 	font-size: 13px;
 	color:white;
@@ -119,9 +114,20 @@ nav ul li a {
 				     
 			</div>
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/login/login">로그인</a></li>
-				<li><a href="">회원가입</a></li>
-				<li><a href="">ID/PW찾기</a></li>
+				<c:if test="${(login.title =='회원' || login.title !='사장' )&& login != null}">
+					<li><a href="${pageContext.request.contextPath}/login/logOut">로그아웃</a></li>
+					<li><a href="#">마이페이지</a></li>
+				</c:if>
+				<c:if test="${login ==null }">
+					<li><a href="${pageContext.request.contextPath}/login/login">로그인</a></li>
+					<li><a href="">회원가입</a></li>
+					<li><a href="">ID/PW찾기</a></li>
+				</c:if>
+				<c:if test="${login.title =='사장' }">
+					<li><a href="${pageContext.request.contextPath}/login/logOut">로그아웃</a></li>
+					<li><a href="#">관리자모드</a></li>
+				</c:if>
+				
 			</ul>
 		</div>
 		<nav>

@@ -5,6 +5,10 @@
 	overflow: hidden;
 
 }
+#container #content{
+	width:730px;
+	float:right;
+}
 #leftArea{
 	border:1px solid #ccc;
 	border-radius:3px;

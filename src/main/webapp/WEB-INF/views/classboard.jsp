@@ -15,7 +15,6 @@
 	#container #content{
 		width:730px;
 		height:728px;
-		
 		float:right;
 	}
 	#container #content #classboard_table table{

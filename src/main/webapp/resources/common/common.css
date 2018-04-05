@@ -3,7 +3,7 @@
 	width:950px;
 	margin:40px auto;
 	overflow: hidden;
-
+	min-height: 400px;
 }
 #container #content{
 	width:730px;

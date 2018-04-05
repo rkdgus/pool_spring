@@ -12,7 +12,7 @@
 	z-index: 5;
 	position: absolute;
 	left: 50%;
-	top: 50px;          
+	top: 30px;          
 	margin-left: -470px;
 }
 
@@ -60,10 +60,10 @@ nav {
 nav ul {
 	list-style: none;
 	width: 100%;
-	background-color: rgba(93, 151, 199, 0.8);
-	height: 60px;
+	background-color: rgba(0, 0, 0, 0.6);                  
+	height: 60px;            
 }
-
+             
 nav ul li {
 	float: left;
 	width: 14%;
@@ -113,7 +113,10 @@ nav ul li a {
 	<div id="wrap_nav">
 		<div id="wrap_login">
 			<div>
-				<img src="${pageContext.request.contextPath}/resources/img/logoBlack.png" id="logo">      
+				<a href="${pageContext.request.contextPath}/">
+					<img src="${pageContext.request.contextPath}/resources/img/logoBlack.png" id="logo"> 
+				</a>
+				     
 			</div>
 			<ul>
 				<li><a href="${pageContext.request.contextPath}/login/">로그인</a></li>

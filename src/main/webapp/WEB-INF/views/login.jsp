@@ -8,15 +8,21 @@
 </head>
 <body>
 	<jsp:include page="include/header.jsp"/>
-	<div id="header_title">
+	<div id="container">
+		<div id="header_title">
 		<div>로그인</div>
 		
 		<p class="con_navi">
 		
-		<img src="/design/skin/img/b_home.png" alt="홈">home &gt; 멤버십 &gt; 
+			<img src="${pageContext.request.contextPath }/resources/images/homeIcon.png" alt="홈">
+				home &gt; 
+				멤버십 &gt;
+			<span>로그인</span>
 		
-		<span>로그인</span></p>
+		</p>
 	</div>
+	</div>
+	
 	<jsp:include page="include/footer.jsp"/>
 </body>
 </html>

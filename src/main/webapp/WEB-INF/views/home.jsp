@@ -28,10 +28,10 @@
 </head>
 <body>
 
-
-	<jsp:include page="include/header.jsp"/>
-
-
+<div id="header">
+	<jsp:include page="include/nav.jsp"/>
+<img src="${pageContext.request.contextPath}/resources/images/back.jpg" id="main_img">
+</div>
 
 <div>
 	

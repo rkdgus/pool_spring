@@ -30,7 +30,7 @@
 <body>
 <div id="header">
 	<jsp:include page="nav.jsp"/>
-	<img src="${pageContext.request.contextPath}/resources/images/back.jpg" id="main_img">
-</div>
+	<img src="${pageContext.request.contextPath}/resources/images/s6.jpg" id="main_img">
+</div>          
 </body>
 </html>

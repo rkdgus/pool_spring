@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/event")
-public class EventController {
+@RequestMapping("/info")
+public class InfoController {
 	
-private static final Logger logger = LoggerFactory.getLogger(EventController.class);
+private static final Logger logger = LoggerFactory.getLogger(InfoController.class);
 	
 	@RequestMapping(value="/",method=RequestMethod.GET)
-	public String event(){
-		logger.info("=================event Get====================");
-		return "event/event";
+	public String info(){
+		logger.info("=================info Get====================");
+		return "info/info";
 	}
 }

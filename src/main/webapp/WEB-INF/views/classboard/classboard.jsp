@@ -61,6 +61,12 @@
 		height:40px;
 		line-height: 40px;
 	}
+	#search_wrap label{
+		font-size:13px;
+	}
+	#search_wrap input[type='radio']{
+		line-height: 1px;
+	}
 	.pageNum{
 		width:24px;
 		height:25px;
@@ -76,6 +82,9 @@
 		display: inline-block;
 		background: #ccc;
 		color:#fff;
+	}
+	.search_img{
+		vertical-align: middle;
 	}
 </style>
 </head>

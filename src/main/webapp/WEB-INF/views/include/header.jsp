@@ -23,7 +23,7 @@
 		width: 1920px;   
 		left:50%;
 		margin-left:-960px !important;        
-		
+
 	}
 </style>
 </head>

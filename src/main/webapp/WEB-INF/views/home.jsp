@@ -15,7 +15,6 @@
 		/*  margin: 0 -460px;   */                                 
 		overflow: hidden;   
 		text-align: center;        
-            
 	}  
 	#main_img{
 		position: absolute; 

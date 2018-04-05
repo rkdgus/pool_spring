@@ -1,7 +1,8 @@
 @CHARSET "UTF-8";
-#container{
-	width:950px;
-	margin:40px auto;
+
+#container {
+	width: 950px;
+	margin: 40px auto;
 	overflow: hidden;
 	min-height: 400px;
 }
@@ -32,32 +33,62 @@
 	display:block;
 	width:100%;
 	color:#34AAD5;
-
 }
-#leftArea li a:hover{
-	color:white;
+
+#leftArea {
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	width: 140px;
+	float: left;
+	padding: 18px;
+	background: #d8e5ed;
+}
+
+#leftArea h2 {
+	font-size: 22px;
+	color: #2c7097;
+	font-weight: bold;
+	border-bottom: 1px solid #ccc;
+	padding-bottom: 8px;
+}
+
+#leftArea li {
+	border-bottom: 1px solid #ccc;
+	padding: 5px 10px;
+}
+
+#leftArea li a {
+	display: block;
+	width: 100%;
+	color: #34AAD5;
+}
+
+#leftArea li a:hover {
+	color: white;
 	background: #6799FF;
 }
-#header_title{
-		height:43px;
-		font-family:"맑은 고딕","Malgun Gothic","돋움","dotum";
-		width:100%;
-		border-bottom: 1px solid #e5e5e5;
-		margin-bottom: 40px;
-	}
-	#main_title{
-		float: left;
-		font-size: 24px;
-		font-weight: bold;
-		line-height:1.7em;
-		padding-bottom: 7px;
-	}
-	#con_navi{
-		float: right;
-		font-size: 13px;
-		line-height:49px;
-		color:#000;
-		opacity:0.3;
-		padding-bottom: 7px;
-	}
-            
+
+#header_title {
+	height: 43px;
+	font-family: "맑은 고딕", "Malgun Gothic", "돋움", "dotum";
+	width: 100%;
+	border-bottom: 1px solid #e5e5e5;
+	margin-bottom: 40px;
+}
+
+#main_title {
+	float: left;
+	font-size: 24px;
+	font-weight: bold;
+	line-height: 1.7em;
+	padding-bottom: 7px;
+}
+
+#con_navi {
+	float: right;
+	font-size: 13px;
+	line-height: 49px;
+	color: #000;
+	opacity: 0.3;
+	padding-bottom: 7px;
+}

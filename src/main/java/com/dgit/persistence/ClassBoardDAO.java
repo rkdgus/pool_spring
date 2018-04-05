@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.dgit.domain.ClassBoardVO;
+import com.dgit.domain.ClassVO;
 
 public interface ClassBoardDAO {
 	public List<ClassBoardVO>selectByCno(HashMap<String,Object> map);
@@ -12,5 +13,5 @@ public interface ClassBoardDAO {
 	public void update(ClassBoardVO vo);
 	public void delete(int bno);
 	public int countByCno(int cno);
-	
+	public List<ClassVO> selectByClass();
 }

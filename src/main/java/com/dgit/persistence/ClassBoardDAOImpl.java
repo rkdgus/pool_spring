@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dgit.domain.ClassBoardVO;
+import com.dgit.domain.ClassVO;
 
 @Repository
 public class ClassBoardDAOImpl implements ClassBoardDAO{
@@ -44,5 +45,11 @@ public class ClassBoardDAOImpl implements ClassBoardDAO{
 	@Override
 	public int countByCno(int cno) {
 		return session.selectOne(namespace+".countByCno",cno);
+	}
+
+	@Override
+	public List<ClassVO> selectByClass() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

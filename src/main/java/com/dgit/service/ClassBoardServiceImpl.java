@@ -24,6 +24,7 @@ public class ClassBoardServiceImpl implements ClassBoardService {
 	@Override
 	public List<ClassBoardVO> selectByCno(int cno, int page) {
 		HashMap<String,Object> map = new HashMap<>();
+		page = page * 15;
 		map.put("cno",cno);
 		map.put("page",page);
 		return dao.selectByCno(map);

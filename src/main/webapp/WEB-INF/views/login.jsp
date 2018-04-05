@@ -10,13 +10,13 @@
 	#header_title{
 		height:43px;
 		font-family:"맑은 고딕","Malgun Gothic","돋움","dotum";
-		width:730px;
+		width:100%;
 		border-bottom: 1px solid #e5e5e5;
 		margin-bottom: 40px;
 	}
 	#main_title{
 		float: left;
-		font-size: 28px;
+		font-size: 24px;
 		font-weight: bold;
 		line-height:1.7em;
 		padding-bottom: 7px;

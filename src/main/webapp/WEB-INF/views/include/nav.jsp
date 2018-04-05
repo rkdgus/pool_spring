@@ -116,7 +116,7 @@ nav ul li a {
 				<img src="${pageContext.request.contextPath}/resources/img/logoBlack.png" id="logo">      
 			</div>
 			<ul>
-				<li><a href="login/">로그인</a></li>
+				<li><a href="${pageContext.request.contextPath}/login/">로그인</a></li>
 				<li><a href="">회원가입</a></li>
 				<li><a href="">ID/PW찾기</a></li>
 			</ul>
@@ -127,7 +127,7 @@ nav ul li a {
 				<li><a href="">수업시간</a></li>
 				<li><a href="">수영클리닉</a></li>
 				<li><a href="">갤러리</a></li>
-				<li><a href="">반별게시판</a></li>
+				<li><a href="${pageContext.request.contextPath}/classboard/">반별게시판</a></li>
 				<li><a href="">소식</a></li>
 				<li><a href="">문의</a></li>
 			</ul>

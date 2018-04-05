@@ -10,7 +10,7 @@
 	footer{
 		background: #333333;
 		width:100%;
-		height:22%;
+		height:204px;
 		padding:18px 0px 10px 0px;
 	}
 	footer ul{

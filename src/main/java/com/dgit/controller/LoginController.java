@@ -7,13 +7,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/login")
+@RequestMapping("/login/*")
 public class LoginController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
-	@RequestMapping(value="/",method=RequestMethod.GET)
+	@RequestMapping(value="login",method=RequestMethod.GET)
 	public void getLogin(){
 		logger.info("=================login Get====================");
+	}
+	
+	@RequestMapping(value="login",method=RequestMethod.POST)
+	public void PostLogin(){
+		logger.info("=================login Post====================");
 	}
 }

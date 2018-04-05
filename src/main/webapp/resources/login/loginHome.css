@@ -1,0 +1,57 @@
+@CHARSET "UTF-8";
+
+#loginForm{
+		width:100%;
+	}
+	#join_form{
+		width:750px;
+		margin: 0px auto;
+	}
+	#join_form img{
+		margin-bottom: 20px;
+	}
+	#join_form form{
+		width:600px;
+		margin:0px auto;
+		background-color: rgb(235, 235, 235);
+	}
+	#join_info{
+		width:600px;
+		margin-left:60px;
+		margin-top:15px;
+		margin-bottom:25px;
+		font-size: 13px;
+		line-height: 20px;
+		color: #b2b2b2;
+	}
+	#join_form form {
+		padding:40px 20px 35px 22px;
+		position: relative;
+	}
+	#join_form form p{
+		margin-bottom: 8px;
+	}
+	#join_form form label{
+		float: left;
+		width:160px;
+		margin-left:10px;
+		font-weight: bold;
+		color: #555555;
+		font-size: 14px;
+	}
+	#join_form form input{
+		width:300px;
+	}
+	#join_form form a{
+		display: block;
+		position: absolute;
+		top:40px;
+		right:40px;
+	}
+	#loginBtn img{
+		margin-bottom: 0px;
+	}
+	#other_btn{
+		width:650px;
+		margin-left: 55px;
+	}

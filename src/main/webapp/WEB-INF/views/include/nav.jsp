@@ -51,6 +51,11 @@
 	font-size: 13px;
 	color:white;
 }
+#wrap_login li a:hover{
+	color:black;
+	font-weight: bold;                          
+}
+
 
 nav {
 	width: 950px;
@@ -104,6 +109,10 @@ nav ul li a {
 	color: white;
 	font-weight: bold;
 }
+nav ul li a:hover {                
+	color:#aaa;
+}                
+
 #wrap_login #logo{
 	width:80px;              
 }
@@ -119,7 +128,7 @@ nav ul li a {
 				     
 			</div>
 			<ul>
-				<li><a href="${pageContext.request.contextPath}/login/">로그인</a></li>
+				<li><a href="${pageContext.request.contextPath}/login/login">로그인</a></li>
 				<li><a href="">회원가입</a></li>
 				<li><a href="">ID/PW찾기</a></li>
 			</ul>

@@ -5,7 +5,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/common/common.css">
 <style>
 	#header_title{
 		height:43px;
@@ -35,18 +34,10 @@
 	<jsp:include page="include/header.jsp"/>
 	<div id="container">
 		<jsp:include page="include/side.jsp"/>
-		
-		<div id="header_title">
-		<div id="main_title">로그인</div>
-		
-		<p id="con_navi">
-		
-			<img src="${pageContext.request.contextPath }/resources/images/homeIcon.png" alt="홈">
-				home &gt; 
-				멤버십 &gt;
-			<span>로그인</span>
-		</p>
-	</div>
+		<div id="content">
+				<jsp:include page="include/contentTitle.jsp"/>
+		</div>
+	
 	</div>
 	
 	<jsp:include page="include/footer.jsp"/>

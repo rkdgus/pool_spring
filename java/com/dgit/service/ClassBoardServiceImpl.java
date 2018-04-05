@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dgit.domain.ClassBoardVO;
+import com.dgit.domain.ClassVO;
 import com.dgit.persistence.ClassBoardDAO;
 @Service
 public class ClassBoardServiceImpl implements ClassBoardService {
@@ -57,6 +58,11 @@ public class ClassBoardServiceImpl implements ClassBoardService {
 	@Override
 	public int count(int cno) {
 		return dao.countByCno(cno);
+	}
+
+	@Override
+	public List<ClassVO> selectByClass() {
+		return dao.selectByClass();
 	}
 
 }

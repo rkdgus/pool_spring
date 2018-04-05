@@ -49,7 +49,6 @@ public class ClassBoardDAOImpl implements ClassBoardDAO{
 
 	@Override
 	public List<ClassVO> selectByClass() {
-		// TODO Auto-generated method stub
-		return null;
+		return session.selectList(namespace+".selectByClass");
 	}
 }

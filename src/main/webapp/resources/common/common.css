@@ -1,9 +1,9 @@
 @CHARSET "UTF-8";
 #container{
 	width:950px;
-	margin:0 auto;
+	margin:40px auto;
 	overflow: hidden;
-	
+
 }
 #leftArea{
 	border:1px solid #6799FF;

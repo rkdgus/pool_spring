@@ -46,6 +46,11 @@
 	font-size: 13px;
 	color:white;
 }
+#wrap_login li a:hover{
+	color:black;
+	font-weight: bold;                          
+}
+
 
 nav {
 	width: 950px;
@@ -99,6 +104,10 @@ nav ul li a {
 	color: white;
 	font-weight: bold;
 }
+nav ul li a:hover {                
+	color:#aaa;
+}                
+
 #wrap_login #logo{
 	width:80px;              
 }

@@ -13,7 +13,12 @@ public class JoinController {
 	private static final Logger logger = LoggerFactory.getLogger(JoinController.class);
 	
 	@RequestMapping(value="/joinStep1",method=RequestMethod.GET)
-	public void getJoin(){
+	public void joinStep1(){
 		logger.info("=========joinStep1 get==========");
 	} 
+	
+	@RequestMapping(value="/joinStep2",method=RequestMethod.GET)
+	public void joinStep2(){
+		logger.info("=========joinStep2 get==========");
+	}
 }  

@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div id="leftArea">
-		<h2>소식</h2>
+		<h2>공지</h2>
 		<ul>
 			<li><a href="">공지게시판</a></li>
 			

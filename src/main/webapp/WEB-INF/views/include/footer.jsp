@@ -1,79 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/common/reset.css">
+
 <style>
-	footer{
-		background: #333333;
-		width:100%;
-		height:22%;
-		padding:18px 0px 10px 0px;
-	}
-	footer ul{
-		width:100%;
-		padding-left: 15px;
-	}
-	footer ul li{
-		float: right;
-		width:80px;
-		padding:5px 0px;
-		text-align: center;
-		border-left: 1px solid #9a9a9a;
-		height:10px;
-		line-height: 10px;
-	}
-	footer ul li a{
-		text-decoration:none;
-		color:#9a9a9a;
-		font-size: 13px;
-		font-weight: bold;
-	}
-	footer ul li:LAST-CHILD a{
-		color:white;
-	}
-	footer ul li:LAST-CHILD{
-		border: none;
-	}
-	#footer_body{
-		width:950px;
-		margin: 0 auto;
-	}
-	#footer_list{
-		float: right;
-		width:50%;
-		margin-bottom: 15px;
-	}
-	#footer_info{
-		color:#9a9a9a;
-		clear: both;
-		font-size: 13px;
-		overflow: hidden;
-	}
-	#footer_info #info1{
-		line-height: 25px;
-		float: left;
-	}
-	#footer_info #info2{
-		float:right;
-		line-height: 30px;
-		float: right;
-	}
-	#footer_info #info1 #title{
-		font-size: 16px;
-		font-weight: bold;
-	}
-	#logo{
-		float: left;
-		padding-right: 70px;
-	}
-	#info2 #tell_main{
-		font-size: 16px;
-		font-weight: bold;
-	}
+	
 	
 </style>
 </head>
@@ -110,9 +39,7 @@
 				</div>
 			</div>
 		</div>
-		<div>
+		<div>        
 			
 		</div>
 	</footer>
-</body>
-</html>

@@ -17,7 +17,7 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 
 	public static NoticeBoardServiceImpl getInstance() {
 		return instance;
-	}
+	} 
 
 	@Override
 	public List<NoticeBoardVO> selectByAll(int page) {

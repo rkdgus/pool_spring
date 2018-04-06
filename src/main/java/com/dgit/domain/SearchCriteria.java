@@ -13,7 +13,7 @@ public class SearchCriteria extends Criteria {
 		return keyword;
 	}
 	public void setKeyword(String keyword) {
-		this.keyword = keyword;
+		this.keyword = keyword; 
 	}
 	public SearchCriteria() {
 		super();

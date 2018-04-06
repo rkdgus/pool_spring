@@ -12,3 +12,4 @@ public interface NoticeBoardService {
 	public void remove(int nno);
 	public int count();
 }
+ 

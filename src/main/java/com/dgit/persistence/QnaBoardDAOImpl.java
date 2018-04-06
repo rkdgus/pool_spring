@@ -17,7 +17,7 @@ public class QnaBoardDAOImpl implements QnaBoardDAO {
 	public List<QnaBoardVO> selectByAll(int page) {
 		return session.selectList(namespace+".selectByAll",page);
 	}
-
+  
 	@Override
 	public QnaBoardVO read(int bno) {
 		return session.selectOne(namespace+".read",bno);

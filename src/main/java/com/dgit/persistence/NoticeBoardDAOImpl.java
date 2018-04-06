@@ -18,7 +18,7 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO {
 	public List<NoticeBoardVO> selectByAll(int page) {
 		return session.selectList(namespace+".selectByAll",page);
 	}
-
+ 
 	@Override
 	public NoticeBoardVO read(int nno) {
 		return session.selectOne(namespace+".read",nno);

@@ -30,8 +30,7 @@ public class ClassBoardController {
 	public void getClassboard(@RequestParam(value="cno", defaultValue="0") int cno,SearchCriteria cri,Model model){
 		logger.info(cno+"" + "page" + cri.getPage());
 		List<ClassBoardVO> lists = service.selectByCno(1,cri.getPage()-1);
-		List<ClassVO> classList = service.selectByClass();
-		
+				
 		PageMaker pageMaker = new PageMaker();
 		 
 		pageMaker.setCri(cri);
@@ -41,7 +40,17 @@ public class ClassBoardController {
 		logger.info(pageMaker.getEndPage()+"");
 		model.addAttribute("pageMaker",pageMaker);
 		model.addAttribute("lists",lists);
-		model.addAttribute("classList",classList);
+		classList(model);
 		logger.info("=================classBoard Get====================");
+	}
+	@RequestMapping(value="/read", method=RequestMethod.GET)
+	public void getRead(Model model){
+		classList(model);
+		logger.info("=================read Get====================");
+		
+	}
+	private void classList(Model model){
+		List<ClassVO> classList = service.selectByClass();
+		model.addAttribute("classList",classList);
 	}
 }

@@ -29,9 +29,6 @@
 	.align_right{
 		text-align: right;
 	}
-	.read_content{
-		
-	}
 	#btn_tr{
 		border:none !important;
 	}
@@ -56,6 +53,35 @@
 	.hidden_btn{
 		display: none;
 	}
+	.hidden_btn button{
+		background: #fff;
+		border:1px solid #ccc;
+		border-radius:2px;
+		margin-right:10px;
+	}
+	.align_right{
+		text-align: right;
+	}
+	.updateImg{
+		padding-right:30px;
+	}
+	#reply_insert{
+		margin:30px auto;
+		width:550px;
+		height:30px;
+	}
+	#reply_insert textarea{
+		width:500px;
+		height:36px;
+		resize:none;
+		padding:0;
+		float:left;
+		line-height:36px;
+	}
+	#reply_insert img{
+		float:left;
+		cursor: pointer;
+	}
 </style>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/common/reset.css">
 </head>
@@ -63,7 +89,6 @@
 	<jsp:include page="../include/header.jsp"/>
 	<div id="container">
 		<jsp:include page="side.jsp" />
-		
 		<div id="content">
 			<jsp:include page="contentTitle.jsp" />
 			<div id="read_table">
@@ -100,23 +125,33 @@
 							<a href=""><button>삭제</button></a>
 						</td>
 					</tr>
+					 <tr>
+						<td colspan="4">
+							<div id="reply_insert">
+								<textarea rows="" cols=""></textarea>
+								<img src="${pageContext.request.contextPath }/resources/img/reply_regist.gif">
+							</div>
+						</td>
+					</tr> 
 					<tr id="reply_title">
 						<td colspan="4">
 							댓글 : <span id="read_count">2</span>건
 						</td>
 					</tr>
 					<tr class="reply_content">
-						<td>
+						<td width="80">
 							김기리
 						</td>
-						<td>
+						<td width="460" >
 							저에게 꼭 필요한 솔루션이네요~!
 						</td>
-						<td>
+						<td width="110">
 							2013-01-28
 						</td>
-						<td>
-							<a href=""><img src="${pageContext.request.contextPath }/resources/img/selection-tool.png" id="asd"></a>
+						<td width="80" class="align_right">
+							<a href="#">
+							<img src="${pageContext.request.contextPath }/resources/img/selection-tool.png" 
+							class="updateImg"></a>
 							<div class="hidden_btn">
 								<button>수정</button>
 								<button>삭제</button>
@@ -128,5 +163,19 @@
 		</div>
 	</div>
 	<jsp:include page="../include/footer.jsp"/>
+<script>
+	$(function(){
+		$(".updateImg").parent().click(function(e){
+			e.preventDefault();
+		})
+		$(".updateImg").click(function(){
+			if($(this).parent().next().css("display")=="none"){
+				$(this).parent().next().css("display","block");
+			}else{
+				$(this).parent().next().css("display","none");
+			}
+		})
+	})
+</script>	
 </body>
 </html>

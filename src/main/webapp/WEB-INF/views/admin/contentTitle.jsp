@@ -8,15 +8,15 @@
 </head>
 <body>
 	<div id="header_title">
-		<div id="main_title">공지게시판</div>
+		<div id="main_title">관리자 모드</div>
 		
-		<p id="con_navi">
+		<%-- <p id="con_navi">
 		
 			<img src="${pageContext.request.contextPath }/resources/images/homeIcon.png" alt="홈">
 				home &gt; 
-				공지 &gt;
-			<span>공지게시판</span>
-		</p>
+				갤러리 &gt;
+			<span>내부사진</span>
+		</p> --%>
 	</div>
 </body>
 </html>

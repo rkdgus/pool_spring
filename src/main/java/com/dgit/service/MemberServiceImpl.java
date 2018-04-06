@@ -23,4 +23,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectMember(vo);
 	}
 
+	@Override
+	public MemberVO selectMemberByMno(int mno) {
+		return dao.selectMemberByMno(mno);
+	}
+
 }

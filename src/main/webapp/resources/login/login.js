@@ -1,6 +1,6 @@
 $(function(){
-		$("#loginBtn").click(function(){
-			
+		$("#loginBtn").click(function(e){
+			e.preventDefault();
 			if($("#teacher").is(":checked")){
 				$.ajax({
 					url:"/pool/login/teacherId",
@@ -9,25 +9,29 @@ $(function(){
 					data:{"id":$("#id").val()},
 					success:function(result){
 						console.log(result);
-						if(result=="fail"){
+						if(result.length==0){
 							alert("관리자가 아닙니다. 아이디를 확인해주세요.");
 							$("#id").focus();
+							$("#pw").val("");
 						}else{
+							alert("관리자다");
 							checkTeacher();
 						}
+					
 					}
 				})
 			}else{
 				$.ajax({
 					url:"/pool/login/memberId",
 					type:"post",
-					dataType:"json",
+					dataType:"text",
 					data:{"id":$("#id").val()},
 					success:function(result){
 						console.log(result);
-						if(result==null){
+						if(result.length==0){
 							alert("회원이 아닙니다. 아이디를 확인해주세요.");
 							$("#id").focus();
+							$("#pw").val("");
 						}else{
 							checkMember();
 						}
@@ -42,12 +46,12 @@ $(function(){
 		$.ajax({
 			url:"/pool/login/member",
 			type:"post",
-			dataType:"json",
+			dataType:"text",
 			data:{"id":$("#id").val(),
 					"pw":$("#pw").val()},
 			success:function(result){
 				console.log(result);
-				if(result==null){
+				if(result.length==0){
 					alert("비밀번호가 일치하지 않습니다. 비밀번호를 확인해주세요.");
 					$("#pw").val("");
 					$("#pw").focus();
@@ -65,12 +69,12 @@ $(function(){
 		$.ajax({
 			url:"/pool/login/teacher",
 			type:"post",
-			dataType:"json",
+			dataType:"text",
 			data:{"id":$("#id").val(),
 					"pw":$("#pw").val()},
 			success:function(result){
 				console.log(result);
-				if(result==null){
+				if(result.length==0){
 					alert("비밀번호가 일치하지 않습니다. 비밀번호를 확인해주세요.");
 					$("#pw").val("");
 					$("#pw").focus();

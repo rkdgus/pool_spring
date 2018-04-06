@@ -25,4 +25,9 @@ public class MemberDAOImpl implements MemberDAO {
 		return session.selectOne(namespace+".selectMember",vo);
 	}
 
+	@Override
+	public MemberVO selectMemberByMno(int mno) {
+		return session.selectOne(namespace+".selectMemberByMno",mno);
+	}
+
 }

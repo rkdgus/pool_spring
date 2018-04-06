@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/common/reset.css">
-<title>Insert title here</title>
+<title>대구 아이티 수영장 - 반별게시판</title>
 <style>
 	#container{
 		min-height: 400px;

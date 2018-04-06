@@ -6,12 +6,11 @@
 <meta charset="UTF-8">
 <title>로그인 : 대구 아이티 수영장</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/login/loginHome.css">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath }/resources/login/login.js"></script>
+
 </head>
 <body>
 	<jsp:include page="../include/header.jsp"/>
-	
+	<script src="${pageContext.request.contextPath }/resources/login/login.js"></script>
 	<div id="container">
 		<div id="loginForm">
 			<jsp:include page="contentTitle.jsp"/>

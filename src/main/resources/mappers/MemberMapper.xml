@@ -11,4 +11,8 @@
 	<select id="selectMember" resultType="MemberVO">
 		select * from member where id=#{id} and pw=password(#{pw})
 	</select>
+	
+	<select id="selectMemberByMno" resultType="MemberVO">
+		select * from member where mno=#{mno}
+	</select>
 </mapper>

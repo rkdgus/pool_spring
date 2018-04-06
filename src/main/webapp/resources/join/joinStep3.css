@@ -52,18 +52,11 @@
 		width:200px;
 		height:25px;
 	}
-	#join_content table select{
-		height:31px;
-		width:100px;
-	}
-	#join_content table select#e{
-		width:140px;
-		height:30px;
-	}
 	#join_content table #tell2,#tell3,#tell1{
 		height:25px;
 		width:100px;
 	}
+	
 	a{
 		display: inline-block;
 	}

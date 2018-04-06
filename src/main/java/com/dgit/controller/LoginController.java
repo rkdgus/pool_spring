@@ -93,16 +93,16 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/teacherId",method=RequestMethod.POST)
-	public @ResponseBody ResponseEntity<String> tIdCheck(String id){
+	public @ResponseBody ResponseEntity<TeacherVO> tIdCheck(String id){
 		logger.info("================= teacher id check Post====================");
-		ResponseEntity<String> entity = null;
+		ResponseEntity<TeacherVO> entity = null;
 		
 		try {
 			TeacherVO vo  = serviceT.findTeacherId(id);
-			entity = new ResponseEntity<String>("sucess",HttpStatus.OK);
+			entity = new ResponseEntity<TeacherVO>(vo,HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<TeacherVO>(HttpStatus.BAD_REQUEST);
 		}
 		
 		return entity;

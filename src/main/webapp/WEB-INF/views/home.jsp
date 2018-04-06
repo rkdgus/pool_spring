@@ -4,7 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>대구 아이티 수영장</title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/common/reset.css?v=1">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/common/common.css?v=1">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -291,7 +293,7 @@ div#header {
 	<div id="wrap_bottom">
 		<div id="wrap_btn">
 			<div id="click1">
-				<a href="">
+				<a href="">           
 					<h2>오시는 길</h2>
 					<p>대구아이티수영장 오시는길을 안내해드립니다.</p>
 				</a>

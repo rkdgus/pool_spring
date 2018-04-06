@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-	<div id="leftArea" style='width:178px !important;' >
+	<div id="leftArea">
 		<h2>관리자모드</h2>
 		<ul>
 			<li><a href="">회원관리</a></li>

@@ -18,3 +18,7 @@ table{
 	#joinbtnGroup{
 		text-align: center;
 	}
+	
+	a{
+		display: inline-block;
+	}

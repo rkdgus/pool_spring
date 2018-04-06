@@ -21,4 +21,9 @@ public class JoinController {
 	public void joinStep2(){
 		logger.info("=========joinStep2 get==========");
 	}
+	
+	@RequestMapping(value="/joinStep3",method=RequestMethod.GET)
+	public void joinStep3(){
+		logger.info("=========joinStep3 get==========");
+	}
 }  

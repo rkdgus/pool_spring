@@ -1,5 +1,7 @@
 package com.dgit.persistence;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -13,9 +15,15 @@ private static final String namespace = "com.dgit.mapper.GalleryMapper";
 	private SqlSession session;
 
 	@Override
-	public void insertGallery(GalleryVO vo) {
+	public void insert(GalleryVO vo) {
 		// TODO Auto-generated method stub
-		session.insert(namespace+".insertGallery",vo);
+		session.insert(namespace+".insert",vo);
+	}
+
+	@Override
+	public List<GalleryVO> selectAll() {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".selectAll");
 	}
 
 }

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 : 대구 아이티 수영장</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/login/loginHome.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/login/loginHome.css?c=1">
 </head>
 <body>
 	<jsp:include page="../include/header.jsp"/>

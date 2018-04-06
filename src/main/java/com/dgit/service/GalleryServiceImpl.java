@@ -1,5 +1,7 @@
 package com.dgit.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +21,15 @@ public class GalleryServiceImpl implements GalleryService{
 		return instance;
 	}
 	@Override
-	public void insertGallery(GalleryVO vo) {
-		dao.insertGallery(vo);
+	public void insert(GalleryVO vo) {
+		dao.insert(vo);
+	}
+
+	@Override
+	public List<GalleryVO> selectAll() {
+		// TODO Auto-generated method stub
+		return dao.selectAll();
 	}
 	
-}
+}             
  

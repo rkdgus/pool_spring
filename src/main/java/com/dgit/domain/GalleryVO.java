@@ -1,9 +1,18 @@
 package com.dgit.domain;
 
 public class GalleryVO {
+	private int gallery_num;
 	private String gallery_name;
 	private String gallery_path;
 	private String gallery_type;
+
+	public int getGallery_num() {
+		return gallery_num;
+	}
+
+	public void setGallery_num(int gallery_num) {
+		this.gallery_num = gallery_num;
+	}
 
 	public String getGallery_name() {
 		return gallery_name;

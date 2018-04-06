@@ -11,6 +11,5 @@
 			<li><a href="">반별게시판관리</a></li>
 			<li><a href="">공지관리</a></li>
 			<li><a href="">문의관리</a></li>
-
 		</ul>
 	</div>

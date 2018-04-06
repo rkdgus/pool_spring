@@ -136,7 +136,7 @@
 						<c:forEach var="item" items="${lists }">
 							<tr>
 								<td>${item.bno }</td>
-								<td class="title"><a href="">${item.title }</a></td>
+								<td class="title"><a href="read">${item.title }</a></td>
 								<td>${item.id }</td>
 								<td>${item.readcnt }</td>
 								<fmt:formatDate value="${item.regdate }" var="regdate" pattern="yyyy-MM-dd"/>

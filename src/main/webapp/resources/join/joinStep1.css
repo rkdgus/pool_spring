@@ -1,0 +1,20 @@
+@CHARSET "UTF-8";
+
+table{
+		width:100%;
+	}
+	#btnCancel img{
+		width:125px; 
+		height:40px;
+	}
+	#step1Info{
+		width:80%;
+		margin:0 auto;
+		margin-top: 40px;
+		margin-bottom: 40px;
+		line-height: 30px;
+		color:#b2b2b2;
+	}
+	#joinbtnGroup{
+		text-align: center;
+	}

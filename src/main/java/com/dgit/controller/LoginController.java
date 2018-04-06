@@ -1,18 +1,13 @@
 package com.dgit.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model; 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -98,16 +93,16 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/teacherId",method=RequestMethod.POST)
-	public @ResponseBody ResponseEntity<String> tIdCheck(String id){
+	public @ResponseBody ResponseEntity<TeacherVO> tIdCheck(String id){
 		logger.info("================= teacher id check Post====================");
-		ResponseEntity<String> entity = null;
+		ResponseEntity<TeacherVO> entity = null;
 		
 		try {
 			TeacherVO vo  = serviceT.findTeacherId(id);
-			entity = new ResponseEntity<String>("sucess",HttpStatus.OK);
+			entity = new ResponseEntity<TeacherVO>(vo,HttpStatus.OK);
 		} catch (Exception e) {
 			e.printStackTrace();
-			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<TeacherVO>(HttpStatus.BAD_REQUEST);
 		}
 		
 		return entity;

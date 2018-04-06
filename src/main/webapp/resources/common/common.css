@@ -176,9 +176,8 @@ nav ul li a:hover {
 }
 
 #wrap_login #logo {
-	width: 80px;
+	width: 80px !important;
 }
-
 footer {
 	background: #333333;
 	width: 100%;
@@ -252,7 +251,6 @@ footer ul li:LAST-CHILD {
 
 #logo {
 	float: left;
-	padding-right: 70px;
 }
 
 #info2 #tell_main {

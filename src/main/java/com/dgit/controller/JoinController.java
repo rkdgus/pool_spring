@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -65,7 +66,12 @@ public class JoinController {
 	}
 	
 	@RequestMapping(value="/joinStep4",method=RequestMethod.GET)
-	public void Step4(){
+	public void Step4(String mno,Model model){
 		logger.info("============ join Step4 ==========");
+		MemberVO vo = service.selectMemberByMno(Integer.parseInt(mno));
+		model.addAttribute("member", vo);
+		
 	}
+	
+	
 }  

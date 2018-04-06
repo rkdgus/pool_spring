@@ -14,7 +14,6 @@ $(function(){
 							$("#id").focus();
 							$("#pw").val("");
 						}else{
-							alert("관리자다");
 							checkTeacher();
 						}
 					

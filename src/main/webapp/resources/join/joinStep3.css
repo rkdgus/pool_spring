@@ -60,15 +60,13 @@
 	a{
 		display: inline-block;
 	}
-	
 	#next{
 		margin-top:5px;
 		height:30px;
-		border: 2px solid #5c5c5c;
-		background:#5c5c5c;
-		border-radius:15px;
+		border: 1px solid #5c5c5c;
+		background:#fff;
+		border-radius:2px;
 		outline:none;
-		color:white;
 		font-size: 13px;
 		padding-left:15px;
 		padding-right:15px;
@@ -76,5 +74,8 @@
 		font-weight: 600;
 	}
 	#next:HOVER {
-	background: black;
+	background: #ebebeb;
+	}
+	.gender{
+		font-size: 13px;
 	}

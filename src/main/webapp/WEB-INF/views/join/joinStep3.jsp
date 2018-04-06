@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입 : 대구 아이티 수영장</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/join/joinStep3.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/join/joinStep3.css?v=2">
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
@@ -69,6 +69,13 @@
 					<tr>
 						<td class="td">이름</td>
 						<td><input type="text" id="name" placeholder="이름" class="tf" readonly="readonly"></td>
+					</tr>
+					<tr>
+						<td class="td">성별</td>
+						<td>
+							<input type="radio" id="men" name="gender" readonly="readonly"><span class="gender">남</span>
+							<input type="radio" id="women" name="gender" readonly="readonly"><span class="gender">여</span>
+						</td>
 					</tr>
 					<tr>
 						<td class="td">생년월일</td>

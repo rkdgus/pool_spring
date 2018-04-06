@@ -60,3 +60,21 @@
 	a{
 		display: inline-block;
 	}
+	
+	#next{
+		margin-top:5px;
+		height:30px;
+		border: 2px solid #5c5c5c;
+		background:#5c5c5c;
+		border-radius:15px;
+		outline:none;
+		color:white;
+		font-size: 13px;
+		padding-left:15px;
+		padding-right:15px;
+		cursor: pointer;
+		font-weight: 600;
+	}
+	#next:HOVER {
+	background: black;
+	}

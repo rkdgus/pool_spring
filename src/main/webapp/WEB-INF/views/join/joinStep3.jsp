@@ -6,92 +6,10 @@
 <meta charset="UTF-8">
 <title>회원가입 : 대구 아이티 수영장</title>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/join/joinStep3.css">
-<style>
-	
-	#next{
-		margin-top:5px;
-		height:30px;
-		border: 2px solid #5c5c5c;
-		background:#5c5c5c;
-		border-radius:15px;
-		outline:none;
-		color:white;
-		font-size: 13px;
-		padding-left:15px;
-		padding-right:15px;
-		cursor: pointer;
-		font-weight: 600;
-	}
-	#next:HOVER {
-	background: black;
-}
-	
-	
-</style>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
-	<script>
-	var check=-1;
-	$(function(){
-		
-		$("#next").click(function(e){
-			
-			if($("#mno").val()==""){
-				alert("회원번호를 입력하세요!");
-				$("#mno").focus();
-				return;
-			}else{
-				$.ajax({
-					url:"/pool/join/checkMno",
-					type:"post",
-					dataType:"json",
-					data:{"mno":$("#mno").val()},
-					success:function(result){
-						
-						console.log(result);
-						if(result.mno==-1){
-							alert("존재하지 않는 회원입니다. 회원번호를 확인해주세요.");
-							check=-1;
-						}else{
-							alert("반갑습니다"+result.name+" 회원님");
-							check=1;
-							$("#name").val(result.name);
-							$("#age").val(result.age);
-							var p = result.tell;
-							var e = result.email;
-							$("#tell1").val(p.substr(0, p.indexOf("-")));
-							$("#tell2").val(p.substring(p.indexOf("-")+1, p.lastIndexOf("-")));
-							$("#tell3").val(p.substr(p.lastIndexOf("-")+1));
-							
-							$("#email1").val(e.substr(0, e.indexOf("@")));
-							$("#email2").val(e.substr(e.indexOf("@")+1));
-						}
-					}
-				})
-			}
-			
-			
-		})
-		
-		
-		$("#nextJoin").click(function(e){
-			e.preventDefault();
-			
-			if(check<0){
-				alert("회원번호 확인을 해주세요");
-			}else{
-				location.href="${pageContext.request.contextPath }/join/joinStep4";
-			}
-		})
-		
-	
-	})
-
-</script>
-	
-	
-	
+	<script src="${pageContext.request.contextPath }/resources/join/joinStep3.js"></script>	
 		<div id="container">
 			<jsp:include page="contentTitle.jsp" />
 			<table id="table_title"

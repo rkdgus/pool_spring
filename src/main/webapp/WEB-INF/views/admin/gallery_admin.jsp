@@ -61,6 +61,9 @@
 	max-width:250px;
 	max-height:90px;
 }
+#leftArea{
+	width:178px !important;
+}
 </style>
 <script type="text/javascript">
 var index = 1;

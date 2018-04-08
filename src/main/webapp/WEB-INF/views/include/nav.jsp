@@ -13,9 +13,13 @@
 				     
 			</div>
 			<ul>
-				<c:if test="${(login.title =='회원' || login.title !='사장' )&& login != null}">
+				<c:if test="${login.title =='회원'&& login != null}">
 					<li><a href="${pageContext.request.contextPath}/login/logOut">로그아웃</a></li>
-					<li><a href="#">마이페이지</a></li>
+					<li><a href="${pageContext.request.contextPath}/mypage/memberMypage">마이페이지</a></li>
+				</c:if>
+				<c:if test="${login.title !='회원' && login.title !='사장' && login != null}">
+					<li><a href="${pageContext.request.contextPath}/login/logOut">로그아웃</a></li>
+					<li><a href="${pageContext.request.contextPath}/mypage/teacherMypage">마이페이지</a></li>
 				</c:if>
 				<c:if test="${login ==null }">
 					<li><a href="${pageContext.request.contextPath}/login/login">로그인</a></li>

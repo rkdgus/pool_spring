@@ -236,6 +236,7 @@ footer ul li:LAST-CHILD {
 #footer_info #info1 {
 	line-height: 25px;
 	float: left;
+	margin-left: 30px;
 }
 
 #footer_info #info2 {

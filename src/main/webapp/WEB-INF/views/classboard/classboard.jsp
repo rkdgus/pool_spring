@@ -15,6 +15,7 @@
 	#container #content{
 		width:730px;
 		float:right;
+		
 	}
 	#container #content #classboard_table table{
 		width:730px;
@@ -120,7 +121,7 @@
 		<div id="content">
 			<jsp:include page="contentTitle.jsp" />
 			<div id="insert_wrap">
-				<button>글쓰기</button>
+				<a href="insert"><button>글쓰기</button></a>
 			</div>
 			
 			<div id="classboard_table">
@@ -136,7 +137,7 @@
 						<c:forEach var="item" items="${lists }">
 							<tr>
 								<td>${item.bno }</td>
-								<td class="title"><a href="read">${item.title }</a></td>
+								<td class="title"><a href="read?bno=${item.bno }">${item.title }</a></td>
 								<td>${item.id }</td>
 								<td>${item.readcnt }</td>
 								<fmt:formatDate value="${item.regdate }" var="regdate" pattern="yyyy-MM-dd"/>

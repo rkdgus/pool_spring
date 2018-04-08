@@ -29,12 +29,12 @@ public class ClassBoardController {
 	@RequestMapping(value="classboard")
 	public void getClassboard(@RequestParam(value="cno", defaultValue="0") int cno,SearchCriteria cri,Model model){
 		logger.info(cno+"" + "page" + cri.getPage());
-		List<ClassBoardVO> lists = service.selectByCno(1,cri.getPage()-1);
+		List<ClassBoardVO> lists = service.selectByCno(2,cri.getPage()-1);
 				
 		PageMaker pageMaker = new PageMaker();
 		 
 		pageMaker.setCri(cri);
-		int totalcount = service.count(1);
+		int totalcount = service.count(2);
 		pageMaker.setTotalCount(totalcount);
 		logger.info(pageMaker.getStartPage()+"");
 		logger.info(pageMaker.getEndPage()+"");
@@ -44,10 +44,24 @@ public class ClassBoardController {
 		logger.info("=================classBoard Get====================");
 	}
 	@RequestMapping(value="/read", method=RequestMethod.GET)
-	public void getRead(Model model){
-		classList(model);
+	public void getRead(int bno, Model model){
 		logger.info("=================read Get====================");
+		classList(model);
+		ClassBoardVO vo = service.read(bno);
+		model.addAttribute("vo",vo);
 		
+	}
+	@RequestMapping(value="/insert", method=RequestMethod.GET)
+	public void getInsert(Model model){
+		classList(model);
+		logger.info("=================insert Get====================");
+	}
+	@RequestMapping(value="/remove")
+	public String removeBoard(int bno,int cno){
+		logger.info("=================remove Get====================");
+		service.remove(bno);
+		
+		return "redirect:/classboard/classboard?cno="+cno;
 	}
 	private void classList(Model model){
 		List<ClassVO> classList = service.selectByClass();

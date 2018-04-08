@@ -74,7 +74,7 @@
 					</tr>
 					<tr>
 						<td class="td">비밀번호 </td>
-						<td id="pwtd"><input type="password" id="pw"> <img src="${pageContext.request.contextPath }/resources/images/warning.png" id="pwImg">
+						<td id="pwtd"><input type="password" id="pw" maxlength="20"> <img src="${pageContext.request.contextPath }/resources/images/warning.png" id="pwImg">
 							<div id="pwInfo">
 								비밀번호는 8~20자 입니다<br>
 								비밀번호는 영문,숫자,특수문자()만 사용가능합니다.<br>

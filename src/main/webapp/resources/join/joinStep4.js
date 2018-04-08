@@ -96,7 +96,7 @@ var id = -1;
 							console.log(result);
 							if(result=="success"){
 								alert("회원가입 되었습니다.");
-								location.href="joinStep5";
+								location.href="joinStep5?mno="+$("#mno").text();
 							}else{
 								alert("회원가입 실패");
 							}

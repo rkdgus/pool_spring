@@ -125,7 +125,9 @@ public class JoinController {
 	}
 	
 	@RequestMapping(value="/joinStep5",method=RequestMethod.GET)
-	public void joinStep5(){
+	public void joinStep5(String mno,Model model){
+		MemberVO vo = service.selectMemberByMno(Integer.parseInt(mno));
+		model.addAttribute("member", vo);
 		logger.info("=================joinStep5 Get====================");
 	}
 }

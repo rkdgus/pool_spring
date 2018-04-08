@@ -5,40 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입 : 대구 아이티 수영장</title>
-<style>
-table {
-	width: 100%;
-}
-
-#join_content {
-	margin-top: 30px;
-}
-#join_content_t{
-	margin-bottom: 10px;
-}
-#idCheck{
-	background: #fff;
-	border:1px solid #ccc;
-	border-radius:2px;
-	outline: none;
-	cursor: pointer;
-}
-#joinbtnGroup a{
-	display: inline-block;
-}
-
-#join_content table{
-	border-top: 2px solid #333333;
-	width:100%;
-}
-#joinbtnGroup{
-	text-align: center;
-	margin-top: 20px;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/join/joinStep4.css">
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
+	<script src="${pageContext.request.contextPath }/resources/join/joinStep4.js"></script>	
 	<div id="container">
 		<jsp:include page="contentTitle.jsp" />
 		<table id="table_title"
@@ -97,13 +68,26 @@ table {
 				<table>
 					<tr>
 						<td class="td">아이디</td>
-						<td><input type="text" id="id">
+						<td><input type="text" id="id" placeholder="아이디(6~15,영어,숫자만 가능)" maxlength="15">
 							<button id="idCheck">중복확인</button>
 						</td>
 					</tr>
 					<tr>
-						<td class="td">비밀번호</td>
-						<td><input type="password" id="pw"></td>
+						<td class="td">비밀번호 </td>
+						<td id="pwtd"><input type="password" id="pw"> <img src="${pageContext.request.contextPath }/resources/images/warning.png" id="pwImg">
+							<div id="pwInfo">
+								비밀번호는 8~20자 입니다<br>
+								비밀번호는 영문,숫자,특수문자()만 사용가능합니다.<br>
+								비밀번호는 최소 한번의 영문,숫자,특수문자를 포함해야합니다.<br>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td class="td">비밀번호 확인</td>
+						<td><input type="password" id="pw2">
+							<span id="err">비밀번호가 일치하지 않습니다</span>
+							<span id="ok">비밀번호가 일치합니다</span>
+						</td>
 					</tr>
 				</table>
 				<table id="mem">
@@ -117,7 +101,7 @@ table {
 					</tr>
 					<tr>
 						<td class="td">생년월일</td>
-						<td id="age"></td>
+						<td id="age">${member.age }</td>
 					</tr>
 					<tr>
 						<td class="td">전화번호</td>
@@ -131,7 +115,7 @@ table {
 			</div>
 		</div>
 		<div id="joinbtnGroup">
-			<a href="#"><img src="${pageContext.request.contextPath }/resources/images/btn_regist_general.gif"></a>
+			<a href="${pageContext.request.contextPath }/join/joinStep5" id="next"><img src="${pageContext.request.contextPath }/resources/images/btn_regist_general.gif"></a>
 			<a href="${pageContext.request.contextPath }/login/login"><img src="${pageContext.request.contextPath }/resources/images/btn_cancel_s.gif"></a>
 		
 		</div>

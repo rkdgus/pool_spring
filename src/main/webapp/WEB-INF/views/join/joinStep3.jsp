@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입 : 대구 아이티 수영장</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/join/joinStep3.css?v=2">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath }/resources/join/joinStep3.css">
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />

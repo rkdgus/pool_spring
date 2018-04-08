@@ -37,7 +37,7 @@ var check=-1;
 							$("#women").removeAttr("checked");
 							check=-1;
 						}else{
-							alert("반갑습니다"+result.name+" 회원님");
+							alert("반갑습니다\n"+result.name+" 회원님");
 							check=1;
 							
 							$("#name").val(result.name);

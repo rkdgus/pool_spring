@@ -28,4 +28,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectMemberByMno(mno);
 	}
 
+	@Override
+	public void updateIdPw(MemberVO vo) {
+		dao.updateIdPw(vo);
+	}
+
 }

@@ -6,5 +6,6 @@ public interface MemberService {
 	public MemberVO findMemberId(String id);
 	public MemberVO selectMember(MemberVO vo);
 	public MemberVO selectMemberByMno(int mno);
+	public void updateIdPw(MemberVO vo);
 }
  

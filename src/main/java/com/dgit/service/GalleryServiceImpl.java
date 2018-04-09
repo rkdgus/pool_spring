@@ -30,6 +30,24 @@ public class GalleryServiceImpl implements GalleryService{
 		// TODO Auto-generated method stub
 		return dao.selectAll();
 	}
+
+	@Override
+	public void delete(int no) {
+		// TODO Auto-generated method stub
+		dao.delete(no);
+	}
+
+	@Override
+	public GalleryVO selectNum(int no) {
+		// TODO Auto-generated method stub
+		return dao.selectNum(no);
+	}
+
+	@Override
+	public List<GalleryVO> selectType(String type) {
+		// TODO Auto-generated method stub
+		return dao.selectType(type);
+	}
 	
 }             
  

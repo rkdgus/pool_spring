@@ -10,7 +10,6 @@
 		display: none;
 	}
 </style>
-
 <script type="text/javascript">
 	$(function(){
 		$("#classList li").hover(function(){

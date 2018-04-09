@@ -194,6 +194,7 @@
 		var index = 1;
 		var filesArr = {};
 		var previewIndex = 0;
+		var deleteIndex = 0;
 		$(function() {
 			$(document)
 					.on(
@@ -201,42 +202,47 @@
 							"#fileList",
 							function() {
 								$("#modal_table td").parent("tr").remove();
-								var files = document.getElementById("fileList");
-								if(files.files){
-									for(var fileIndex =0; fileIndex < files.files.length; fileIndex++){
-										var reader = new FileReader();
-										reader.onload = function(e) {
-											var imgNum = previewIndex++;
-											$("#modal_table")
-													.append(
-															"<tr><td><input type='checkbox' class='delcheck'></td>"
-																	+ "<td><input type='text' name='name'></td>"
-																	+ "<td><img src='"+e.target.result+"' class='imgs'><span class='hiddenSpan'>"+imgNum+"</span></td>"
-																	+ "</tr>");
-											filesArr[imgNum] = files.files[fileIndex];
-										}
-										reader.readAsDataURL(files.files[fileIndex]);
+								var file = document.getElementById("fileList");	
+								var reader = new FileReader();
+										
+									reader.onload = function(e) {
+										var imgNum = previewIndex++;
+										var f = file.files[index-1];
+										
+										$("#modal_table")
+												.append(
+														"<tr><td><input type='checkbox' class='delcheck'></td>"
+																+ "<td><input type='text' name='name'></td>"
+																+ "<td><img src='"+e.target.result+"' class='imgs'><span class='hiddenSpan'>"+imgNum+"</span></td>"
+																+ "</tr>");
+											
+										filesArr[imgNum] = f;
+									};
+								reader.readAsDataURL(file.files[0]);
+
+								reader.onloadend = function(e) {
+									if (index >= file.files.length) {
+										index = 1;
+										return;
 									}
+									reader.readAsDataURL(file.files[index]);
+									index += 1;
 								}
-
 							});
-	
-
 		})
 		function fileUpload() {
 			console.log("fileUpload");
+			filesArr = {};
 			$("#fileList").trigger('click');
-
 		}
 		function submitBtn() {
 			var formData = new FormData();
 			//var size = $("input[name='name']").length; 
 			//delete files[i]
-
-			for (var i = 0; i < Object.keys(filesArr).length; i++) {
-				formData.append("fileList",
-						$("input[name='fileList']")[0].files[i]);
-				$("input[name='fileList']")[0].files[i]
+			alert(Object.keys(filesArr).length);
+			for (var i = 0; i < Object.keys(filesArr).length + deleteIndex; i++) {
+				
+				formData.append("fileList",filesArr[i]);
 				formData.append("name", $("input[name='name']").eq(i).val());
 			}
 			$.ajax({
@@ -265,6 +271,7 @@
 					var imgNum = $(obj).closest("tr").find(".hiddenSpan").text();
 					console.log(imgNum);
 					delete filesArr[imgNum];
+					deleteIndex++;
 					$(obj).closest("tr").remove();                   
 				}
 			})

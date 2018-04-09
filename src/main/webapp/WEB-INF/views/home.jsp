@@ -283,7 +283,7 @@ div#header {
 	<div id="wrap_bottom">
 		<div id="wrap_btn">
 			<div id="click1">
-				<a href="">
+				<a href="${pageContext.request.contextPath}/info/?title=road">
 					<h2>오시는 길</h2>
 					<p>대구아이티수영장 오시는길을 안내해드립니다.</p>
 				</a>

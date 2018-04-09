@@ -65,6 +65,11 @@
 #leftArea {
 	width: 178px !important;
 }
+
+.galleyTable td img{         
+	max-height:100px;       
+}
+
 </style>
 <script type="text/javascript">
 	var index = 1;
@@ -82,7 +87,7 @@
 
 								$("#modal_table")
 										.append(
-												"<tr><td><input type='checkbox'></td>"
+												"<tr><td><input type='checkbox' class='modal_check'></td>"
 														+ "<td><input type='text' class='name'></td>"
 														+ "<td><img src='"+e.target.result+"' class='imgs'></td>"
 														+ "<td><select class='sel'><option>내관</option><option>외관</option><option>강습사진</option><option>주변사진</option></select></td></tr>");
@@ -119,6 +124,55 @@
 			$("#nameArr").val(nameArr);
 			$("#typeArr").val(typeArr);
 		})
+		           
+		$("#modal_table #allCheck").change(function() {
+			var checked =$(this).is(":checked");
+			if(checked){
+				console.log(checked);
+				$(".modal_check").prop("checked",true);
+			}else{
+				console.log(checked);
+				$(".modal_check").prop("checked",false);
+			} 
+		})                                    
+		
+		$(".galleyTable #allChecked").change(function() {
+			var checked =$(".galleyTable #allChecked").is(":checked");
+			if(checked){               
+				console.log(checked);
+				$(".galleyTable .check").prop("checked",true);
+			}else{
+				console.log(checked);
+				$(".galleyTable .check").prop("checked",false);
+			} 
+		})
+		
+		
+		$("#del").click(function(){
+			
+			var con = confirm("정말 삭제 하시겠습니까?");
+			if(con==false){
+				return false;                    
+			}
+			var arr = []; 
+			
+				$(".galleyTable .check").each(function(i, obj) {
+					if($(obj).is(":checked")){
+						arr.push($(this).parent().parent().find(".num").val());
+					}
+				})
+				
+			
+			if(arr.length==0){
+				alert("선택한 이미지가 없습니다.");
+				return false;
+			}              
+			location.href="${pageContext.request.contextPath}/admin/gallery/delete/"+arr;          
+			
+			return false;
+		})
+		
+		
 	})
 
 	function fileUpload() {
@@ -131,6 +185,9 @@
 	function submitBtn() {
 		$("#f1").submit();
 	}
+	
+
+	
 </script>
 </head>
 <body>
@@ -143,13 +200,13 @@
 			</div>
 
 			<div id="wrap_admin_btn">
-				<a href="" class="btn_admin">선택삭제</a> <a href="" class="btn_admin"
+				<a href="" class="btn_admin" id="del">선택삭제</a> <a href="" class="btn_admin"
 					data-toggle="modal" data-target="#modal" id="add">이미지추가</a>
 			</div>
 
 			<table class="galleyTable">
 				<tr>
-					<th width="20"><input type="checkbox" id="allCheck"></th>
+					<th width="20"><input type="checkbox" id="allChecked"></th>
 					<th width="100">번호</th>
 					<th width="100">이름</th>
 					<th width="">이미지</th>
@@ -157,10 +214,10 @@
 				</tr>
 				<c:forEach items="${list}" var="imgs">
 					<tr>
-						<td><input type="checkbox" id="allCheck"></td>
-						<td>${imgs.gallery_num}</td>
+						<td><input type="checkbox" class="check"></td>
+						<td>${imgs.gallery_num}<input type="hidden" class="num" name="no" value="${imgs.gallery_num}"></td>
 						<td>${imgs.gallery_name}</td>
-						<td><img src="${imgs.gallery_path}">${imgs.gallery_path}</td>
+						<td><img src="displayFile?filename=${imgs.gallery_path}"></td>
 						<td>${imgs.gallery_type}</td>
 					</tr>
 				</c:forEach>

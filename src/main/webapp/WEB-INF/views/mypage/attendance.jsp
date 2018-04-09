@@ -4,9 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 : 마이페이지 : 대구 아이티 수영장</title>
+<title>Insert title here</title>
 <style>
-	
+ 	#attendance{
+ 		color:white !important;
+ 		background: #6799FF;
+	}
 </style>
 </head>
 <body>
@@ -14,8 +17,8 @@
 	<div id="container">
 		<jsp:include page="side.jsp"/>
 		<div id="content">
-			<jsp:include page="contentTitle.jsp"/>
-			<div id="main_page">
+			<jsp:include page="attendanceTitle.jsp"/>
+			<div id="mypage_content">
 				
 			</div>
 		</div>

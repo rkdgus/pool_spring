@@ -98,7 +98,7 @@
 }
 
 #add {
-	width:150px !important;
+	width: 150px !important;
 	margin-top: 5px;
 	height: 30px;
 	border: 1px solid #5c5c5c;
@@ -110,7 +110,7 @@
 	padding-right: 15px;
 	cursor: pointer;
 	font-weight: 600;
-	color:black;
+	color: black;
 }
 </style>
 </head>
@@ -142,11 +142,10 @@
 					</tr>
 					<tr>
 						<td>이미지</td>
-						<td>
-							<input type="button" value="이미지추가" class="btn_admin"
-							data-toggle="modal" data-target="#modal" id="add">
-							<span id="imgText"></span>
-							<input type="hidden" name="imgpath">
+						<td><input type="button" value="이미지추가" class="btn_admin"
+							data-toggle="modal" data-target="#modal" id="add"> <span
+							id="imgText"></span> <input type="hidden" name="imgpath">
+
 						</td>
 					</tr>
 					<tr>
@@ -183,7 +182,8 @@
 				<div class="modal-footer">
 					<input type="button" class="btn btn-success" value="업로드"
 						onclick="submitBtn()">
-					<button type="button" class="btn btn-default" data-dismiss="modal" id="close">Close</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+						id="close">Close</button>
 				</div>
 
 			</div>
@@ -192,6 +192,9 @@
 	</div>
 	<script type="text/javascript">
 		var index = 1;
+		var filesArr = {};
+		var previewIndex = 0;
+		var deleteIndex = 0;
 		$(function() {
 			$(document)
 					.on(
@@ -199,20 +202,22 @@
 							"#fileList",
 							function() {
 								$("#modal_table td").parent("tr").remove();
-								var file = document.getElementById("fileList");
-
+								var file = document.getElementById("fileList");	
 								var reader = new FileReader();
-								reader.onload = function(e) {
-
-									$("#modal_table")
-											.append(
-													"<tr><td><input type='checkbox' class='delcheck'></td>"
-															+ "<td><input type='text' name='name'></td>"
-															+ "<td><img src='"+e.target.result+"' class='imgs'></td>"
-															+ "</tr>");
-
-								}
-
+										
+									reader.onload = function(e) {
+										var imgNum = previewIndex++;
+										var f = file.files[index-1];
+										
+										$("#modal_table")
+												.append(
+														"<tr><td><input type='checkbox' class='delcheck'></td>"
+																+ "<td><input type='text' name='name'></td>"
+																+ "<td><img src='"+e.target.result+"' class='imgs'><span class='hiddenSpan'>"+imgNum+"</span></td>"
+																+ "</tr>");
+											
+										filesArr[imgNum] = f;
+									};
 								reader.readAsDataURL(file.files[0]);
 
 								reader.onloadend = function(e) {
@@ -223,35 +228,51 @@
 									reader.readAsDataURL(file.files[index]);
 									index += 1;
 								}
-							})
+							});
 		})
 		function fileUpload() {
 			console.log("fileUpload");
+			filesArr = {};
 			$("#fileList").trigger('click');
-
 		}
 		function submitBtn() {
 			var formData = new FormData();
-			var size = $("input[name='name']").length; 
-			for(var i=0; i < size; i++){
-				formData.append("fileList",$("input[name='fileList']")[0].files[i]);
-				formData.append("name",$("input[name='name']").eq(i).val());
+			//var size = $("input[name='name']").length; 
+			//delete files[i]
+			alert(Object.keys(filesArr).length);
+			for (var i = 0; i < Object.keys(filesArr).length + deleteIndex; i++) {
+				
+				formData.append("fileList",filesArr[i]);
+				formData.append("name", $("input[name='name']").eq(i).val());
 			}
 			$.ajax({
-				url:"upload",
-				data:formData,
-				type:"post",
-				processData:false,
-				contentType:false,
-				dataType:"json",
-				success:function(result){
+				url : "upload",
+				data : formData,
+				type : "post",
+				processData : false,
+				contentType : false,
+				dataType : "json",
+				success : function(result) {
 					console.log(result);
-					if(result.length !=0){
-						$("#imgText").text(result.length+"개 선택하였습니다.");
+					if (result.length != 0) {
+						$("#imgText").text(result.length + "개 선택하였습니다.");
 						$("#close").trigger("click");
-						
+						for (var i = 0; i < result.length; i++) {
+							$("#imgpath").val(
+									$("#imgpath").val() + result[i] + ",");
+						}
 					}
-					
+				}
+			})
+		}
+		function fileDelete(){
+			$(".delcheck").each(function(i,obj) {
+				if($(obj).is(":checked")){
+					var imgNum = $(obj).closest("tr").find(".hiddenSpan").text();
+					console.log(imgNum);
+					delete filesArr[imgNum];
+					deleteIndex++;
+					$(obj).closest("tr").remove();                   
 				}
 			})
 		}

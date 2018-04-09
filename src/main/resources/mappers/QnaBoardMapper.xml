@@ -13,7 +13,7 @@
 		select * from qnaboard where bno = #{bno}
 	</select>
 	<insert id="insert">
-		insert into qnaboard(writer,title,content,imgpath) values(#{writer},#{title},#{content},#{imgpath})
+		insert into qnaboard(writer,title,content,imgpath,regdate,email,pw) values(#{writer},#{title},#{content},#{imgpath},now(),email,pw)
 	</insert>
 	<update id="update">
 		update qnaboard set title = #{title}, content = #{content} imgpath = #{imgpath} where bno = #{bno}

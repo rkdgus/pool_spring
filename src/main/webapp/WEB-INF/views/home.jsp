@@ -226,7 +226,7 @@ div#header {
 	<div id="header">
 		<jsp:include page="include/nav.jsp" />
 		<img
-			src="${pageContext.request.contextPath}/resources/images/main.jpg"
+			src="${pageContext.request.contextPath}/resources/images/s10.jpg"
 			id="main_img">
 		<div class="event_ul">
 			<h2>공지사항</h2>
@@ -267,8 +267,8 @@ div#header {
 				<a href=""><img
 					src="${pageContext.request.contextPath}/resources/images/a1.jpg"></a>
 			</div>
-			<div>
-				<a href=""><img
+			<div>                                                        
+				<a href=""><img                                  
 					src="${pageContext.request.contextPath}/resources/images/a2.jpg"></a>
 			</div>
 			<div>

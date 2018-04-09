@@ -8,7 +8,7 @@
 		<div id="wrap_login">
 			<div>
 				<a href="${pageContext.request.contextPath}/">
-					<img src="${pageContext.request.contextPath}/resources/img/logoBlack.png" id="logo"> 
+					<img src="${pageContext.request.contextPath}/resources/img/logo.png" id="logo"> 
 				</a>
 				     
 			</div>

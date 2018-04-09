@@ -93,7 +93,6 @@
 														+ "<td><select class='sel'><option>내부</option><option>외부</option><option>강습사진</option><option>주변사진</option></select></td></tr>");
 
 							}
-
 							reader.readAsDataURL(file.files[0]);
 
 							reader.onloadend = function(e) {

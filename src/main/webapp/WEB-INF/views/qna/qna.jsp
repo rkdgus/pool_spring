@@ -55,6 +55,27 @@
 #count{
 	font-size: 13px;
 }
+#eselect{
+	width:100px;
+	font-size: 13px;
+	height:25px;
+}
+#eselect option{
+	font-size: 13px;
+}
+input,textarea{
+	font-size: 13px;
+}
+#pw_info{
+	margin-top: 10px;
+}
+#qna_content h2{
+	float: left;
+}
+#require{
+	float: right;
+	margin-bottom: 10px;
+}
 </style>
 </head>
 <body>
@@ -62,6 +83,9 @@
 	<script>
 		var index = 1;
 		$(function() {
+			$("#eselect").change(function(){
+				$("#email2").val($(this).val());
+			})
 			$("#fileUpload").click(function() {
 				$("#fileList").trigger("click");
 			})
@@ -119,8 +143,7 @@
 				dataType : "json",
 				success : function(result) {
 					console.log(result);
-					
-					
+				
 				}
 			})
 		}
@@ -135,6 +158,7 @@
 					<h2>
 						<span class="mark22">■</span> 문의 내용
 					</h2>
+					<p id="require"><img src="${pageContext.request.contextPath }/resources/images/tag_require.png"></p>
 					<table>
 						<tr>
 							<td class="td">제목</td>
@@ -163,11 +187,37 @@
 						<tr>
 							<td class="td">이메일</td>
 							<td><input type="text" id="email1">@<input
-								type="text" id="email2"></td>
+								type="text" id="email2">
+								
+								<select id="eselect">
+									<option value="">직접입력</option>
+									<option value="naver.com">naver.com</option>
+									<option value="gmail.com">gmail.com</option>
+									<option value="nate.com">nate.com</option>
+									<option value="daum.net">daum.net</option>
+								</select></td>
 						</tr>
 
 					</table>
 				</div>
+				<div id="pw_info">
+					<h2>
+						<span class="mark22">■</span> 비공개 설정
+					</h2>
+					
+						<table>
+						<tr>
+							<td class="td">비밀번호 설정</td>
+							<td><input type="password" id="pw"></td>
+						</tr>
+						<tr>
+							<td class="td">자동입력 방지</td>
+							<td><span id="test"></span><input type="text" id="test2"></td>
+						</tr>
+
+					</table>
+				</div>
+				
 				<div id="check_info">
 					<h2>
 						<span class="mark22">■</span> 개인정보 수집 및 이용에 대한 안내
@@ -182,7 +232,7 @@
 							수집 및 이용</span>'에 동의합니다.
 					</p>
 				</div>
-
+				
 			</div>
 
 			<input type="file" name="fileList" multiple="multiple" id="fileList"

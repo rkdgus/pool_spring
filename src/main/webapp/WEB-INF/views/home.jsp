@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>대구 아이티 수영장</title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/common/reset.css?v=1">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/common/common.css?v=1">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/common/reset.css?v=1">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/common/common.css?v=1">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -152,14 +155,17 @@ div#header {
 }
 
 #wrap_gallery #imgs {
-	width: 950px; position : absolute;
+	width: 950px;
+	position: absolute;
 	top: 400px;
 	left: 50%;
-	position: absolute; top : 400px; left : 50%;
+	position: absolute;
+	top: 400px;
+	left: 50%;
 	margin-left: -475px !important;
 }
 
-#wrap_gallery #imgs a {
+#wrap_gallery #imgs div {
 	padding: 10px;
 	width: 296px;
 	height: 220px;
@@ -226,11 +232,11 @@ div#header {
 	<div id="header">
 		<jsp:include page="include/nav.jsp" />
 		<img
-			src="${pageContext.request.contextPath}/resources/images/main3.jpg"                                                          
-			id="main_img">                                                                  
+			src="${pageContext.request.contextPath}/resources/images/main3.jpg"
+			id="main_img">
 		<div class="event_ul">
 			<h2>공지사항</h2>
-			<ul>                                                 
+			<ul>
 				<li><a href="">4월 휴무안내<span>2018.04.01</span></a></li>
 				<li><a href="">4월 휴무안내<span>2018.04.01</span></a></li>
 				<li><a href="">4월 휴무안내<span>2018.04.01</span></a></li>
@@ -248,7 +254,7 @@ div#header {
 				<span>FAX</span> 053)000-0000
 			</p>
 			<h3>정기휴장일</h3>
-			<p id="day">매월 1,3주 일요일(7,8월은 휴장없음)</p>
+			<p id="day">매월 1,3주 일요일(7, 8월은 휴장없음)</p>
 		</div>
 	</div>
 
@@ -263,37 +269,21 @@ div#header {
 			src="${pageContext.request.contextPath}/resources/images/title.png"
 			id="title">
 		<div id="imgs">
-			<div>
-				<a href=""><img
-					src="${pageContext.request.contextPath}/resources/images/a1.jpg"></a>
-			</div>
-			<div>                                                        
-				<a href=""><img                                  
-					src="${pageContext.request.contextPath}/resources/images/a2.jpg"></a>
-			</div>
-			<div>
-				<a href=""><img
-					src="${pageContext.request.contextPath}/resources/images/a3.jpg"></a>
-			</div>
-			<div>
-				<a href=""><img
-					src="${pageContext.request.contextPath}/resources/images/a4.jpg"></a>
-			</div>
-			<div>
-				<a href=""><img
-					src="${pageContext.request.contextPath}/resources/images/a5.jpg"></a>
-			</div>
-			<div>
-				<a href=""><img
-					src="${pageContext.request.contextPath}/resources/images/a6.jpg"></a>
-			</div>
+			<c:forEach items="${list }" var="item">
+				<div>
+					<img
+						src="displayFile?filename=${item.gallery_path}">
+				</div>
+			</c:forEach>
+		
+			
 		</div>
 
 	</div>
 	<div id="wrap_bottom">
 		<div id="wrap_btn">
 			<div id="click1">
-				<a href="">           
+				<a href="">
 					<h2>오시는 길</h2>
 					<p>대구아이티수영장 오시는길을 안내해드립니다.</p>
 				</a>

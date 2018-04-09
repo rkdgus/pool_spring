@@ -90,7 +90,7 @@
 												"<tr><td><input type='checkbox' class='modal_check'></td>"
 														+ "<td><input type='text' class='name'></td>"
 														+ "<td><img src='"+e.target.result+"' class='imgs'></td>"
-														+ "<td><select class='sel'><option>내관</option><option>외관</option><option>강습사진</option><option>주변사진</option></select></td></tr>");
+														+ "<td><select class='sel'><option>내부</option><option>외부</option><option>강습사진</option><option>주변사진</option></select></td></tr>");
 
 							}
 

@@ -15,4 +15,8 @@
 	<select id="selectNum" resultType="GalleryVO">
 		select * from gallery where gallery_num = #{gallery_num}
 	</select>
+	<select id="selectType" resultType="GalleryVO">
+		select * from gallery where gallery_type = #{gallery_type}
+	</select>
+
 </mapper>

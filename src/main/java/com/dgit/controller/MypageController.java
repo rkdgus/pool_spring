@@ -22,4 +22,9 @@ public class MypageController {
 	public void mMypage(){
 		logger.info("================member mypage get==============");
 	}
+	
+	@RequestMapping(value="/attendance",method=RequestMethod.GET)
+	public void attendance(){
+		logger.info("================member  attendance mypage get==============");
+	}
 }

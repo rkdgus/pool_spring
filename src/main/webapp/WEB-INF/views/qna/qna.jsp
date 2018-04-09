@@ -19,6 +19,10 @@
 	<jsp:include page="../include/header.jsp" />
 	<script>
 		var index = 1;
+		var filesArr = {};
+		var previewIndex = 0;
+		var deleteIndex = 0;
+		
 		$(function() {
 			$("#eselect").change(function() {
 				$("#email2").val($(this).val());
@@ -51,12 +55,16 @@
 
 								var reader = new FileReader();
 								reader.onload = function(e) {
-
+									var imgNum = previewIndex++;
+									var f = file.files[index-1];
+									
 									$("#preview_t")
 											.append(
-													"<tr><td><input type='checkbox' class='c'></td>"
+													"<tr><td><input type='checkbox' class='delcheck'></td>"
 															+ "<td><img src='"+e.target.result+"' class='imgs'></td>");
-								}
+								
+									filesArr[imgNum] = f;
+								};
 
 								reader.readAsDataURL(file.files[0]);
 
@@ -77,14 +85,16 @@
 
 		function submitBtn() {
 			var formData = new FormData();
-			var size = $(".c").length;
-
-			for (var i = 0; i < size; i++) {
-				formData.append("fileList",
-						$("input[name='fileList']")[0].files[i]);
+			//var size = $("input[name='name']").length; 
+			//delete files[i]
+			alert(Object.keys(filesArr).length);
+			for (var i = 0; i < Object.keys(filesArr).length + deleteIndex; i++) {
+				
+				formData.append("fileList",filesArr[i]);
 			}
+			
 			$.ajax({
-				url : "/pool/qna/upload",
+				url : "upload",
 				data : formData,
 				type : "post",
 				processData : false,
@@ -92,11 +102,30 @@
 				dataType : "json",
 				success : function(result) {
 					console.log(result);
-
+					if (result.length != 0) {
+						$("#count").text(result.length + "개 선택하였습니다.");
+						$("#close").trigger("click");
+						for (var i = 0; i < result.length; i++) {
+							$("#imgpath").val(
+									$("#imgpath").val() + result[i] + ",");
+						}
+					}
 				}
 			})
 		}
-
+		
+		function fileDelete(){
+			$(".delcheck").each(function(i,obj) {
+				if($(obj).is(":checked")){
+					var imgNum = $(obj).closest("tr").find(".hiddenSpan").text();
+					console.log(imgNum);
+					delete filesArr[imgNum];
+					deleteIndex++;
+					$(obj).closest("tr").remove();                   
+				}
+			})
+		}
+		
 		function randomRequire() {
 			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
 			var string_length = 6;

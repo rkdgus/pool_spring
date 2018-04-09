@@ -144,7 +144,7 @@
 						<td>이미지</td>
 						<td><input type="button" value="이미지추가" class="btn_admin"
 							data-toggle="modal" data-target="#modal" id="add"> <span
-							id="imgText"></span> <input type="hidden" name="imgpath">
+							id="imgText"></span>
 
 						</td>
 					</tr>

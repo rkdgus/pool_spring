@@ -9,5 +9,6 @@ public interface GalleryService {
 	public List<GalleryVO> selectAll();
 	public void delete(int no);
 	public GalleryVO selectNum(int no);
+	public List<GalleryVO> selectType(String type);
 }
  

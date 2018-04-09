@@ -38,10 +38,10 @@
 				<li><a href="${pageContext.request.contextPath}/info/">수영장소개</a></li>
 				<li><a href="">수업시간</a></li>
 				<li><a href="">수영클리닉</a></li>
-				<li><a href="${pageContext.request.contextPath}/gallery/">갤러리</a></li>
+				<li><a href="${pageContext.request.contextPath}/gallery/?type=내부사진">갤러리</a></li>
 				<li><a href="${pageContext.request.contextPath}/classboard/classboard">반별게시판</a></li>
 				<li><a href="${pageContext.request.contextPath}/event/">공지</a></li>
-				<li><a href="">문의</a></li>
+				<li><a href="${pageContext.request.contextPath}/qna/qna">문의</a></li>
 			</ul>
 		</nav>
 	</div>

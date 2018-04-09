@@ -93,9 +93,9 @@ public class AdminController {
 			vo.setGallery_name(nameArr[i]);
 			vo.setGallery_path(arrFile.get(i));
 			if(typeArr[i].equals("0")){
-				typeName="내관사진";
+				typeName="내부사진";
 			}else if(typeArr[i].equals("1")){
-				typeName="외관사진";
+				typeName="외부사진";
 			}else if(typeArr[i].equals("2")){
 				typeName="강습사진";
 			}else if(typeArr[i].equals("3")){

@@ -39,4 +39,10 @@ private static final String namespace = "com.dgit.mapper.GalleryMapper";
 		return session.selectOne(namespace+".selectNum", no);
 	}
 
+	@Override
+	public List<GalleryVO> selectType(String type) {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".selectType",type);
+	}
+
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE>
 <html>
 <head>
@@ -17,7 +18,7 @@
 }
 .slider div img{
 	width:100%;           
-	max-height:100%;
+	min-height:100%;
 }
 .slider-nav div{
 	height:100px;
@@ -25,8 +26,8 @@
 }
 
 .slider-nav div img{
-	width:100%;
-	  
+	width:100%;         
+	min-height:100%;  
 }
 
 </style>               
@@ -54,6 +55,9 @@ j(function() {
 	          focusOnSelect: true,
 	       });
 	}
+	
+
+	
 })   
  </script> 
 </head>
@@ -63,44 +67,36 @@ j(function() {
 		<jsp:include page="side.jsp" />
 		<div id="content">
 			<div id="header_title">
-				<div id="main_title">내부사진</div>
+				<div id="main_title">${type }</div>
 
 				<p id="con_navi">
 
 					<img
 						src="${pageContext.request.contextPath }/resources/images/homeIcon.png"
-						alt="홈"> home &gt; 갤러리 &gt; <span>내부사진</span>
+						alt="홈"> home &gt; 갤러리 &gt; <span>${type }</span>
 				</p>
 			</div>
 			
 			
 			<div class="slider">
-				<div><a href=""><img
-					src="${pageContext.request.contextPath}/resources/images/a1.jpg"></a>
-					
-				</div>
-				<div><a href=""><img
-					src="${pageContext.request.contextPath}/resources/images/a2.jpg"></a></div>
-				<div><a href=""><img
-					src="${pageContext.request.contextPath}/resources/images/a3.jpg"></a></div>
-				<div><a href=""><img
-					src="${pageContext.request.contextPath}/resources/images/a4.jpg"></a></div>
-				<div><a href=""><img
-					src="${pageContext.request.contextPath}/resources/images/a5.jpg"></a></div>
+				<c:if test="${list.size()==0 }">
+					<div><img
+					src="${pageContext.request.contextPath }/resources/images/ss.jpg"></div>        
+				</c:if>
+				<c:if test="${list.size()!=0 }">
+					<c:forEach items="${list }" var="item">
+						<div><img
+						src="displayFile?filename=${item.gallery_path}"></div>            
+					</c:forEach>         
+				</c:if>                                                                
 			</div>
 			
 			<div class="slider-nav">
-				<div><img
-					src="${pageContext.request.contextPath}/resources/images/a1.jpg"></div>
-				<div><img
-					src="${pageContext.request.contextPath}/resources/images/a2.jpg"></div>
-				<div><img
-					src="${pageContext.request.contextPath}/resources/images/a3.jpg"></div>
-				<div><img
-					src="${pageContext.request.contextPath}/resources/images/a4.jpg"></div>
-				<div><img
-					src="${pageContext.request.contextPath}/resources/images/a5.jpg"></div>
-			</div>
+				<c:forEach items="${list }" var="item">
+					<div><img
+					src="displayFile?filename=${item.gallery_path}"></div>
+				</c:forEach>
+			</div>                
 			
 		</div>
 	</div>

@@ -226,11 +226,11 @@ div#header {
 	<div id="header">
 		<jsp:include page="include/nav.jsp" />
 		<img
-			src="${pageContext.request.contextPath}/resources/images/s10.jpg"
-			id="main_img">
+			src="${pageContext.request.contextPath}/resources/images/main1.jpg"                                 
+			id="main_img">                                                    
 		<div class="event_ul">
 			<h2>공지사항</h2>
-			<ul>
+			<ul>                                                 
 				<li><a href="">4월 휴무안내<span>2018.04.01</span></a></li>
 				<li><a href="">4월 휴무안내<span>2018.04.01</span></a></li>
 				<li><a href="">4월 휴무안내<span>2018.04.01</span></a></li>

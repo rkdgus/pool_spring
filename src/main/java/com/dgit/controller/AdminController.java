@@ -52,8 +52,7 @@ public class AdminController {
 	@RequestMapping(value = "/gallery", method = RequestMethod.POST)
 	public String galleryPost(List<MultipartFile> fileList, HttpServletRequest request,Model model,String name,String type) {
 		logger.info("=================gallery post====================");
-		
-		
+
 		File dirPath = new File(outUploadPath);
 		
 		if (!dirPath.exists()) {
@@ -62,8 +61,7 @@ public class AdminController {
 		
 		String[] nameArr = name.split(",");
 		String[] typeArr =type.split(",");
-		
-		
+
 		ArrayList<String> arrFile = new ArrayList<>();
 		
 		for (MultipartFile file : fileList) {
@@ -85,9 +83,6 @@ public class AdminController {
 			vo.setGallery_type(typeArr[i]);
 			galleryService.insert(vo);
 		}
-		
 		return "redirect:/admin/gallery";
 	}
-
-	
 }

@@ -85,10 +85,12 @@ public class ClassBoardController {
 	@ResponseBody
 	@RequestMapping(value="/upload", method=RequestMethod.POST)	
 	public ResponseEntity<List<String>> getUpload(List<MultipartFile> fileList,Model model,String[] name){
-		logger.info("=================gallery post====================");
+		logger.info("=================upload post====================");
 		ResponseEntity<List<String>> entity = null;
 		File dirPath = new File(outUploadPath);
-		
+		for(MultipartFile m : fileList){
+			logger.info(m.getOriginalFilename()+"");
+		}
 		if (!dirPath.exists()) {
 			dirPath.mkdirs();
 		}

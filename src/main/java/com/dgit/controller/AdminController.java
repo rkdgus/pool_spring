@@ -1,7 +1,9 @@
 package com.dgit.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -9,18 +11,26 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dgit.domain.GalleryVO;
 import com.dgit.service.GalleryService;
+import com.dgit.util.MediaUtils;
 
 @Controller
 @RequestMapping("/admin")
@@ -62,27 +72,79 @@ public class AdminController {
 		String[] nameArr = name.split(",");
 		String[] typeArr =type.split(",");
 
+		String typeName="";
+
 		ArrayList<String> arrFile = new ArrayList<>();
 		
 		for (MultipartFile file : fileList) {
 			UUID uid = UUID.randomUUID();// 중복방지를 위하여 랜덤값 생성
 			String savedName = uid.toString() + "_" + file.getOriginalFilename();
 			File target = new File(outUploadPath, savedName);
-			try {
+			try {                
 				FileCopyUtils.copy(file.getBytes(), target);
-				arrFile.add(outUploadPath + savedName);
+				arrFile.add(outUploadPath+savedName);
 			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}      
+				e.printStackTrace();                                         
+			}       
+		}                    
 		
 		for(int i = 0;i<arrFile.size();i++){
 			GalleryVO vo = new GalleryVO();
 			vo.setGallery_name(nameArr[i]);
 			vo.setGallery_path(arrFile.get(i));
-			vo.setGallery_type(typeArr[i]);
+			if(typeArr[i].equals("0")){
+				typeName="내관사진";
+			}else if(typeArr[i].equals("1")){
+				typeName="외관사진";
+			}else if(typeArr[i].equals("2")){
+				typeName="강습사진";
+			}else if(typeArr[i].equals("3")){
+				typeName="인접시설물";
+			}
+			vo.setGallery_type(typeName);
 			galleryService.insert(vo);
 		}
 		return "redirect:/admin/gallery";
 	}
+
+	
+	@RequestMapping(value = "displayFile", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<byte[]> displayFile(String filename) {
+		ResponseEntity<byte[]> entity = null;
+		logger.info("displayFile : " + filename);
+		InputStream in = null;
+		try {
+			String formatName = filename.substring(filename.lastIndexOf(".") + 1);
+			MediaType type = MediaUtils.getMediaType(formatName);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(type);
+             
+			in = new FileInputStream(filename);                
+
+			entity = new ResponseEntity<>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+		} catch (Exception e) {
+			// TODO: handle exception               
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value = "/gallery/delete/{no}", method = RequestMethod.GET)
+	public String galleryDelete(@PathVariable("no")int[] no) {
+		logger.info("=================galleryDelete Get====================");
+		logger.info("=================galleryDelete Get====================");
+                                            
+		for(int i=0;i<no.length;i++){
+			System.gc();
+			GalleryVO vo = galleryService.selectNum(no[i]);
+			System.out.println(vo.toString());
+			File file = new File(vo.getGallery_path());
+			file.delete();
+			galleryService.delete(no[i]);
+		}                                      
+		            
+		return "redirect:/admin/gallery";
+	}
+
 }

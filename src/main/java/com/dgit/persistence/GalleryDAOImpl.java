@@ -26,4 +26,17 @@ private static final String namespace = "com.dgit.mapper.GalleryMapper";
 		return session.selectList(namespace+".selectAll");
 	}
 
+	@Override
+	public void delete(int no) {
+		// TODO Auto-generated method stub
+		session.delete(namespace+".delete",no);
+		
+	}
+
+	@Override
+	public GalleryVO selectNum(int no) {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+".selectNum", no);
+	}
+
 }

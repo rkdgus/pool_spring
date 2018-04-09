@@ -9,4 +9,10 @@
 	<select id="selectAll" resultType="GalleryVO">
 		select * from gallery
 	</select>
+	<delete id="delete">
+		delete from gallery where gallery_num = #{gallery_num}
+	</delete>
+	<select id="selectNum" resultType="GalleryVO">
+		select * from gallery where gallery_num = #{gallery_num}
+	</select>
 </mapper>

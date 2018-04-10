@@ -28,6 +28,34 @@
 	margin:0 auto;  
 	width:85%;
 }
+#teacherT{
+	width:80%;
+	margin:0 auto;              
+}
+#teacherT tr{
+	
+}
+
+#teacherT td{
+
+	width:50%;
+	height:200px;
+	vertical-align: middle;                         
+	text-align: center;
+}
+#teacherT td img{
+	max-width:100%;
+	max-height:90%;
+}
+#teacherT td h2{
+	font-size: 20px;
+	font-weight: bold;
+	
+}
+#teacherT td p{
+	color:#777;
+	text-align: left;
+}
 </style>
 <script>
       function initMap() {
@@ -41,6 +69,8 @@
           map: map
         });
       }
+      
+  
 </script>
 <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB7g9PrNXeK9QuDQk8fwbquP0e6yBWvGdA&callback=initMap">
@@ -81,6 +111,21 @@
 
 			</c:if>
 			<c:if test="${title=='강사소개' }">
+				<table id="teacherT">
+					<c:forEach items="${list }" var="item">
+						<tr>
+							<td>
+								<img src="${pageContext.request.contextPath}/admin/displayFile?filename=${item.img_path}" id="teacherImg">
+							</td>
+							<td>
+								<h2>${item.name}</h2>
+								<br>
+								<p>${item.info }</p>
+							</td>
+						</tr>
+					</c:forEach>                   
+				</table>                                   
+				
 				
 			</c:if>
 			

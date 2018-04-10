@@ -87,8 +87,7 @@
 
 								$("#modal_table")
 										.append(
-												"<tr><td><input type='checkbox' class='modal_check'></td>"
-														+ "<td><input type='text' class='name'></td>"
+												"<tr><td><input type='text' class='name'></td>"
 														+ "<td><img src='"+e.target.result+"' class='imgs'></td>"
 														+ "<td><select class='sel'><option>내부</option><option>외부</option><option>강습사진</option><option>주변사진</option></select></td></tr>");
 
@@ -123,17 +122,7 @@
 			$("#nameArr").val(nameArr);
 			$("#typeArr").val(typeArr);
 		})
-		           
-		$("#modal_table #allCheck").change(function() {
-			var checked =$(this).is(":checked");
-			if(checked){
-				console.log(checked);
-				$(".modal_check").prop("checked",true);
-			}else{
-				console.log(checked);
-				$(".modal_check").prop("checked",false);
-			} 
-		})                                    
+                                 
 		
 		$(".galleyTable #allChecked").change(function() {
 			var checked =$(".galleyTable #allChecked").is(":checked");
@@ -241,7 +230,7 @@
 				<div class="modal-body">
 
 					<button onclick="fileUpload()" class="btn btn-primary">이미지추가</button>
-					<button onclick="fileDelete()" class="btn btn-danger">이미지삭제</button>
+
 					<form method="post" action="gallery" enctype="multipart/form-data"
 						id="f1">
 						<input type="file" name="fileList" multiple="multiple"
@@ -250,10 +239,9 @@
 							type="hidden" name='type' id="typeArr">
 						<table class="galleyTable" id="modal_table">
 							<tr>
-								<th width="20"><input type="checkbox" id="allCheck"></th>
 								<th width="">이름</th>
 								<th width="250">이미지</th>
-								<th width="110">타입</th>
+								<th width="150">타입</th>
 							</tr>
 
 

@@ -29,7 +29,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dgit.domain.GalleryVO;
+import com.dgit.domain.TeacherVO;
 import com.dgit.service.GalleryService;
+import com.dgit.service.TeacherService;
 import com.dgit.util.MediaUtils;
 
 @Controller
@@ -43,7 +45,13 @@ public class AdminController {
 
 	@Autowired
 	GalleryService galleryService;
+	
+	@Autowired
+	TeacherService teacherService;
+	
+	
 
+	//갤러리
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String admin() {
 		logger.info("=================admin Get====================");
@@ -142,9 +150,66 @@ public class AdminController {
 			File file = new File(vo.getGallery_path());
 			file.delete();
 			galleryService.delete(no[i]);
-		}                                      
-		            
+		}  
 		return "redirect:/admin/gallery";
 	}
+	
+	//강사관리
+	@RequestMapping(value = "/teacher", method = RequestMethod.GET)
+	public String teacher(Model model) {
+		logger.info("=================teacher Get====================");
+		List<TeacherVO> list = teacherService.selectAll();
+		model.addAttribute("list", list);
+		
+		return "admin/teacher_admin";
+	}
+	
+	@RequestMapping(value = "/teacher/read", method = RequestMethod.GET)
+	public String teacherRead(Model model,int no) {
+		logger.info("=================teacherRead Get====================");
+		TeacherVO vo= teacherService.selectNo(no);
+		model.addAttribute("vo", vo);
+		
+		return "admin/teacher_read_admin";         
+	}
+	
+	@RequestMapping(value = "/teacher/read", method = RequestMethod.POST)
+	public String teacherUpdate(Model model,TeacherVO vo,MultipartFile fileList, HttpServletRequest request) {
+		logger.info("=================teacherUpdate POST====================");
+		
+		
+		if(fileList.getSize()!=0){
+
+		File dirPath = new File(outUploadPath);
+		                                                                         
+		if (!dirPath.exists()) {
+			dirPath.mkdirs();
+		}
+		
+
+			UUID uid = UUID.randomUUID();// 중복방지를 위하여 랜덤값 생성
+			String savedName = uid.toString() + "_" + fileList.getOriginalFilename();
+			File target = new File(outUploadPath, savedName);
+			try {                
+				FileCopyUtils.copy(fileList.getBytes(), target);
+				savedName=outUploadPath+savedName;
+			} catch (IOException e) {
+				e.printStackTrace();                                         
+			}       
+		                    
+			vo.setImg_path(savedName);
+		}else{
+			int no = vo.getTno();
+			TeacherVO vo1 = teacherService.selectNo(no);
+			
+			vo.setImg_path(vo1.getImg_path());
+			
+		}
+	
+		teacherService.update(vo);
+		
+		return "redirect:/admin/teacher";
+	}       
+	                                                  
 
 }

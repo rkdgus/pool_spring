@@ -12,4 +12,19 @@
 		select * from teacher where id=#{id} and pw = password(#{pw})
 	</select>
 	
+	<select id="selectAll" resultType="TeacherVO">
+		select * from teacher
+	</select>
+	
+	<select id="select" resultType="TeacherVO">
+		select * from teacher where title != #{title}
+	</select>
+	
+	<select id="selectNo" resultType="TeacherVO">
+		select * from teacher where tno = #{tno}
+	</select>
+	
+	<update id="update">
+		update teacher set img_path = #{img_path},tell = #{tell},info = #{info},title = #{title} where tno=#{tno}
+	</update>
 </mapper>

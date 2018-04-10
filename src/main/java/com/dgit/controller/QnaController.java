@@ -26,19 +26,20 @@ import com.dgit.util.UploadFileUtils;
 @Controller
 @RequestMapping("/qna/*")
 public class QnaController {
-	
+/*
 	private static final Logger logger = LoggerFactory.getLogger(QnaController.class);
-	
-	@Resource(name="uploadPath")
+
+	@Resource(name = "uploadPath")
 	private String outUploadPath;
-	
+
 	@Autowired
 	QnaBoardService service;
-	
-	@RequestMapping(value="/qna",method=RequestMethod.GET)
-	public void qna(){
+
+	@RequestMapping(value = "/qna", method = RequestMethod.GET)
+	public void qna() {
 		logger.info("==========qna get========");
 	}
+<<<<<<< HEAD
 	
 		@ResponseBody
 	   @RequestMapping(value="/upload", method=RequestMethod.POST)   
@@ -78,7 +79,31 @@ public class QnaController {
 			 logger.info(vo.toString());
 			 service.create(vo);
 			return "redirect:/qna/qnaBoard";
+=======
+
+	@ResponseBody
+	@RequestMapping(value = "/upload", method = RequestMethod.POST)
+	public ResponseEntity<String> getUpload(List<MultipartFile> fileList) throws Exception {
+		logger.info("=================upload post====================");
+		ResponseEntity<String> entity = null;
+
+		String imgPath = "";
+		for (int i = 0; i < fileList.size(); i++) {
+			String filePath = outUploadPath + "qna/";
+			try {
+				String savedName = UploadFileUtils.uploadFile(filePath, fileList.get(i).getOriginalFilename(),
+						fileList.get(i).getBytes());
+				if ((i + 1) == fileList.size()) {
+					imgPath += filePath + savedName;
+				} else {
+					imgPath += filePath + savedName + ",";
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+>>>>>>> branch 'master' of https://github.com/rkdgus/pool_spring.git
 		}
+<<<<<<< HEAD
 		
 		@RequestMapping(value="/qnaBoard",method=RequestMethod.GET)
 		public void qnaAndAswer(SearchCriteria cri,Model model){
@@ -88,5 +113,26 @@ public class QnaController {
 			logger.info("======== qnaBoard get ==========");
 			List<QnaBoardVO> list = service.selectByAll(0);
 			model.addAttribute("list", list);
+=======
+		if (!imgPath.equals("")) {
+			entity = new ResponseEntity<String>(imgPath, HttpStatus.OK);
+		} else {
+			entity = new ResponseEntity<String>(imgPath, HttpStatus.OK);
+>>>>>>> branch 'master' of https://github.com/rkdgus/pool_spring.git
 		}
+		return entity;
+	}
+
+	@RequestMapping(value = "/qnaContent", method = RequestMethod.POST)
+	public String qnaInsert(QnaBoardVO vo) {
+		logger.info("=================qna post====================");
+		logger.info(vo.toString());
+		service.create(vo);
+		return "redirect:/qna/qnaBoard";
+	}
+
+	@RequestMapping(value = "/qnaBoard", method = RequestMethod.GET)
+	public void qnaAndAswer() {
+		logger.info("=================qna and answer post====================");
+	}*/
 }

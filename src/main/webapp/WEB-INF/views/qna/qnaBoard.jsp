@@ -48,12 +48,20 @@
 		text-align: center;
 		font-size: 12px;
 	}
-	
 </style>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
+		<script>
+		$(function(){
+			$(document).on("click",".data_tr",function(){
+				var bno = $(this).find(".bno").text();
+				location.href="qnaRead?bno="+bno;
+			})
+		})
+		</script>
 	<div id="container">
+
 		<jsp:include page="qnaside.jsp" />
 		<div id="content">
 			<jsp:include page="qnaBoardTitle.jsp" />
@@ -67,8 +75,8 @@
 					</tr>
 					<c:if test="${list !=null }">
 						<c:forEach var="item" items="${list }">
-							<tr data-bno='${item.bno }'>
-								<td class="td">${item.bno }</td>
+							<tr data-bno='${item.bno }' class="data_tr">
+								<td class="td bno">${item.bno }</td>
 								<td class='td_title'>${item.title }</td>
 								<td class="td">${item.writer }</td>
 								<fmt:formatDate value="${item.regdate }" pattern="yyyy-MM-dd" var="date"/>

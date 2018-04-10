@@ -112,9 +112,9 @@
 					</tr>
 					<tr>
 						<td colspan="4">
-							<c:if test="${vo.imgpath !=null }">
-								<img src="${pageContext.request.contextPath }/resources/images/a1.jpg" class="imgs">
-							</c:if>
+							<c:forEach var="img" items="${imgArr }">
+								<img src="displayFile?filename=${img}" class="imgs">	
+							</c:forEach>
 							<p class="read_content">
 								${vo.content }
 							</p>
@@ -123,7 +123,7 @@
 					<tr id="btn_tr">
 						<td colspan="4" class="align_right">
 							<a href="classboard?cno=${vo.cno }"><button>목록</button></a>
-							<a href=""><button>수정</button></a>
+							<a href="${pageContext.request.contextPath }/classboard/modify?bno=${vo.bno}"><button>수정</button></a>
 							<a href="#"><button id="boardRemoveBtn">삭제</button></a>
 						</td>
 					</tr>
@@ -182,7 +182,7 @@
 				location.href="${pageContext.request.contextPath }/classboard/remove?bno=${vo.bno }&cno=${vo.cno}";
 			}
 		})
-	}
+	})
 </script>	
 </body>
 </html>

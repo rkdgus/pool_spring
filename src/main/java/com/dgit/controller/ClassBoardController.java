@@ -1,17 +1,22 @@
 package com.dgit.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +33,8 @@ import com.dgit.domain.ClassVO;
 import com.dgit.domain.PageMaker;
 import com.dgit.domain.SearchCriteria;
 import com.dgit.service.ClassBoardService;
+import com.dgit.util.MediaUtils;
+import com.dgit.util.UploadFileUtils;
 
 @Controller
 @RequestMapping("/classboard/*")
@@ -44,7 +51,7 @@ public class ClassBoardController {
 	@RequestMapping(value="classboard")
 	public void getClassboard(@RequestParam(value="cno", defaultValue="0") int cno,SearchCriteria cri,Model model){
 		logger.info(cno+"" + "page" + cri.getPage());
-		List<ClassBoardVO> lists = service.selectByCno(2,cri.getPage()-1);
+		List<ClassBoardVO> lists = service.selectByCno(1,cri.getPage()-1);
 				
 		PageMaker pageMaker = new PageMaker();
 		 
@@ -56,6 +63,7 @@ public class ClassBoardController {
 		model.addAttribute("pageMaker",pageMaker);
 		model.addAttribute("lists",lists);
 		classList(model);
+		
 		logger.info("=================classBoard Get====================");
 	}
 	@RequestMapping(value="/read", method=RequestMethod.GET)
@@ -63,6 +71,10 @@ public class ClassBoardController {
 		logger.info("=================read Get====================");
 		classList(model);
 		ClassBoardVO vo = service.read(bno);
+		if(vo.getImgpath() !=null){
+			String[] imgArr = vo.getImgpath().split(",");
+			model.addAttribute("imgArr",imgArr);
+		}
 		model.addAttribute("vo",vo);
 		
 	}
@@ -114,5 +126,124 @@ public class ClassBoardController {
 			entity = new ResponseEntity<List<String>>(HttpStatus.OK);
 		}
 		return entity;
+	}
+	@ResponseBody
+	@RequestMapping(value="/insert", method=RequestMethod.POST)	
+	public ResponseEntity<String> getInsert(List<MultipartFile> fileList,String[] name,ClassBoardVO vo) throws Exception{
+		logger.info(vo.toString());
+		ResponseEntity<String> entity = null;
+		File dirPath = new File(outUploadPath);
+		String imgpath = "";
+		
+		for(MultipartFile m : fileList){
+			logger.info(m.getOriginalFilename()+"");
+		}
+		if (!dirPath.exists()) {
+			dirPath.mkdirs();
+		}
+		for (int i = 0; i < fileList.size(); i++) {
+			String filePath = outUploadPath + "classboard/"+vo.getCno()+"반";
+			try {
+				String savedName = UploadFileUtils.uploadFile(filePath, fileList.get(i).getOriginalFilename(),
+						fileList.get(i).getBytes());
+				if ((i + 1) == fileList.size()) {
+					imgpath += savedName;
+				} else {
+					imgpath += savedName + ",";
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		vo.setImgpath(imgpath);
+		service.create(vo);
+		entity = new ResponseEntity<String>("success",HttpStatus.OK);
+		return entity;
+	}
+	
+	@RequestMapping(value="/modify", method=RequestMethod.GET)
+	public void getModify(int bno,Model model){
+		logger.info("--get modify---");
+		ClassBoardVO vo = service.read(bno);
+		if(vo.getImgpath() !=null){
+			String[] imgArr = vo.getImgpath().split(",");
+			model.addAttribute("imgArr",imgArr);
+		}
+		model.addAttribute("vo",vo);
+		classList(model);
+	}
+	@ResponseBody
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	public ResponseEntity<String> postModify(int bno,List<MultipartFile> fileList,String[] name,ClassBoardVO vo,String deleteImg) throws Exception{
+		logger.info("--post modify---");
+		ResponseEntity<String> entity = new ResponseEntity<String>("success",HttpStatus.OK);
+		ClassBoardVO v = service.read(vo.getBno());
+		
+		String imgPath = "";
+		if(v.getImgpath() !=null){
+			imgPath = v.getImgpath();
+		}
+		
+		logger.info(imgPath);
+		System.gc();
+		if(deleteImg !=null){
+			String[] delImg = deleteImg.split(",");
+			for(int i=0; i <delImg.length; i++){
+			File file = new File(delImg[i]);
+				file.delete();
+				imgPath = imgPath.replace(delImg[i], "");
+			}
+			imgPath.replaceAll(",,",",");
+			if(imgPath.indexOf(",") == 0){
+				imgPath = imgPath.replace(",","");
+			}
+		}
+		
+		
+		logger.info(imgPath);
+		if(fileList.size() > 0){
+			if(imgPath.length() !=0){
+				imgPath += ",";
+			}
+			for (int i = 0; i < fileList.size(); i++) {
+				String filePath = outUploadPath + "classboard/"+vo.getCno()+"반";
+				try {
+					String savedName = UploadFileUtils.uploadFile(filePath, fileList.get(i).getOriginalFilename(),
+							fileList.get(i).getBytes());
+					if ((i + 1) == fileList.size()) {
+						imgPath += savedName;
+					} else {
+						imgPath += savedName + ",";
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		vo.setImgpath(imgPath);
+		logger.info(vo.toString());
+		service.modify(vo);
+		return entity;
+	}
+	@RequestMapping(value = "displayFile", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<byte[]> displayFile(String filename) {
+		ResponseEntity<byte[]> entity = null;
+		logger.info("displayFile : " + filename);
+		InputStream in = null;
+		try {
+			String formatName = filename.substring(filename.lastIndexOf(".") + 1);
+			MediaType type = MediaUtils.getMediaType(formatName);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(type);
+             
+			in = new FileInputStream(filename);                
+
+			entity = new ResponseEntity<>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+		} catch (Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;         
 	}
 }

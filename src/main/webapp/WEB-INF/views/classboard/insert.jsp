@@ -32,9 +32,13 @@
 	border: 1px solid #d7d7d7;
 	width: 95%;
 }
+#content #insert_f table td:FIRST-CHILD{
+	padding-left:20px;
+	width:200px;
+}
 
 #content #insert_f table td textarea {
-	width: 89%;
+	width: 95%;
 	height: 200px;
 	resize: none;
 	border: 1px solid #d7d7d7;
@@ -48,13 +52,29 @@
 	background: #ebebeb;
 }
 
-#content #insert_f table tr:LAST-CHILD  td:FIRST-CHILD {
-	padding-left: 180px;
+#btnWrap{
 	background: none;
+	border:none;
+	margin-top:10px;
+	text-align:right;
 }
-
-#content #insert_f table tr:LAST-CHILD td:FIRST-CHILD input {
-	width: 120px;
+#insert_select{
+	width:120px;
+}
+#btnWrap input {
+	width:130px;
+    margin-top: 5px;
+    height: 30px;
+    border: 1px solid #5c5c5c;
+    background: #fff;
+    border-radius: 2px;
+    outline: none;
+    font-size: 13px;
+    padding-left: 15px;
+    padding-right: 15px;
+    cursor: pointer;
+    font-weight: 600;
+    color: black;
 }
 
 .galleyTable, .galleyTable th, .galleyTable td, .galleyTable tr {
@@ -98,8 +118,8 @@
 }
 
 #add {
-	width: 150px !important;
-	margin-top: 5px;
+	width: 120px !important;
+	
 	height: 30px;
 	border: 1px solid #5c5c5c;
 	background: #fff;
@@ -112,6 +132,21 @@
 	font-weight: 600;
 	color: black;
 }
+.hiddenSpan{
+	display: none;
+}
+#content h2 {
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 8px;
+    
+}
+#insert_f table{
+	font-size:13px !important;
+}
+#ver{
+	vertical-align: top;
+}
 </style>
 </head>
 <body>
@@ -120,6 +155,9 @@
 		<jsp:include page="side.jsp" />
 		<div id="content">
 			<jsp:include page="contentTitle.jsp" />
+			<h2>
+				<span class="mark22">■</span>글쓰기
+			</h2>
 			<form id="insert_f" action="insert" method="post">
 				<table>
 					<tr>
@@ -128,7 +166,7 @@
 					</tr>
 					<tr>
 						<td>반</td>
-						<td><select name="cno">
+						<td><select name="cno" id="insert_select">
 								<option>선택</option>
 								<c:forEach var="item" items="${classList }">
 									<option value="${item.cno }">${item.time }/
@@ -137,15 +175,13 @@
 						</select></td>
 					</tr>
 					<tr>
-						<td>내용</td>
+						<td id="ver">내용</td>
 						<td><textarea name="content"></textarea></td>
 					</tr>
 					<tr>
 						<td>이미지</td>
 						<td><input type="button" value="이미지추가" class="btn_admin"
-							data-toggle="modal" data-target="#modal" id="add"> <span
-							id="imgText"></span>
-
+							data-toggle="modal" data-target="#modal" id="add">
 						</td>
 					</tr>
 					<tr>
@@ -154,6 +190,10 @@
 						</td>
 					</tr>
 				</table>
+				<div id="btnWrap">
+					<input type="button" value="취소" id="cencelBtn"> 
+					<input type="submit" value="전송">
+				</div>
 			</form>
 		</div>
 	</div>

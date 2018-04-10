@@ -16,7 +16,7 @@
 		insert into classboard(cno,id,title,content,imgpath) values(#{cno},#{id},#{title},#{content},#{imgpath})
 	</insert>
 	<update id="update">
-		update classboard set title = #{title}, content = #{content} imgpath = #{imgpath} where bno = #{bno}
+		update classboard set title = #{title}, content = #{content}, imgpath = #{imgpath} where bno = #{bno}
 	</update>
 	<delete id="delete">
 		delete from classboard where bno = #{bno}

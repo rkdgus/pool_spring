@@ -142,8 +142,7 @@ public class AdminController {
 			File file = new File(vo.getGallery_path());
 			file.delete();
 			galleryService.delete(no[i]);
-		}                                      
-		            
+		}  
 		return "redirect:/admin/gallery";
 	}
 

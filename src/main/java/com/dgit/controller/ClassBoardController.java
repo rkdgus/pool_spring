@@ -34,6 +34,7 @@ import com.dgit.domain.PageMaker;
 import com.dgit.domain.SearchCriteria;
 import com.dgit.service.ClassBoardService;
 import com.dgit.util.MediaUtils;
+import com.dgit.util.UploadFileUtils;
 
 @Controller
 @RequestMapping("/classboard/*")
@@ -50,18 +51,19 @@ public class ClassBoardController {
 	@RequestMapping(value="classboard")
 	public void getClassboard(@RequestParam(value="cno", defaultValue="0") int cno,SearchCriteria cri,Model model){
 		logger.info(cno+"" + "page" + cri.getPage());
-		List<ClassBoardVO> lists = service.selectByCno(2,cri.getPage()-1);
+		List<ClassBoardVO> lists = service.selectByCno(1,cri.getPage()-1);
 				
 		PageMaker pageMaker = new PageMaker();
 		 
 		pageMaker.setCri(cri);
-		int totalcount = service.count(2);
+		int totalcount = service.count(1);
 		pageMaker.setTotalCount(totalcount);
 		logger.info(pageMaker.getStartPage()+"");
 		logger.info(pageMaker.getEndPage()+"");
 		model.addAttribute("pageMaker",pageMaker);
 		model.addAttribute("lists",lists);
 		classList(model);
+		
 		logger.info("=================classBoard Get====================");
 	}
 	@RequestMapping(value="/read", method=RequestMethod.GET)
@@ -127,7 +129,7 @@ public class ClassBoardController {
 	}
 	@ResponseBody
 	@RequestMapping(value="/insert", method=RequestMethod.POST)	
-	public ResponseEntity<String> getInsert(List<MultipartFile> fileList,String[] name,ClassBoardVO vo){
+	public ResponseEntity<String> getInsert(List<MultipartFile> fileList,String[] name,ClassBoardVO vo) throws Exception{
 		logger.info(vo.toString());
 		ResponseEntity<String> entity = null;
 		File dirPath = new File(outUploadPath);
@@ -136,23 +138,18 @@ public class ClassBoardController {
 		for(MultipartFile m : fileList){
 			logger.info(m.getOriginalFilename()+"");
 		}
-		
 		if (!dirPath.exists()) {
 			dirPath.mkdirs();
 		}
-		
-		for(int i = 0; i<fileList.size();i++){
-			UUID uid = UUID.randomUUID();// 중복방지를 위하여 랜덤값 생성
-			String fileName = fileList.get(i).getOriginalFilename();
-			String type = "."+fileName.substring(fileName.lastIndexOf(".")+1,fileName.length()); 
-			String savedName = uid.toString() + "_" + name[i]+type;
-			File target = new File(outUploadPath, savedName);
+		for (int i = 0; i < fileList.size(); i++) {
+			String filePath = outUploadPath + "classboard/"+vo.getCno()+"반";
 			try {
-				FileCopyUtils.copy(fileList.get(i).getBytes(), target);
-				if((i+1) ==fileList.size()){
-					imgpath += outUploadPath+savedName;
-				}else{
-					imgpath += outUploadPath+savedName+",";
+				String savedName = UploadFileUtils.uploadFile(filePath, fileList.get(i).getOriginalFilename(),
+						fileList.get(i).getBytes());
+				if ((i + 1) == fileList.size()) {
+					imgpath += savedName;
+				} else {
+					imgpath += savedName + ",";
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -163,7 +160,8 @@ public class ClassBoardController {
 		entity = new ResponseEntity<String>("success",HttpStatus.OK);
 		return entity;
 	}
-	@RequestMapping(value="/modify", method=RequestMethod.GET)	
+	
+	@RequestMapping(value="/modify", method=RequestMethod.GET)
 	public void getModify(int bno,Model model){
 		logger.info("--get modify---");
 		ClassBoardVO vo = service.read(bno);
@@ -173,6 +171,54 @@ public class ClassBoardController {
 		}
 		model.addAttribute("vo",vo);
 		classList(model);
+	}
+	@ResponseBody
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	public ResponseEntity<String> postModify(int bno,List<MultipartFile> fileList,String[] name,ClassBoardVO vo,String deleteImg) throws Exception{
+		logger.info("--post modify---");
+		ResponseEntity<String> entity = new ResponseEntity<String>("success",HttpStatus.OK);
+		ClassBoardVO v = service.read(vo.getBno());
+		String imgPath = v.getImgpath();
+		
+		String[] delImg = deleteImg.split(",");
+		logger.info(imgPath);
+		System.gc();
+		if(delImg.length !=0){
+			for(int i=0; i <delImg.length; i++){
+			File file = new File(delImg[i]);
+				file.delete();
+				imgPath = imgPath.replace(delImg[i], "");
+			}
+			imgPath.replaceAll(",,",",");
+			if(imgPath.indexOf(",") == 0){
+				imgPath = imgPath.replace(",","");
+			}
+		}
+		
+		
+		logger.info(imgPath);
+		if(fileList.size() > 0){
+			imgPath += ",";
+			for (int i = 0; i < fileList.size(); i++) {
+				String filePath = outUploadPath + "classboard/"+vo.getCno()+"반";
+				try {
+					String savedName = UploadFileUtils.uploadFile(filePath, fileList.get(i).getOriginalFilename(),
+							fileList.get(i).getBytes());
+					if ((i + 1) == fileList.size()) {
+						imgPath += savedName;
+					} else {
+						imgPath += savedName + ",";
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		vo.setImgpath(imgPath);
+		logger.info(vo.toString());
+		service.modify(vo);
+		return entity;
 	}
 	@RequestMapping(value = "displayFile", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<byte[]> displayFile(String filename) {
@@ -189,10 +235,9 @@ public class ClassBoardController {
 
 			entity = new ResponseEntity<>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
 		} catch (Exception e) {
-			// TODO: handle exception               
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		return entity;                   
+		return entity;         
 	}
 }

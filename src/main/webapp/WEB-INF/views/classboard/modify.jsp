@@ -76,47 +76,39 @@
     font-weight: 600;
     color: black;
 }
-
 .galleyTable, .galleyTable th, .galleyTable td, .galleyTable tr {
 	border: 1px solid #ccc;
 	border-collapse: collapse;
 }
-
 .galleyTable {
 	width: 100%;
 	font-size: 15px;
 	margin-top: 20px;
 }
-
 .galleyTable tr {
 	height: 30px;
 	border-bottom: 1px solid #ccc;
 }
-
 .galleyTable th {
 	vertical-align: middle !important;
 	background: #333333;
 	color: #ccc;
 	text-align: center;
 }
-
 .galleyTable td {
 	color: #9a9a9a;
 	text-align: center;
 	height: 100px;
 	vertical-align: middle !important;
 }
-
 .imgs {
 	max-width: 360px;
 	max-height: 90px;
 	text-align: center;
 }
-
 #leftArea {
 	width: 178px !important;
 }
-
 #add {
 	width: 120px !important;
 	
@@ -152,7 +144,7 @@
 		min-height: 100px;
 		max-width: 98%;
 		max-height: 300px;
-	}
+}
 .imgBox{
 	position: relative;
 	width:100%;
@@ -181,6 +173,7 @@
 			</h2>
 			<form id="update_f" action="update" method="post">
 				<input type="hidden" id="deleteImg">
+				<input type="hidden" id="bno" value="${vo.bno }">
 				<table>
 					<tr>
 						<td>작성자</td>
@@ -278,6 +271,7 @@
 		var deleteIndex = 0;
 		
 		$(function() {
+			$("#update_select").val("${vo.cno}")
 			$("#allCheck").change(function(){
 		          if($("#allCheck").is(":checked")){
 		             $(".delcheck").attr("checked","checked");
@@ -333,9 +327,9 @@
 				formData.append("name", $("input[name='name']").eq(i).val());
 			}
 			var id = $("input[name='id']").val();
-			var cno = $("#insert_select").val();
+			var cno = $("#update_select").val();
 			var title = $("input[name='title']").val();
-			var c =  $("#insert_content").val();
+			var c =  $("#update_content").val();
 			var content = c.replace(/(?:\r\n|\r|\n)/g, '<br />');
 			
 			if(id ==""){
@@ -351,13 +345,17 @@
 				alert("내용을 입력해주세요");
 				return false;
 			}
-			
+			alert($("#bno").val());
 			formData.append("cno",cno);
 			formData.append("id",id);
 			formData.append("title",title);
 			formData.append("content",content);
+			formData.append("bno",$("#bno").val());
+			if($("#deleteImg").val() !=""){
+				formData.append("deleteImg",$("#deleteImg").val());
+			}
 			$.ajax({
-				url : "insert",
+				url : "modify",
 				data : formData,
 				type : "post",
 				processData : false,
@@ -365,7 +363,7 @@
 				dataType : "text", 
 				success : function(result) {
 					alert("글 작성에 성공하였습니다.");
-					location.href="classboard?cno="+cno;
+					location.href="read?bno="+$("#bno").val();
 				}
 			})
 		}
@@ -376,7 +374,7 @@
 					console.log(imgNum);
 					delete filesArr[imgNum];
 					deleteIndex++;
-					$(obj).closest("tr").remove();                   
+					$(obj).closest("tr").remove();           
 				}
 			})
 		}
@@ -386,9 +384,8 @@
 		function deleteImg1(obj){
 			$(obj).parent().remove();
 			var del = $("#deleteImg").val() + $(obj).parent().find("img").attr("data-src")+",";
-			
 			$("#deleteImg").val(del);
 			alert($("#deleteImg").val());
-		}
-	</script>
+	 	}
+</script>
 </html>

@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dgit.domain.QnaBoardVO;
+import com.dgit.service.QnaBoardService;
+import com.dgit.util.UploadFileUtils;
 
 @Controller
 @RequestMapping("/qna/*")
@@ -33,6 +36,8 @@ public class QnaController {
 	@Resource(name="uploadPath")
 	private String outUploadPath;
 	
+	@Autowired
+	QnaBoardService service;
 	
 	@RequestMapping(value="/qna",method=RequestMethod.GET)
 	public void qna(){
@@ -41,33 +46,41 @@ public class QnaController {
 	
 		@ResponseBody
 	   @RequestMapping(value="/upload", method=RequestMethod.POST)   
-	   public ResponseEntity<List<String>> getUpload(List<MultipartFile> fileList){
-	      logger.info("=================gallery post====================");
-	      ResponseEntity<List<String>> entity = null;
-	      File dirPath = new File(outUploadPath);
-	      
-	      if (!dirPath.exists()) {
-	         dirPath.mkdirs();
-	      }
-	      List<String> nameList = new ArrayList<>();
+	   public ResponseEntity<String> getUpload(List<MultipartFile> fileList) throws Exception{
+	      logger.info("=================upload post====================");
+	      ResponseEntity<String> entity = null;
+	     
+	      String imgPath = "";
 	      for(int i = 0; i<fileList.size();i++){
-	         UUID uid = UUID.randomUUID();// 중복방지를 위하여 랜덤값 생성
-	         String fileName = fileList.get(i).getOriginalFilename();
-	       //  String type = "."+fileName.substring(fileName.lastIndexOf(".")+1,fileName.length()); 
-	         String savedName = uid.toString() + "_"+ fileName ;
-	         File target = new File(outUploadPath, savedName);
+	         
+	         String filePath = outUploadPath+"qna/";
+	         
 	         try {
-	            FileCopyUtils.copy(fileList.get(i).getBytes(), target);
-	            nameList.add(outUploadPath+savedName);
+	        	String savedName =  UploadFileUtils.uploadFile(filePath, fileList.get(i).getOriginalFilename(),fileList.get(i).getBytes());
+	           if((i+1) ==fileList.size()){
+	        	   imgPath += filePath+savedName;
+	           }else{
+	        	   imgPath += filePath+savedName+",";
+	           }
+	           
+	           
 	         } catch (IOException e) {
 	            e.printStackTrace();
 	         }
 	      }
-	      if(nameList.size() !=0){
-	         entity = new ResponseEntity<List<String>>(nameList,HttpStatus.OK);
+	      if(!imgPath.equals("")){
+	         entity = new ResponseEntity<String>(imgPath,HttpStatus.OK);
 	      }else{
-	         entity = new ResponseEntity<List<String>>(nameList,HttpStatus.OK);
+	         entity = new ResponseEntity<String>(imgPath,HttpStatus.OK);
 	      }
 	      return entity;
 	   }
+		
+		@RequestMapping(value = "/qnaContent",method=RequestMethod.POST)
+		public String qnaInsert(QnaBoardVO vo){
+			 logger.info("=================qna post====================");
+			 logger.info(vo.toString());
+			 service.create(vo);
+			return "redirect:/";
+		}
 }

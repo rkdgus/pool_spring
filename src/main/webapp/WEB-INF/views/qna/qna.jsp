@@ -17,131 +17,14 @@
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
-	<script>
-		var index = 1;
-		var filesArr = {};
-		var previewIndex = 0;
-		var deleteIndex = 0;
-		
-		$(function() {
-			$("#eselect").change(function() {
-				$("#email2").val($(this).val());
-			})
-
-			$("#test").text(randomRequire());
-
-			$("#fileUpload").click(function() {
-				$("#fileList").trigger("click");
-			})
-			
-			$("#qnaInsert").click(function(e){
-				e.preventDefault();
-				if(!$("#check").is(":checked")){
-					alert("개인정보 수집 및 이용에 동의해 주세요.");
-					return;
-				}
-				$("#f").submit();
-			})
-
-			$(document)
-					.on(
-							"change",
-							"#fileList",
-							function() {
-
-								$("#preview_t").find("tr").not("#basic")
-										.remove();
-								var file = document.getElementById("fileList");
-
-								var reader = new FileReader();
-								reader.onload = function(e) {
-									var imgNum = previewIndex++;
-									var f = file.files[index-1];
-									
-									$("#preview_t")
-											.append(
-													"<tr><td><input type='checkbox' class='delcheck'></td>"
-															+ "<td><img src='"+e.target.result+"' class='imgs'></td>");
-								
-									filesArr[imgNum] = f;
-								};
-
-								reader.readAsDataURL(file.files[0]);
-
-								reader.onloadend = function(e) {
-									if (index >= file.files.length) {
-										index = 1;
-										return;
-									}
-									reader.readAsDataURL(file.files[index]);
-									index += 1;
-
-								}
-							})
-
-			var size = $(".c").length;
-			$("#count").text(" " + size + "개가 선택 되었습니다.");
-		})
-
-		function submitBtn() {
-			var formData = new FormData();
-			//var size = $("input[name='name']").length; 
-			//delete files[i]
-			alert(Object.keys(filesArr).length);
-			for (var i = 0; i < Object.keys(filesArr).length + deleteIndex; i++) {
-				
-				formData.append("fileList",filesArr[i]);
-			}
-			
-			$.ajax({
-				url : "upload",
-				data : formData,
-				type : "post",
-				processData : false,
-				contentType : false,
-				dataType : "json",
-				success : function(result) {
-					console.log(result);
-					if (result.length != 0) {
-						$("#count").text(result.length + "개 선택하였습니다.");
-						$("#close").trigger("click");
-						for (var i = 0; i < result.length; i++) {
-							$("#imgpath").val(
-									$("#imgpath").val() + result[i] + ",");
-						}
-					}
-				}
-			})
-		}
-		
-		function fileDelete(){
-			$(".delcheck").each(function(i,obj) {
-				if($(obj).is(":checked")){
-					var imgNum = $(obj).closest("tr").find(".hiddenSpan").text();
-					console.log(imgNum);
-					delete filesArr[imgNum];
-					deleteIndex++;
-					$(obj).closest("tr").remove();                   
-				}
-			})
-		}
-		
-		function randomRequire() {
-			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-			var string_length = 6;
-			var randomstring = '';
-			for (var i = 0; i < string_length; i++) {
-				var rnum = Math.floor(Math.random() * chars.length);
-				randomstring += chars.substring(rnum, rnum + 1);
-			}
-			return randomstring;
-		}
-	</script>
+	
+	<script src="${pageContext.request.contextPath }/resources/qna/qna.js"></script>
+	
 	<div id="container">
 		<jsp:include page="qnaside.jsp" />
 		<div id="content">
 			<jsp:include page="qnaContentTitle.jsp" />
-			<form action="${pageContext.request.contextPath }/qna/qnaContent" method="post">
+			<form action="${pageContext.request.contextPath }/qna/qnaContent" method="post" id="f">
 				<div id="qna_page">
 					<div id="qna_content">
 						<h2>
@@ -156,13 +39,13 @@
 								<td class="td"><img
 									src="${pageContext.request.contextPath }/resources/images/arrow.gif">
 									제목</td>
-								<td><input type="text" id="title"></td>
+								<td><input type="text" id="title" name="title"></td>
 							</tr>
 							<tr>
 								<td class="td"><img
 									src="${pageContext.request.contextPath }/resources/images/arrow.gif">
 									문의 내용</td>
-								<td><textarea></textarea></td>
+								<td><textarea id="con"></textarea></td>
 							</tr>
 							<tr>
 								<td class="td">첨부파일</td>
@@ -180,14 +63,14 @@
 								<td class="td"><img
 									src="${pageContext.request.contextPath }/resources/images/arrow.gif">
 									이름</td>
-								<td><input type="text" id="name"></td>
+								<td><input type="text" id="name" name="writer"></td>
 							</tr>
 							<tr>
 								<td class="td"><img
 									src="${pageContext.request.contextPath }/resources/images/arrow.gif">
 									이메일</td>
-								<td><input type="text" id="email1">@<input
-									type="text" id="email2"> <select id="eselect">
+								<td><input type="text" id="email1" name="email1">@<input
+									type="text" id="email2" name="email2"> <select id="eselect">
 										<option value="">직접입력</option>
 										<option value="naver.com">naver.com</option>
 										<option value="gmail.com">gmail.com</option>
@@ -208,7 +91,7 @@
 								<td class="td"><img
 									src="${pageContext.request.contextPath }/resources/images/arrow.gif">
 									비밀번호 설정</td>
-								<td><input type="password" id="pw"></td>
+								<td><input type="password" id="pw" name="pw"></td>
 							</tr>
 							<tr>
 								<td class="td"><img
@@ -255,6 +138,9 @@
 					</div>
 
 				</div>
+				<input type="hidden" name="imgpath" id="imgpath">
+				<input type="hidden" name="email" id="email">
+				<input type="hidden" name="content" id="c1">
 			</form>
 			<input type="file" name="fileList" multiple="multiple" id="fileList"
 				style="display: none;">
@@ -295,10 +181,9 @@
 
 				</div>
 				<div class="modal-footer">
-					<input type="submit" class="btn btn-success" value="업로드"
-						onclick="submitBtn()">
-					<button type="button" class="btn btn-default" data-dismiss="modal"
-						id="close">닫기</button>
+					<input type="submit" class="btn btn-success"  data-dismiss="modal" value="확인" id="close">
+					<!-- <button type="button" class="btn btn-default" data-dismiss="modal"
+						id="cancelBtn">취소</button> -->
 				</div>
 
 			</div>

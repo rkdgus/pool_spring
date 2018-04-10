@@ -115,4 +115,32 @@ public class ClassBoardController {
 		}
 		return entity;
 	}
+	@RequestMapping(value="/insert", method=RequestMethod.POST)	
+	public String getInsert(List<MultipartFile> fileList,String[] name,ClassBoardVO vo){
+		File dirPath = new File(outUploadPath);
+		String imgpath = "";
+		for(MultipartFile m : fileList){
+			logger.info(m.getOriginalFilename()+"");
+		}
+		if (!dirPath.exists()) {
+			dirPath.mkdirs();
+		}
+		
+		for(int i = 0; i<fileList.size();i++){
+			UUID uid = UUID.randomUUID();// 중복방지를 위하여 랜덤값 생성
+			String fileName = fileList.get(i).getOriginalFilename();
+			String type = "."+fileName.substring(fileName.lastIndexOf(".")+1,fileName.length()); 
+			String savedName = uid.toString() + "_" + name[i]+type;
+			File target = new File(outUploadPath, savedName);
+			try {
+				FileCopyUtils.copy(fileList.get(i).getBytes(), target);
+				imgpath += outUploadPath+savedName;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		vo.setImgpath(imgpath);
+		service.create(vo);
+		return "";
+	}
 }

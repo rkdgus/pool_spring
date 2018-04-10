@@ -14,8 +14,7 @@
 		
 			<img src="${pageContext.request.contextPath }/resources/images/homeIcon.png" alt="홈">
 				home &gt; 
-				멤버십 &gt;
-			<span>로그인</span>
+				클래스 게시판
 		</p>
 	</div>
 </body>

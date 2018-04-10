@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,131 +18,15 @@
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
-	<script>
-		var index = 1;
-		var filesArr = {};
-		var previewIndex = 0;
-		var deleteIndex = 0;
-		
-		$(function() {
-			$("#eselect").change(function() {
-				$("#email2").val($(this).val());
-			})
 
-			$("#test").text(randomRequire());
+	<script src="${pageContext.request.contextPath }/resources/qna/qna.js"></script>
 
-			$("#fileUpload").click(function() {
-				$("#fileList").trigger("click");
-			})
-			
-			$("#qnaInsert").click(function(e){
-				e.preventDefault();
-				if(!$("#check").is(":checked")){
-					alert("개인정보 수집 및 이용에 동의해 주세요.");
-					return;
-				}
-				$("#f").submit();
-			})
-
-			$(document)
-					.on(
-							"change",
-							"#fileList",
-							function() {
-
-								$("#preview_t").find("tr").not("#basic")
-										.remove();
-								var file = document.getElementById("fileList");
-
-								var reader = new FileReader();
-								reader.onload = function(e) {
-									var imgNum = previewIndex++;
-									var f = file.files[index-1];
-									
-									$("#preview_t")
-											.append(
-													"<tr><td><input type='checkbox' class='delcheck'></td>"
-															+ "<td><img src='"+e.target.result+"' class='imgs'></td>");
-								
-									filesArr[imgNum] = f;
-								};
-
-								reader.readAsDataURL(file.files[0]);
-
-								reader.onloadend = function(e) {
-									if (index >= file.files.length) {
-										index = 1;
-										return;
-									}
-									reader.readAsDataURL(file.files[index]);
-									index += 1;
-
-								}
-							})
-
-			var size = $(".c").length;
-			$("#count").text(" " + size + "개가 선택 되었습니다.");
-		})
-
-		function submitBtn() {
-			var formData = new FormData();
-			//var size = $("input[name='name']").length; 
-			//delete files[i]
-			alert(Object.keys(filesArr).length);
-			for (var i = 0; i < Object.keys(filesArr).length + deleteIndex; i++) {
-				
-				formData.append("fileList",filesArr[i]);
-			}
-			
-			$.ajax({
-				url : "upload",
-				data : formData,
-				type : "post",
-				processData : false,
-				contentType : false,
-				dataType : "json",
-				success : function(result) {
-					console.log(result);
-					if (result.length != 0) {
-						$("#count").text(result.length + "개 선택하였습니다.");
-						$("#close").trigger("click");
-						for (var i = 0; i < result.length; i++) {
-							$("#imgpath").val(
-									$("#imgpath").val() + result[i] + ",");
-						}
-					}
-				}
-			})
-		}
-		
-		function fileDelete(){
-			$(".delcheck").each(function(i,obj) {
-				if($(obj).is(":checked")){
-					var imgNum = $(obj).closest("tr").find(".hiddenSpan").text();
-					console.log(imgNum);
-					delete filesArr[imgNum];
-					deleteIndex++;
-					$(obj).closest("tr").remove();                   
-				}
-			})
-		}
-		
-		function randomRequire() {
-			var chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz";
-			var string_length = 6;
-			var randomstring = '';
-			for (var i = 0; i < string_length; i++) {
-				var rnum = Math.floor(Math.random() * chars.length);
-				randomstring += chars.substring(rnum, rnum + 1);
-			}
-			return randomstring;
-		}
-	</script>
 	<div id="container">
 		<jsp:include page="qnaside.jsp" />
 		<div id="content">
 			<jsp:include page="qnaContentTitle.jsp" />
-			<form action="${pageContext.request.contextPath }/qna/qnaContent" method="post">
+			<form action="${pageContext.request.contextPath }/qna/qnaContent"
+				method="post" id="f">
 				<div id="qna_page">
 					<div id="qna_content">
 						<h2>
@@ -156,13 +41,13 @@
 								<td class="td"><img
 									src="${pageContext.request.contextPath }/resources/images/arrow.gif">
 									제목</td>
-								<td><input type="text" id="title"></td>
+								<td><input type="text" id="title" name="title"></td>
 							</tr>
 							<tr>
 								<td class="td"><img
 									src="${pageContext.request.contextPath }/resources/images/arrow.gif">
 									문의 내용</td>
-								<td><textarea></textarea></td>
+								<td><textarea id="con"></textarea></td>
 							</tr>
 							<tr>
 								<td class="td">첨부파일</td>
@@ -180,14 +65,16 @@
 								<td class="td"><img
 									src="${pageContext.request.contextPath }/resources/images/arrow.gif">
 									이름</td>
-								<td><input type="text" id="name"></td>
+								<td><input type="text" id="name" name="writer"></td>
 							</tr>
 							<tr>
+
 								<td class="td"><img
 									src="${pageContext.request.contextPath }/resources/images/arrow.gif">
 									이메일</td>
-								<td><input type="text" id="email1">@<input
-									type="text" id="email2"> <select id="eselect">
+								<td><input type="text" id="email1" name="email1">@<input
+									type="text" id="email2" name="email2"> <select
+									id="eselect">
 										<option value="">직접입력</option>
 										<option value="naver.com">naver.com</option>
 										<option value="gmail.com">gmail.com</option>
@@ -197,6 +84,17 @@
 							</tr>
 
 						</table>
+						
+						<c:if test="${login.title=='회원' &&login !=null }">
+							<script>
+								$("#name").val("${login.name}").attr("readonly","readonly");
+								var email = "${login.email}";
+								
+								$("#email1").val(email.substring(0, email.indexOf("@"))).attr("readonly","readonly");
+								$("#email2").val(email.substr(email.indexOf("@")+1)).attr("readonly","readonly");
+								
+							</script>
+						</c:if>
 					</div>
 					<div id="pw_info">
 						<h2>
@@ -208,7 +106,7 @@
 								<td class="td"><img
 									src="${pageContext.request.contextPath }/resources/images/arrow.gif">
 									비밀번호 설정</td>
-								<td><input type="password" id="pw"></td>
+								<td><input type="password" id="pw" name="pw"></td>
 							</tr>
 							<tr>
 								<td class="td"><img
@@ -228,33 +126,32 @@
 						<div id="check_content">
 							'대구 아이티 수영장'은 (이하 '회사'는) 고객님의 개인정보를 중요시하며, "정보통신망 이용촉진 및 정보보호"에
 							관한 법률을 준수하고 있습니다. 회사는 개인정보취급방침을 통하여 고객님께서 제공하시는 개인정보가 어떠한 용도와
-							방식으로 이용되고 있으며, 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.<br>
-							<br>
-							<br> ο 본 방침은 : 2018 년 05 월 04 일 부터 시행됩니다.<br>
-							<br>
+							방식으로 이용되고 있으며, 개인정보보호를 위해 어떠한 조치가 취해지고 있는지 알려드립니다.<br> <br>
+							<br> ο 본 방침은 : 2018 년 05 월 04 일 부터 시행됩니다.<br> <br>
 							<br> <span class="f_bold">◆ 수집하는 개인정보의 항목</span><br>
 							회사는 회원가입, 상담, 서비스 신청 등등을 위해 아래와 같은 개인정보를 수집하고 있습니다.<br> ο
 							수집항목 : 이름, 아이디, 비밀번호, 자택 전화번호, 휴대전화번호, 이메일, 서비스이용기록, 쿠키, 접속IP정보<br>
-							ο 개인정보 수집방법 : 홈페이지(회원가입, 고객게시판 등), 제휴사로부터의 제공<br>
-							<br>
+							ο 개인정보 수집방법 : 홈페이지(회원가입, 고객게시판 등), 제휴사로부터의 제공<br> <br>
 							<br> <span class="f_bold">◆ 개인정보의 수집 및 이용목적</span><br>
 							회사는 수집한 개인정보를 다음의 목적을 위해 활용합니다.<br> ο 서비스 제공에 관한 계약 이행 및 서비스
 							제공에 따른 요금정산<br> &nbsp;콘텐츠 제공, 구매 및 요금 결제, 요금추심<br> ο 회원
 							관리<br> &nbsp;회원제 서비스 이용에 따른 본인확인, 불량회원의 부정 이용 방지와 비인가 사용 방지,
 							가입 의사 확인,<br> &nbsp; 불만처리 등 민원처리, 고지사항 전달<br> ο 마케팅 및
 							광고에 활용<br> &nbsp;신규 서비스(제품) 개발 및 특화, 이벤트 등 광고성 정보 전달<br>
-							<br>
-							<br> <span class="f_bold">◆ 개인정보의 보유 및 이용기간</span><br>
+							<br> <br> <span class="f_bold">◆ 개인정보의 보유 및 이용기간</span><br>
 							회사는 개인정보 수집 및 이용목적이 달성된 후에는 예외 없이 해당 정보를 지체 없이 파기합니다.<br> 단,
 							관계법령의 규정에 의하여 보존할 필요가 있는 경우 회사는 관계법령이 정한 일정한 기간 동안 회원정보를 보관합니다.<br>
 						</div>
 						<p>
-							<input type="checkbox" id="check">위의 '<span class="f_bold">개인정보
-								수집 및 이용</span>'에 동의합니다.
+							<input type="checkbox" id="check">위의 '<span
+								class="f_bold">개인정보 수집 및 이용</span>'에 동의합니다.
 						</p>
 					</div>
 
 				</div>
+				<input type="hidden" name="imgpath" id="imgpath"> <input
+					type="hidden" name="email" id="email"> <input type="hidden"
+					name="content" id="c1">
 			</form>
 			<input type="file" name="fileList" multiple="multiple" id="fileList"
 				style="display: none;">
@@ -295,10 +192,10 @@
 
 				</div>
 				<div class="modal-footer">
-					<input type="submit" class="btn btn-success" value="업로드"
-						onclick="submitBtn()">
-					<button type="button" class="btn btn-default" data-dismiss="modal"
-						id="close">닫기</button>
+					<input type="submit" class="btn btn-success" data-dismiss="modal"
+						value="확인" id="close">
+					<!-- <button type="button" class="btn btn-default" data-dismiss="modal"
+						id="cancelBtn">취소</button> -->
 				</div>
 
 			</div>

@@ -53,7 +53,7 @@ public class QnaController {
 	      for(int i = 0; i<fileList.size();i++){
 	         UUID uid = UUID.randomUUID();// 중복방지를 위하여 랜덤값 생성
 	         String fileName = fileList.get(i).getOriginalFilename();
-	         String type = "."+fileName.substring(fileName.lastIndexOf(".")+1,fileName.length()); 
+	       //  String type = "."+fileName.substring(fileName.lastIndexOf(".")+1,fileName.length()); 
 	         String savedName = uid.toString() + "_"+ fileName ;
 	         File target = new File(outUploadPath, savedName);
 	         try {
@@ -66,7 +66,7 @@ public class QnaController {
 	      if(nameList.size() !=0){
 	         entity = new ResponseEntity<List<String>>(nameList,HttpStatus.OK);
 	      }else{
-	         entity = new ResponseEntity<List<String>>(HttpStatus.OK);
+	         entity = new ResponseEntity<List<String>>(nameList,HttpStatus.OK);
 	      }
 	      return entity;
 	   }

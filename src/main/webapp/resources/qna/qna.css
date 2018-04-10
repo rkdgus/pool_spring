@@ -32,16 +32,16 @@
 		padding: 5px 10px;
 	}
 	textarea{
-		width:540px;
+		width:570px;
 		height:200px;
 		resize:none;
 		margin-top: 10px;
 	}
 	#qna_page table td #title{
-		width: 540px;
+		width: 570px;
 	}
 	#qna_page table td input{
-		width:200px;
+		width:150px;
 		height:25px;
 	}
 	.f_bold{
@@ -50,21 +50,24 @@
 	#check_content{
 		margin-top:10px;
 		width:100%;
-		height:150px;
+		height:120px;
 		overflow-y: scroll;
 		background-color: #f0f0f0;
 		border:1px solid #f0f0f0;
 		padding-left:10px;
-		padding-top:5px;
+		padding-bottom:10px;
+		padding-top:10px;
 		font-size: 13px;
+		color:#9a9a9a;
 	}
 	#check_info p{
 		font-size: 13px;
 		text-align: center;
+		margin-top: 5px;
 	}
 	button{
-		margin-top:5px;
 		height:30px;
+		vertical-align:middle !important;
 		border: 1px solid #5c5c5c;
 		background:#fff;
 		border-radius:2px;
@@ -80,3 +83,72 @@
 		margin-top:30px;
 		text-align: center;
 	}
+	
+	
+	#preview {
+	width: 100%;
+	margin-top: 10px;
+}
+
+#preview_t {
+	width: 100%;
+}
+
+#preview_t tr {
+	height: 30px;
+	border-bottom: 1px solid #ccc;
+}
+
+#preview_t th {
+	vertical-align: middle !important;
+	background: #333333;
+	color: #ccc;
+	text-align: center;
+}
+
+#preview_t, #preview_t th, #preview_t td, #preview_t tr {
+	border: 1px solid #ccc;
+	border-collapse: collapse;
+}
+
+#preview_t td {
+	color: #9a9a9a;
+	text-align: center;
+	height: 100px;
+	vertical-align: middle !important;
+}
+
+.imgs {
+	max-width: 100%;
+	max-height: 250px;
+}
+#count{
+	font-size: 13px;
+}
+#eselect{
+	width:100px;
+	font-size: 13px;
+	height:25px;
+}
+#eselect option{
+	font-size: 13px;
+}
+input,textarea{
+	font-size: 13px;
+}
+#pw_info{
+	margin-top: 10px;
+}
+#qna_content h2{
+	float: left;
+}
+#require{
+	float: right;
+	margin-bottom: 10px;
+}
+#test{
+	cursor: pointer;
+	font-weight: bold;
+	font-style: italic;
+	margin-right: 10px;
+}

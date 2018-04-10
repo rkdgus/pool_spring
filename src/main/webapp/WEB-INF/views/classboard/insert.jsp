@@ -181,8 +181,12 @@
 					<tr>
 						<td>이미지</td>
 						<td><input type="button" value="이미지추가" class="btn_admin"
-							data-toggle="modal" data-target="#modal" id="add"> <span
-							id="imgText"></span> <input type="hidden" name="imgpath">
+							data-toggle="modal" data-target="#modal" id="add">
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="button" value="취소"
+							id="cencelBtn"> <input type="submit" value="전송">
 						</td>
 					</tr>
 				</table>

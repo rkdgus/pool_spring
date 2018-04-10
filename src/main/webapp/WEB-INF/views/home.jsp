@@ -232,7 +232,7 @@ div#header {
 	<div id="header">
 		<jsp:include page="include/nav.jsp" />
 		<img
-			src="${pageContext.request.contextPath}/resources/images/main3.jpg"
+			src="${pageContext.request.contextPath}/resources/images/main.jpg"
 			id="main_img">
 		<div class="event_ul">
 			<h2>공지사항</h2>

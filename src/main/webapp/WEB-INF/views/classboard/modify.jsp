@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>대구 아이티 수영장 - 반별게시판</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
@@ -14,70 +15,66 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
-#content #insert_f {
+#content #update_f {
 	width: 100%;
 	border-top: 2px solid #333333;
 }
 
-#content #insert_f table {
+#content #update_f table {
 	width: 100%;
 	border: 1px solid #d7d7d7;
 }
 
-#content #insert_f table td {
+#content #update_f table td {
 	padding: 5px;
 }
 
-#content #insert_f table td input {
+#content #update_f table td input {
 	border: 1px solid #d7d7d7;
 	width: 95%;
 }
-
-#content #insert_f table td:FIRST-CHILD {
-	padding-left: 20px;
-	width: 200px;
+#content #update_f table td:FIRST-CHILD{
+	padding-left:20px;
+	width:200px;
 }
 
-#content #insert_f table td textarea {
-	width: 95%;
+#content #update_f table td textarea {
+	width: 98%;
 	height: 200px;
 	resize: none;
 	border: 1px solid #d7d7d7;
 }
 
-#content #insert_f table tr {
+#content #update_f table tr {
 	border-bottom: 1px solid #d7d7d7;
 }
 
-#content #insert_f table tr td:FIRST-CHILD {
+#content #update_f table tr td:FIRST-CHILD {
 	background: #ebebeb;
 }
-
-#btnWrap {
+#btnWrap{
 	background: none;
-	border: none;
-	margin-top: 10px;
-	text-align: right;
+	border:none;
+	margin-top:10px;
+	text-align:right;
 }
-
-#insert_select {
-	width: 120px;
+#update_select{
+	width:120px;
 }
-
-#btnWrap input {
-	width: 130px;
-	margin-top: 5px;
-	height: 30px;
-	border: 1px solid #5c5c5c;
-	background: #fff;
-	border-radius: 2px;
-	outline: none;
-	font-size: 13px;
-	padding-left: 15px;
-	padding-right: 15px;
-	cursor: pointer;
-	font-weight: 600;
-	color: black;
+#btnWrap input{
+	width:130px;
+    margin-top: 5px;
+    height: 30px;
+    border: 1px solid #5c5c5c;
+    background: #fff;
+    border-radius: 2px;
+    outline: none;
+    font-size: 13px;
+    padding-left: 15px;
+    padding-right: 15px;
+    cursor: pointer;
+    font-weight: 600;
+    color: black;
 }
 
 .galleyTable, .galleyTable th, .galleyTable td, .galleyTable tr {
@@ -122,6 +119,7 @@
 
 #add {
 	width: 120px !important;
+	
 	height: 30px;
 	border: 1px solid #5c5c5c;
 	background: #fff;
@@ -134,23 +132,41 @@
 	font-weight: 600;
 	color: black;
 }
-
-.hiddenSpan {
+.hiddenSpan{
 	display: none;
 }
-
 #content h2 {
-	font-weight: bold;
-	font-size: 13px;
-	margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 13px;
+    margin-bottom: 8px;
+    
 }
-
-#insert_f table {
-	font-size: 13px !important;
+#update_f table{
+	font-size:13px !important;
 }
-
-#ver {
+.ver{
 	vertical-align: top;
+}
+.imgs{
+		min-width: 200px;
+		min-height: 100px;
+		max-width: 98%;
+		max-height: 300px;
+	}
+.imgBox{
+	position: relative;
+	width:100%;
+	border:1px solid black;
+	padding: 5px;
+}
+.imgBox button{
+	position: absolute;
+	top:3px;
+	right:3px;
+	color:#ccc;
+	border: 1px solid #5c5c5c;
+    background: #fff;
+    border-radius: 2px;
 }
 </style>
 </head>
@@ -161,41 +177,62 @@
 		<div id="content">
 			<jsp:include page="contentTitle.jsp" />
 			<h2>
-				<span class="mark22">■</span> 글쓰기
+				<span class="mark22">■</span> 글수정
 			</h2>
-			<form id="insert_f" action="insert" method="post">
+			<form id="update_f" action="update" method="post">
+				<input type="hidden" id="deleteImg">
 				<table>
 					<tr>
 						<td>작성자</td>
-						<td><input type="text" name="id"></td>
+						<td><input type="text" name="id" value="${vo.id }" readonly="readonly"></td>
 					</tr>
 					<tr>
 						<td>반</td>
-						<td><select name="cno" id="insert_select">
+						<td>
+							<select name="cno" id="update_select">
 								<option value="선택">선택</option>
 								<c:forEach var="item" items="${classList }">
 									<option value="${item.cno }">${item.time }/
 										${item.level }</option>
 								</c:forEach>
-						</select></td>
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<td>제목</td>
-						<td><input type="text" name="title" id="insert_title"></td>
+						<td><input type="text" name="title" id="update_title" value="${vo.title }"></td>
 					</tr>
 					<tr>
-						<td id="ver">내용</td>
-						<td><textarea name="content" id="insert_content"></textarea></td>
+						<td class="ver">첨부된 이미지</td>
+						<td>
+							
+							<div id="imgWrap">
+								<c:forEach var="img" items="${imgArr }">
+									<div class="imgBox">
+										<img src="displayFile?filename=${img}" class="imgs" data-src="${img }">
+										<button onclick="deleteImg1(this)" type="button">삭제</button>
+									</div>
+								</c:forEach>
+							</div>
+							
+						</td>
+					</tr>
+					<tr>
+						<td class="ver">내용</td>
+						<td>
+							<textarea name="content" id="update_content">${vo.content }</textarea>
+						</td>
 					</tr>
 					<tr>
 						<td>이미지</td>
 						<td><input type="button" value="이미지추가" class="btn_admin"
-							data-toggle="modal" data-target="#modal" id="add"></td>
+							data-toggle="modal" data-target="#modal" id="add">
+						</td>
 					</tr>
 				</table>
 				<div id="btnWrap">
-					<input type="button" value="취소" id="cencelBtn"> <input
-						type="button" value="전송" onclick="submitBtn()">
+					<input type="button" value="취소" id="cencelBtn">  
+					<input type="button" value="수정" onclick="submitBtn()">
 				</div>
 			</form>
 		</div>
@@ -233,44 +270,43 @@
 
 		</div>
 	</div>
-	<script type="text/javascript">
+</body>
+<script type="text/javascript">
 		var index = 1;
 		var filesArr = {};
 		var previewIndex = 0;
 		var deleteIndex = 0;
-
+		
 		$(function() {
-			$("#allCheck").change(function() {
-				if ($("#allCheck").is(":checked")) {
-					$(".delcheck").attr("checked", "checked");
-				} else {
-					$(".delcheck").removeAttr("checked");
-				}
-			})
+			$("#allCheck").change(function(){
+		          if($("#allCheck").is(":checked")){
+		             $(".delcheck").attr("checked","checked");
+		          }else{
+		             $(".delcheck").removeAttr("checked");
+		          }
+		       })
 			$(document)
 					.on(
 							"change",
 							"#fileList",
 							function() {
 								$("#modal_table td").parent("tr").remove();
-								var file = document.getElementById("fileList");
+								var file = document.getElementById("fileList");	
 								var reader = new FileReader();
-
-								reader.onload = function(e) {
-									var imgNum = previewIndex++;
-									var f = file.files[index - 1];
-
-									$("#modal_table")
-											.append(
-													"<tr><td><input type='checkbox' class='delcheck'></td>"
-															+ "<td><input type='text' name='name'></td>"
-															+ "<td><img src='"+e.target.result+"' class='imgs'><span class='hiddenSpan'>"
-															+ imgNum
-															+ "</span></td>"
-															+ "</tr>");
-
-									filesArr[imgNum] = f;
-								};
+										
+									reader.onload = function(e) {
+										var imgNum = previewIndex++;
+										var f = file.files[index-1];
+										
+										$("#modal_table")
+												.append(
+														"<tr><td><input type='checkbox' class='delcheck'></td>"
+																+ "<td><input type='text' name='name'></td>"
+																+ "<td><img src='"+e.target.result+"' class='imgs'><span class='hiddenSpan'>"+imgNum+"</span></td>"
+																+ "</tr>");
+											
+										filesArr[imgNum] = f;
+									};
 								reader.readAsDataURL(file.files[0]);
 
 								reader.onloadend = function(e) {
@@ -284,71 +320,75 @@
 							});
 		})
 		function fileUpload() {
-			console.log("fileUpload");
+			console.log("fileUpload");	
 			filesArr = {};
 			$("#fileList").trigger('click');
 		}
-
+		
 		function submitBtn() {
 			var formData = new FormData();
 
 			for (var i = 0; i < Object.keys(filesArr).length + deleteIndex; i++) {
-				formData.append("fileList", filesArr[i]);
+				formData.append("fileList",filesArr[i]);
 				formData.append("name", $("input[name='name']").eq(i).val());
 			}
 			var id = $("input[name='id']").val();
 			var cno = $("#insert_select").val();
 			var title = $("input[name='title']").val();
-			var c = $("#insert_content").val();
+			var c =  $("#insert_content").val();
 			var content = c.replace(/(?:\r\n|\r|\n)/g, '<br />');
-
-			if (id == "") {
+			
+			if(id ==""){
 				alert("아이디를 입력해주세요");
 				return false;
-			} else if (cno == "선택") {
+			}else if(cno =="선택"){
 				alert("반을 선택해주세요");
 				return false;
-			} else if (title == "") {
+			}else if(title==""){
 				alert("제목을 입력해주세요");
 				return false;
-			} else if (content == "") {
+			}else if(content ==""){
 				alert("내용을 입력해주세요");
 				return false;
 			}
-
-			formData.append("cno", cno);
-			formData.append("id", id);
-			formData.append("title", title);
-			formData.append("content", content);
+			
+			formData.append("cno",cno);
+			formData.append("id",id);
+			formData.append("title",title);
+			formData.append("content",content);
 			$.ajax({
 				url : "insert",
 				data : formData,
 				type : "post",
 				processData : false,
 				contentType : false,
-				dataType : "text",
+				dataType : "text", 
 				success : function(result) {
 					alert("글 작성에 성공하였습니다.");
-					location.href = "classboard?cno=" + cno;
+					location.href="classboard?cno="+cno;
 				}
 			})
 		}
-		function fileDelete() {
-			$(".delcheck").each(
-					function(i, obj) {
-						if ($(obj).is(":checked")) {
-							var imgNum = $(obj).closest("tr").find(
-									".hiddenSpan").text();
-							console.log(imgNum);
-							delete filesArr[imgNum];
-							deleteIndex++;
-							$(obj).closest("tr").remove();
-						}
-					})
+		function fileDelete(){
+			$(".delcheck").each(function(i,obj) {
+				if($(obj).is(":checked")){
+					var imgNum = $(obj).closest("tr").find(".hiddenSpan").text();
+					console.log(imgNum);
+					delete filesArr[imgNum];
+					deleteIndex++;
+					$(obj).closest("tr").remove();                   
+				}
+			})
 		}
-		function modalset() {
+		function modalset(){
 			$("#close").trigger("click");
 		}
+		function deleteImg1(obj){
+			$(obj).parent().remove();
+			var del = $("#deleteImg").val() + $(obj).parent().find("img").attr("data-src")+",";
+			
+			$("#deleteImg").val(del);
+			alert($("#deleteImg").val());
+		}
 	</script>
-</body>
 </html>

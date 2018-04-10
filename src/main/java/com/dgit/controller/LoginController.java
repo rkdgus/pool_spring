@@ -88,7 +88,6 @@ public class LoginController {
 			e.printStackTrace();
 			entity = new ResponseEntity<MemberVO>(HttpStatus.BAD_REQUEST);
 		}
-		
 		return entity;
 	}
 	

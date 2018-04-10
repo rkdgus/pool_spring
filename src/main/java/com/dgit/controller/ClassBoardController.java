@@ -1,17 +1,22 @@
 package com.dgit.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,6 +33,7 @@ import com.dgit.domain.ClassVO;
 import com.dgit.domain.PageMaker;
 import com.dgit.domain.SearchCriteria;
 import com.dgit.service.ClassBoardService;
+import com.dgit.util.MediaUtils;
 
 @Controller
 @RequestMapping("/classboard/*")
@@ -49,7 +55,7 @@ public class ClassBoardController {
 		PageMaker pageMaker = new PageMaker();
 		 
 		pageMaker.setCri(cri);
-		int totalcount = service.count(1);
+		int totalcount = service.count(2);
 		pageMaker.setTotalCount(totalcount);
 		logger.info(pageMaker.getStartPage()+"");
 		logger.info(pageMaker.getEndPage()+"");
@@ -63,6 +69,10 @@ public class ClassBoardController {
 		logger.info("=================read Get====================");
 		classList(model);
 		ClassBoardVO vo = service.read(bno);
+		if(vo.getImgpath() !=null){
+			String[] imgArr = vo.getImgpath().split(",");
+			model.addAttribute("imgArr",imgArr);
+		}
 		model.addAttribute("vo",vo);
 		
 	}
@@ -115,13 +125,18 @@ public class ClassBoardController {
 		}
 		return entity;
 	}
+	@ResponseBody
 	@RequestMapping(value="/insert", method=RequestMethod.POST)	
-	public String getInsert(List<MultipartFile> fileList,String[] name,ClassBoardVO vo){
+	public ResponseEntity<String> getInsert(List<MultipartFile> fileList,String[] name,ClassBoardVO vo){
+		logger.info(vo.toString());
+		ResponseEntity<String> entity = null;
 		File dirPath = new File(outUploadPath);
 		String imgpath = "";
+		
 		for(MultipartFile m : fileList){
 			logger.info(m.getOriginalFilename()+"");
 		}
+		
 		if (!dirPath.exists()) {
 			dirPath.mkdirs();
 		}
@@ -134,13 +149,50 @@ public class ClassBoardController {
 			File target = new File(outUploadPath, savedName);
 			try {
 				FileCopyUtils.copy(fileList.get(i).getBytes(), target);
-				imgpath += outUploadPath+savedName;
+				if((i+1) ==fileList.size()){
+					imgpath += outUploadPath+savedName;
+				}else{
+					imgpath += outUploadPath+savedName+",";
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 		vo.setImgpath(imgpath);
 		service.create(vo);
-		return "";
+		entity = new ResponseEntity<String>("success",HttpStatus.OK);
+		return entity;
+	}
+	@RequestMapping(value="/modify", method=RequestMethod.GET)	
+	public void getModify(int bno,Model model){
+		logger.info("--get modify---");
+		ClassBoardVO vo = service.read(bno);
+		if(vo.getImgpath() !=null){
+			String[] imgArr = vo.getImgpath().split(",");
+			model.addAttribute("imgArr",imgArr);
+		}
+		model.addAttribute("vo",vo);
+		classList(model);
+	}
+	@RequestMapping(value = "displayFile", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<byte[]> displayFile(String filename) {
+		ResponseEntity<byte[]> entity = null;
+		logger.info("displayFile : " + filename);
+		InputStream in = null;
+		try {
+			String formatName = filename.substring(filename.lastIndexOf(".") + 1);
+			MediaType type = MediaUtils.getMediaType(formatName);
+			HttpHeaders headers = new HttpHeaders();
+			headers.setContentType(type);
+             
+			in = new FileInputStream(filename);                
+
+			entity = new ResponseEntity<>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
+		} catch (Exception e) {
+			// TODO: handle exception               
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;                   
 	}
 }

@@ -5,5 +5,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <div id="header">
 	<jsp:include page="nav.jsp"/>
-	<img src="${pageContext.request.contextPath}/resources/images/s6.jpg" id="main_img">
+	<img src="${pageContext.request.contextPath}/resources/images/headerbg.jpg" id="main_img">
 </div>                            

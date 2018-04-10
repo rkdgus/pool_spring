@@ -47,13 +47,13 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	}
 
 	@Override
-	public int count(int cno) {
-		return dao.countByAll();
+	public void modifyAnswer(QnaBoardVO vo) {
+		dao.answerUpdate(vo);
 	}
 
 	@Override
-	public void modifyAnswer(QnaBoardVO vo) {
-		dao.answerUpdate(vo);
+	public int countByAll() {
+		return dao.countByAll();
 	}
 
 }

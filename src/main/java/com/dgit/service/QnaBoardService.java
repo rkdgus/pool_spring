@@ -10,7 +10,7 @@ public interface QnaBoardService {
 	public void create(QnaBoardVO vo);
 	public void modify(QnaBoardVO vo);
 	public void remove(int bno);
-	public int count(int cno);
+	public int countByAll();
 	public void modifyAnswer(QnaBoardVO vo);
 }
  

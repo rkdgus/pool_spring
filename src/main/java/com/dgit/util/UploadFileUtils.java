@@ -34,7 +34,7 @@ public class UploadFileUtils {
 		}
 		
 	
-		return savedName;
+		return uploadPath+savePath+"/"+savedName;
 	}
 	
 	public static void makeDir(String uploadPath,String... paths){

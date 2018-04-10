@@ -1,10 +1,7 @@
 package com.dgit.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -12,18 +9,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dgit.domain.PageMaker;
 import com.dgit.domain.QnaBoardVO;
+import com.dgit.domain.SearchCriteria;
 import com.dgit.service.QnaBoardService;
 import com.dgit.util.UploadFileUtils;
 
@@ -53,14 +49,14 @@ public class QnaController {
 	      String imgPath = "";
 	      for(int i = 0; i<fileList.size();i++){
 	         
-	         String filePath = outUploadPath+"qna/";
+	         String filePath = outUploadPath+"qna";
 	         
 	         try {
 	        	String savedName =  UploadFileUtils.uploadFile(filePath, fileList.get(i).getOriginalFilename(),fileList.get(i).getBytes());
 	           if((i+1) ==fileList.size()){
-	        	   imgPath += filePath+savedName;
+	        	   imgPath += savedName;
 	           }else{
-	        	   imgPath += filePath+savedName+",";
+	        	   imgPath += savedName+",";
 	           }
 	           
 	           
@@ -85,7 +81,12 @@ public class QnaController {
 		}
 		
 		@RequestMapping(value="/qnaBoard",method=RequestMethod.GET)
-		public void qnaAndAswer(){
-			logger.info("=================qna and answer post====================");
+		public void qnaAndAswer(SearchCriteria cri,Model model){
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(service.countByAll());
+			logger.info("======== qnaBoard get ==========");
+			List<QnaBoardVO> list = service.selectByAll(0);
+			model.addAttribute("list", list);
 		}
 }

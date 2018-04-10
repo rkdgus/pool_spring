@@ -178,12 +178,16 @@ public class ClassBoardController {
 		logger.info("--post modify---");
 		ResponseEntity<String> entity = new ResponseEntity<String>("success",HttpStatus.OK);
 		ClassBoardVO v = service.read(vo.getBno());
-		String imgPath = v.getImgpath();
 		
-		String[] delImg = deleteImg.split(",");
+		String imgPath = "";
+		if(v.getImgpath() !=null){
+			imgPath = v.getImgpath();
+		}
+		
 		logger.info(imgPath);
 		System.gc();
-		if(delImg.length !=0){
+		if(deleteImg !=null){
+			String[] delImg = deleteImg.split(",");
 			for(int i=0; i <delImg.length; i++){
 			File file = new File(delImg[i]);
 				file.delete();
@@ -198,7 +202,9 @@ public class ClassBoardController {
 		
 		logger.info(imgPath);
 		if(fileList.size() > 0){
-			imgPath += ",";
+			if(imgPath.length() !=0){
+				imgPath += ",";
+			}
 			for (int i = 0; i < fileList.size(); i++) {
 				String filePath = outUploadPath + "classboard/"+vo.getCno()+"반";
 				try {

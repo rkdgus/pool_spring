@@ -290,7 +290,7 @@ div#header {
 			</div>
 
 			<div id="click2">
-				<a href="">
+				<a href="${pageContext.request.contextPath}/qna/qna">
 					<h2>온라인 문의</h2>
 					<p>수강내용이나 시간등 궁금하신점을 온라인으로 문의하세요.</p>
 				</a>

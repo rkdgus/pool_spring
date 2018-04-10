@@ -1,5 +1,7 @@
 package com.dgit.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,30 @@ public class TeacherServiceImpl implements TeacherService {
 	@Override
 	public TeacherVO selectTeacher(TeacherVO vo) {
 		return dao.selectTeacher(vo);
+	}
+
+	@Override
+	public List<TeacherVO> selectAll() {
+		// TODO Auto-generated method stub
+		return dao.selectAll();
+	}
+
+	@Override
+	public void update(TeacherVO vo) {
+		// TODO Auto-generated method stub
+		dao.update(vo);
+	}
+
+	@Override
+	public TeacherVO selectNo(int tno) {
+		// TODO Auto-generated method stub
+		return dao.selectNo(tno);
+	}
+
+	@Override
+	public List<TeacherVO> select(String title) {
+		// TODO Auto-generated method stub
+		return dao.select(title);
 	} 
 
 }

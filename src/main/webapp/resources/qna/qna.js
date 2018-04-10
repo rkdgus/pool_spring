@@ -43,7 +43,7 @@ var index = 1;
 					return;
 				}
 				
-				if($("#email1").val()==""||$("#email").val()==""){
+				if($("#email1").val()==""||$("#email2").val()==""){
 					alert("이메일을 올바르게 입력하세요(필수사항입니다)");
 					$("#email1").focus();
 					return;

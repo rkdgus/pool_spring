@@ -81,6 +81,11 @@ public class QnaController {
 			 logger.info("=================qna post====================");
 			 logger.info(vo.toString());
 			 service.create(vo);
-			return "redirect:/";
+			return "redirect:/qna/qnaBoard";
+		}
+		
+		@RequestMapping(value="/qnaBoard",method=RequestMethod.GET)
+		public void qnaAndAswer(){
+			logger.info("=================qna and answer post====================");
 		}
 }

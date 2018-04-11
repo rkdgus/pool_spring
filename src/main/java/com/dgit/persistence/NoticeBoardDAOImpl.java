@@ -44,4 +44,10 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO {
 		return session.selectOne(namespace+".countByAll");
 	}
 
+	@Override
+	public List<NoticeBoardVO> selectByMain() {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".selectByMain");
+	}
+
 }

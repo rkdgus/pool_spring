@@ -71,7 +71,7 @@ public class AdminController {
 	public String galleryPost(List<MultipartFile> fileList, HttpServletRequest request,Model model,String name,String type) {
 		logger.info("=================gallery post====================");
 
-		File dirPath = new File(outUploadPath);
+		File dirPath = new File(outUploadPath+"갤러리");
 		
 		if (!dirPath.exists()) {
 			dirPath.mkdirs();
@@ -87,10 +87,10 @@ public class AdminController {
 		for (MultipartFile file : fileList) {
 			UUID uid = UUID.randomUUID();// 중복방지를 위하여 랜덤값 생성
 			String savedName = uid.toString() + "_" + file.getOriginalFilename();
-			File target = new File(outUploadPath, savedName);
+			File target = new File(outUploadPath+"갤러리", savedName);
 			try {                
 				FileCopyUtils.copy(file.getBytes(), target);
-				arrFile.add(outUploadPath+savedName);
+				arrFile.add(outUploadPath+"갤러리/"+savedName);
 			} catch (IOException e) {
 				e.printStackTrace();                                         
 			}       

@@ -11,7 +11,7 @@
 	<div id="leftArea">
 		<h2>공지</h2>
 		<ul>
-			<li><a href="">공지게시판</a></li>
+			<li><a href="${pageContext.request.contextPath}/event/">공지게시판</a></li>
 			
 
 		</ul>

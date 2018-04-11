@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE>
 <html>
 <head>
@@ -224,8 +225,29 @@ div#header {
 	margin-top: 20px;
 	line-height: 20px;
 }
+.regdate{
+	font-size: 14px;
+	color:#666;     
+	float: right;       
+}      
+.read:hover{
+	color:gray;
+}       
+#plus{
+	float: right; 
+	color:#111;
+	text-decoration: underline;                     
+	font-size: 15px;
+} 
+#plus span{
+	font-weight: bold;
+	font-size: 17px;
+}  
+#plus:hover{
+	color:blue;
+}          
 </style>
-
+            
 </head>
 <body>
 
@@ -236,12 +258,16 @@ div#header {
 			id="main_img">
 		<div class="event_ul">
 			<h2>공지사항</h2>
+			<a id="plus" href=""><span>+</span>더보기</a>            
 			<ul>
-				<li><a href="">4월 휴무안내<span>2018.04.01</span></a></li>
-				<li><a href="">4월 휴무안내<span>2018.04.01</span></a></li>
-				<li><a href="">4월 휴무안내<span>2018.04.01</span></a></li>
-				<li><a href="">4월 휴무안내<span>2018.04.01</span></a></li>
-				<li><a href="">4월 휴무안내<span>2018.04.01</span></a></li>
+				<c:forEach items="${board }" var="item">
+					<li>
+						<a href="event/read?nno=${item.nno }" class="read">${item.title }
+							<span class="regdate"><fmt:formatDate value="${item.regdate }" var="regdate" pattern="yyyy-MM-dd"/>${regdate}</span>
+						</a>
+					</li>
+				</c:forEach>
+
 			</ul>
 		</div>
 

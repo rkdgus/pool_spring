@@ -111,7 +111,10 @@
 	}
 	span#active{
 		background: rgb(235, 235, 235);             
-	}                
+	}   
+	#clickTitle:hover{            
+		color:#9c7097;
+	}             
 </style>                                                 
 </head>             
 <body>
@@ -137,9 +140,9 @@
 					<c:if test="${lists !=null }">
 						<c:forEach var="item" items="${lists }">
 							<tr>
-								<td>${item.bno }</td>
-								<td class="title"><a href="read?bno=${item.bno }">${item.title }</a></td>
-								<td>${item.id }</td>
+								<td>${item.nno }</td>
+								<td class="title"><a href="read?nno=${item.nno }" id="clickTitle">${item.title }</a></td>
+								<td>관리자</td>
 								<td>${item.readcnt }</td>
 								<fmt:formatDate value="${item.regdate }" var="regdate" pattern="yyyy-MM-dd"/>
 								<td>${regdate }</td>
@@ -150,13 +153,13 @@
 						<td colspan="5">
 							<div id="paging">
 								<c:if test="${pageMaker.prev}">
-									<a href="classboard?page=${pageMaker.startPage-1 }"><span class="paginBtn">&laquo;</span></a>
+									<a href="?page=${pageMaker.startPage-1 }"><span class="paginBtn">&laquo;</span></a>
 								</c:if>
 								<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-									<a href="classboard?page=${idx }"><span  class="pageNum" ${pageMaker.cri.page == idx? 'id=active' : ''}>${idx }</span></a>
+									<a href="?page=${idx }"><span  class="pageNum" ${pageMaker.cri.page == idx? 'id=active' : ''}>${idx }</span></a>
 								</c:forEach>
 								<c:if test="${pageMaker.next}">
-									<a href="classboard?page=${pageMaker.endPage+1}"><span class="paginBtn">&raquo;</span></a>
+									<a href="?page=${pageMaker.endPage+1}"><span class="paginBtn">&raquo;</span></a>
 								</c:if>
 							</div>
 						</td>
@@ -168,8 +171,6 @@
 								<label for="smode_subject">제목+본문</label>
 								<input id="smode_author" name="smode" type="radio" value="title">
 								<label for="smode_author">제목</label>
-								<input id="search_writer" type="radio" name="smode" value="writer">
-								<label for="search_writer">작성자</label>
 								<img src="${pageContext.request.contextPath}/resources/img/search_img.png" class="search_img" id="search_img">
 								<input type="text" name="search">
 								<img src="${pageContext.request.contextPath}/resources/img/btn_search.gif" class="search_img" id="submit_img">							</form>

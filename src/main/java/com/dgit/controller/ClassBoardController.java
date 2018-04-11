@@ -51,7 +51,7 @@ public class ClassBoardController {
 	@RequestMapping(value="classboard")
 	public void getClassboard(@RequestParam(value="cno", defaultValue="0") int cno,SearchCriteria cri,Model model){
 		logger.info(cno+"" + "page" + cri.getPage());
-		List<ClassBoardVO> lists = service.selectByCno(1,cri.getPage()-1);
+		List<ClassBoardVO> lists = service.selectByCno(2,cri.getPage()-1);
 
 		PageMaker pageMaker = new PageMaker();
 		 

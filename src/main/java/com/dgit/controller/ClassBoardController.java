@@ -21,7 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -62,14 +61,22 @@ public class ClassBoardController {
 		logger.info("=================classBoard Get====================");
 	}
 	@RequestMapping(value="/read", method=RequestMethod.GET)
-	public void getRead(SearchCriteria cri,int bno, Model model){
+	public void getRead(SearchCriteria cri,int bno, Model model,String rnt){
 		logger.info("=================read Get====================");
 		classList(model);
+		
 		ClassBoardVO vo = service.read(bno);
 		List<ClassreplyVO> replyList = service.replySelectByBno(bno);
 		if(vo.getImgpath() !=null){
 			String[] imgArr = vo.getImgpath().split(",");
 			model.addAttribute("imgArr",imgArr);
+		}
+		if(rnt !=null){
+			ClassBoardVO vo2 = new ClassBoardVO();
+			vo2.setReadcnt(vo.getReadcnt()+1);
+			vo2.setBno(vo.getBno());
+			service.readCnt(vo2);
+			vo.setReadcnt(vo2.getReadcnt());
 		}
 		makePage(model,cri,vo.getCno());
 		model.addAttribute("replyList",replyList);
@@ -77,8 +84,9 @@ public class ClassBoardController {
 		
 	}
 	@RequestMapping(value="/insert", method=RequestMethod.GET)
-	public void getInsert(Model model){
+	public void getInsert(int cno,Model model){
 		classList(model);
+		model.addAttribute("cno",cno);
 		logger.info("=================insert Get====================");
 	}
 	@RequestMapping(value="/remove")
@@ -154,10 +162,8 @@ public class ClassBoardController {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
 			}
 		}
-		
 		vo.setImgpath(imgpath);
 		service.create(vo);
 		entity = new ResponseEntity<String>("success",HttpStatus.OK);
@@ -268,7 +274,6 @@ public class ClassBoardController {
 		}
 		return entity;
 	}
-
 	@RequestMapping(value = "deleteReply", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<List<ClassreplyVO>> deleteReply(ClassreplyVO vo){
 		logger.info("deleteReply");
@@ -284,7 +289,6 @@ public class ClassBoardController {
 		}
 		return entity;
 	}
-	
 	@RequestMapping(value = "updateReply", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity<List<ClassreplyVO>> updateReply(ClassreplyVO vo){
 		logger.info("updateReply");
@@ -300,12 +304,11 @@ public class ClassBoardController {
 		}
 		return entity;
 	}
-
 	@RequestMapping(value="/login",method=RequestMethod.GET)
-	public String login(int bno){
-		return "redirect:/classboard/read?bno="+bno;
+	public String login(SearchCriteria cri,int bno){
+		logger.info("loginHandler");
+		return "redirect:/classboard/read?bno="+bno+"&page="+cri.getPage()+"&perPageNum="+cri.getPerPageNum()+"&searchType="+cri.getSearchType()+"&keyword="+cri.getKeyword();
 	}
-	
 	private void makePage(Model model,SearchCriteria cri, int cno){
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
@@ -313,5 +316,4 @@ public class ClassBoardController {
 		pageMaker.setTotalCount(totalcount);
 		model.addAttribute("pageMaker",pageMaker);
 	}
-
 }

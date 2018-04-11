@@ -22,7 +22,9 @@
 	height: 30px;
 	border-bottom: 1px solid #ccc;
 }
-
+table{
+		font-size:13px !important;
+	}
 #container #content #read_table table th, #container #content #read_table table td
 	{
 	padding: 5px 0px 5px 10px;
@@ -214,6 +216,7 @@
 	<jsp:include page="../include/footer.jsp" />
 	<script>
 		$(function() {
+			window.scrollBy(0,80);
 			$(document).on("click", ".aimg", function(e) {
 				e.preventDefault();
 			})
@@ -295,7 +298,7 @@
 					.click(
 							function() {
 								if ($(this).val() == "로그인 후 사용 가능합니다.") {
-									location.href = "${pageContext.request.contextPath}/classboard/login?bno=${vo.bno}";
+									location.href = "${pageContext.request.contextPath}/classboard/login${pageMaker.makeSearch(pageMaker.cri.page)}&bno=${vo.bno}";
 								}
 
 							})

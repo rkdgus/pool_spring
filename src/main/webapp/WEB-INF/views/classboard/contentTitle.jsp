@@ -8,13 +8,13 @@
 </head>
 <body>
 	<div id="header_title">
-		<div id="main_title">클래스 게시판</div>
+		<div id="main_title">반별 게시판</div>
 		
 		<p id="con_navi">
 		
 			<img src="${pageContext.request.contextPath }/resources/images/homeIcon.png" alt="홈">
 				home &gt; 
-			<span>클래스 게시판</span>
+			<span>반별 게시판</span>
 		</p>
 	</div>
 </body>

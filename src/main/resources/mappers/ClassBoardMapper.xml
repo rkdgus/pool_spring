@@ -16,6 +16,9 @@
 	<select id="read" resultType="ClassBoardVO">
 		select * from classboard where bno = #{bno}
 	</select>
+	<update id="readCnt">
+		update classboard set readcnt = #{readcnt} where bno = #{bno}
+	</update>
 	<insert id="insert">
 		insert into classboard(cno,id,title,content,imgpath) values(#{cno},#{id},#{title},#{content},#{imgpath})
 	</insert>

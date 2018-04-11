@@ -119,6 +119,15 @@
 	#submit_img{
 		cursor: pointer;	
 	}
+	table{
+		font-size:13px !important;
+	}
+	table tr.list:HOVER {
+		background-color: #d7d7d7;
+	}
+	table tr.list{
+		cursor: pointer;
+	}
 </style>
 </head>
 <body>
@@ -128,7 +137,7 @@
 		<div id="content">
 			<jsp:include page="contentTitle.jsp" />
 			<div id="insert_wrap">
-				<a href="insert" id="insert_btn"><button>글쓰기</button></a>
+				<a href="insert?cno=${cno }" id="insert_btn"><button>글쓰기</button></a>
 			</div>
 			<c:if test="${lists.size()==0}">
 				<img src="${pageContext.request.contextPath }/resources/img/goodgood.jpg">
@@ -145,9 +154,9 @@
 					</tr>
 					<c:if test="${lists !=null }">
 						<c:forEach var="item" items="${lists }">
-							<tr>
+							<tr class="list">
 								<td>${item.bno }</td>
-								<td class="title"><a href="read${pageMaker.makeSearch(pageMaker.cri.page)}&bno=${item.bno }">${item.title }</a></td>
+								<td class="title"><a href="read${pageMaker.makeSearch(pageMaker.cri.page)}&bno=${item.bno }&rnt=yes">${item.title }</a></td>
 								<td>${item.id }</td>
 								<td>${item.readcnt }</td>
 								<fmt:formatDate value="${item.regdate }" var="regdate" pattern="yyyy-MM-dd"/>
@@ -181,20 +190,18 @@
 								<label for="search_writer">작성자</label>
 								<img src="${pageContext.request.contextPath}/resources/img/search_img.png" class="search_img" id="search_img">
 								<input type="text" name="search" >
-								<img src="${pageContext.request.contextPath}/resources/img/btn_search.gif" class="search_img" id="submit_img">							</form>
+								<img src="${pageContext.request.contextPath}/resources/img/btn_search.gif" class="search_img" id="submit_img">							
+							</form>
 						</td>
 					</tr>
 				</table>
 			</div>
 			</c:if>
-			
 		</div>
 	</div>
 	<script type="text/javascript">
 		$(function(){
-			
 			$("#submit_img").click(function(){
-				
 				var searchType = $("input[name='smode']:checked").val();
 				var keyword = $("input[name='search']").val();
 				if(keyword ==""){
@@ -204,6 +211,10 @@
 					location.href="${pageMaker.makeQuery(1)}&searchType="+searchType+"&keyword="+keyword+"&cno=${cno}";
 				}
 			})
+			$(document).on("click",".list",function(){
+				location.href=$(this).find("a").attr("href");
+			})
+			window.scrollBy(0,80);
 		})
 	</script>
 	<jsp:include page="../include/footer.jsp"/>

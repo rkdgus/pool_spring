@@ -23,7 +23,9 @@
 	width: 100%;
 	border: 1px solid #d7d7d7;
 }
-
+table{
+	font-size:13px !important;
+}
 #content #insert_f table td {
 	padding: 5px;
 }
@@ -52,18 +54,15 @@
 #content #insert_f table tr td:FIRST-CHILD {
 	background: #ebebeb;
 }
-
 #btnWrap {
 	background: none;
 	border: none;
 	margin-top: 10px;
 	text-align: right;
 }
-
 #insert_select {
 	width: 120px;
 }
-
 #btnWrap input {
 	width: 130px;
 	margin-top: 5px;
@@ -159,6 +158,7 @@
 	<div id="container">
 		<jsp:include page="side.jsp" />
 		<div id="content">
+			<input type="hidden" value="${cno }" id="cno">
 			<jsp:include page="contentTitle.jsp" />
 			<h2>
 				<span class="mark22">■</span> 글쓰기
@@ -240,7 +240,7 @@
 		var filesArr = {};
 		var previewIndex = 0;
 		var deleteIndex = 0;
-
+		window.scrollBy(0,80);
 		$(function() {
 			$(document).on("click","#close",function(){
 				$("#count").text(" " + Object.keys(filesArr).length + "개가 선택 되었습니다.");
@@ -250,6 +250,12 @@
 					$(".delcheck").attr("checked", "checked");
 				} else {
 					$(".delcheck").removeAttr("checked");
+				}
+			})
+			$("#cencelBtn").click(function(){
+				if(confirm("글 작성을 취소하시겠습니까?")){
+					var cno = $("#cno").val();
+					location.href="classboard?cno="+cno;
 				}
 			})
 			$(document)

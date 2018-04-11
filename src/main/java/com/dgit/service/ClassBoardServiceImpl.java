@@ -83,4 +83,10 @@ public class ClassBoardServiceImpl implements ClassBoardService {
 		return dao.replySelectByBno(bno);
 	}
 
+	@Override
+	public void readCnt(ClassBoardVO vo) {
+		dao.readCnt(vo);
+		
+	}
+
 }

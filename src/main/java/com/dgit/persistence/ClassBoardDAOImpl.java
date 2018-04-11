@@ -79,4 +79,10 @@ public class ClassBoardDAOImpl implements ClassBoardDAO{
 	public List<ClassreplyVO> replySelectByBno(int bno) {
 		return session.selectList(namespace+".replySelectByBno",bno);
 	}
+
+	@Override
+	public void readCnt(ClassBoardVO vo) {
+		session.update(namespace+".readCnt",vo);
+		
+	}
 }

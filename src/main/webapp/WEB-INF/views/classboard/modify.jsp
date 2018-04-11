@@ -19,7 +19,9 @@
 	width: 100%;
 	border-top: 2px solid #333333;
 }
-
+table{
+		font-size:13px !important;
+}
 #content #update_f table {
 	width: 100%;
 	border: 1px solid #d7d7d7;
@@ -275,8 +277,15 @@
 		var deleteIndex = 0;
 		
 		$(function() {
+			window.scrollBy(0,80);
 			$(document).on("click","#close",function(){
 				$("#count").text(" " + Object.keys(filesArr).length + "개가 선택 되었습니다.");
+			})
+			$("#cencelBtn").click(function(){
+				if(confirm("글 작성을 취소하시겠습니까?")){
+	
+					location.href="read${pageMaker.makeSearch(pageMaker.cri.page)}&cno=${cno }&bno="+$("#bno").val();
+				}
 			})
 			$("#update_select").val("${vo.cno}")
 			$("#allCheck").change(function(){

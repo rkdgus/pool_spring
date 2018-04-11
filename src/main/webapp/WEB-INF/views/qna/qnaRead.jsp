@@ -25,7 +25,7 @@
 							$("#pw").val("").focus();
 							return;
 						}else{
-							location.href="qnaReadSuccess?bno=${bno}";
+							location.href="qnaReadSuccess?bno=${bno}&page=${page}";
 						} 
 							
 						
@@ -50,7 +50,7 @@
 			</div>
 			<div id="btnGroup">
 				<a href="#" id="next"><img src="${pageContext.request.contextPath }/resources/images/btn_ok.gif"></a>
-				<a href="${pageContext.request.contextPath }/qna/qnaBoard"><img src="${pageContext.request.contextPath }/resources/images/btn_cancel.gif"></a>
+				<a href="${pageContext.request.contextPath }/qna/qnaBoard?page=${page}"><img src="${pageContext.request.contextPath }/resources/images/btn_cancel.gif"></a>
 			</div>
 		</div>
 	</div>

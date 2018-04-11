@@ -15,11 +15,20 @@ public class QnaBoardVO {
 	private String imgpath;
 	private String email;
 	private String pw;
+	private String id;
+	
 	
 	public QnaBoardVO() {}
 	
 	
-	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -96,16 +105,12 @@ public class QnaBoardVO {
 	}
 
 
-
 	@Override
 	public String toString() {
 		return String.format(
-				"QnaBoardVO [bno=%s, writer=%s, title=%s, content=%s, regdate=%s, updatedate=%s, replycheck=%s, answer=%s, answerdate=%s, imgpath=%s, email=%s, pw=%s]",
-				bno, writer, title, content, regdate, updatedate, replycheck, answer, answerdate, imgpath, email, pw);
+				"QnaBoardVO [bno=%s, writer=%s, title=%s, content=%s, regdate=%s, updatedate=%s, replycheck=%s, answer=%s, answerdate=%s, imgpath=%s, email=%s, pw=%s, id=%s]",
+				bno, writer, title, content, regdate, updatedate, replycheck, answer, answerdate, imgpath, email, pw,
+				id);
 	}
-
-	
-	
-	
 	
 } 

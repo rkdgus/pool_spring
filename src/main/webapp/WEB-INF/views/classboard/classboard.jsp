@@ -9,6 +9,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/common/reset.css">
 <title>대구 아이티 수영장 - 반별게시판</title>
 <style>
+
 	#container{
 		min-height: 400px;
 	}
@@ -115,6 +116,9 @@
 	span#active{
 		background: rgb(235, 235, 235);
 	}
+	#submit_img{
+		cursor: pointer;	
+	}
 </style>
 </head>
 <body>
@@ -126,8 +130,11 @@
 			<div id="insert_wrap">
 				<a href="insert" id="insert_btn"><button>글쓰기</button></a>
 			</div>
-			
-			<div id="classboard_table">
+			<c:if test="${lists.size()==0}">
+				<img src="${pageContext.request.contextPath }/resources/img/goodgood.jpg">
+			</c:if>
+			<c:if test="${lists.size()!=0 }">
+				<div id="classboard_table">
 				<table>
 					<tr>
 						<th width="50">번호</th>
@@ -140,7 +147,7 @@
 						<c:forEach var="item" items="${lists }">
 							<tr>
 								<td>${item.bno }</td>
-								<td class="title"><a href="read?bno=${item.bno }">${item.title }</a></td>
+								<td class="title"><a href="read${pageMaker.makeSearch(pageMaker.cri.page)}&bno=${item.bno }">${item.title }</a></td>
 								<td>${item.id }</td>
 								<td>${item.readcnt }</td>
 								<fmt:formatDate value="${item.regdate }" var="regdate" pattern="yyyy-MM-dd"/>
@@ -152,13 +159,13 @@
 						<td colspan="5">
 							<div id="paging">
 								<c:if test="${pageMaker.prev}">
-									<a href="classboard?page=${pageMaker.startPage-1 }"><span class="paginBtn">&laquo;</span></a>
+									<a href="classboard${pageMaker.makeSearch(pageMaker.startPage-1)}&cno=${cno}"><span class="paginBtn">&laquo;</span></a>
 								</c:if>
 								<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
-									<a href="classboard?page=${idx }"><span  class="pageNum" ${pageMaker.cri.page == idx? 'id=active' : ''}>${idx }</span></a>
+									<a href="classboard${pageMaker.makeSearch(idx)}&cno=${cno}"><span  class="pageNum" ${pageMaker.cri.page == idx? 'id=active' : ''}>${idx }</span></a>
 								</c:forEach>
 								<c:if test="${pageMaker.next}">
-									<a href="classboard?page=${pageMaker.endPage+1}"><span class="paginBtn">&raquo;</span></a>
+									<a href="classboard${pageMaker.makeSearch(pageMaker.endPage+1)}&cno=${cno}"><span class="paginBtn">&raquo;</span></a>
 								</c:if>
 							</div>
 						</td>
@@ -179,19 +186,22 @@
 					</tr>
 				</table>
 			</div>
+			</c:if>
+			
 		</div>
 	</div>
 	<script type="text/javascript">
 		$(function(){
+			
 			$("#submit_img").click(function(){
 				
 				var searchType = $("input[name='smode']:checked").val();
 				var keyword = $("input[name='search']").val();
-				if(keyword !=""){
+				if(keyword ==""){
 					alert("키워드를 입력해주세요");
 					return;
 				}else{
-					
+					location.href="${pageMaker.makeQuery(1)}&searchType="+searchType+"&keyword="+keyword+"&cno=${cno}";
 				}
 			})
 		})

@@ -149,8 +149,8 @@
 					</tr>
 					<tr id="btn_tr">
 						<td colspan="4" class="align_right"><a
-							href="classboard?cno=${vo.cno }"><button>목록</button></a> <a
-							href="${pageContext.request.contextPath }/classboard/modify?bno=${vo.bno}" class="notauthority"><button>수정</button></a>
+							href="classboard${pageMaker.makeSearch(pageMaker.cri.page)}&cno=${vo.cno }"><button>목록</button></a> <a
+							href="${pageContext.request.contextPath }/classboard/modify${pageMaker.makeSearch(pageMaker.cri.page)}&cno=${vo.cno }&bno=${vo.bno}" class="notauthority"><button>수정</button></a>
 							<a href="#" class="notauthority"><button id="boardRemoveBtn">삭제</button></a></td>
 					</tr>
 					<tr>
@@ -303,7 +303,7 @@
 					.click(
 							function() {
 								if ($("#loginId").val() == "") {
-									location.href = "${pageContext.request.contextPath}/login/login";
+									location.href = "${pageContext.request.contextPath}/classboard/login?bno=${vo.bno}";
 								} else if ($("#reply_content").val() == "") {
 									alert("내용을 입력해주세요");
 									return;

@@ -30,7 +30,7 @@
 									console.log(result);
 									if(result =="success"){
 										alert("문의내용을 삭제했습니다.");
-										location.href="${pageContext.request.contextPath}/qna/qnaBoard";
+										location.href="${pageContext.request.contextPath}/qna/qnaBoard?page=${page}";
 									}else{
 										alert("삭제 실패");
 										return;
@@ -78,7 +78,7 @@
 						</tr>
 					</table>
 					<div id="btnGroup">
-						<a href="${pageContext.request.contextPath }/qna/qnaBoard"><button>목록</button></a>
+						<a href="${pageContext.request.contextPath }/qna/qnaBoard?page=${page}"><button>목록</button></a>
 						<a href="#" id="remove"><button>삭제</button></a>
 					</div>
 				</div>

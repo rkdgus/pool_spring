@@ -21,6 +21,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -51,23 +52,17 @@ public class ClassBoardController {
 	@RequestMapping(value="classboard")
 	public void getClassboard(@RequestParam(value="cno", defaultValue="0") int cno,SearchCriteria cri,Model model){
 		logger.info(cno+"" + "page" + cri.getPage());
-		List<ClassBoardVO> lists = service.selectByCno(2,cri.getPage()-1);
+		List<ClassBoardVO> lists = service.selectByCno(cno,cri);
 
-		PageMaker pageMaker = new PageMaker();
-		 
-		pageMaker.setCri(cri);
-		int totalcount = service.count(2);
-		pageMaker.setTotalCount(totalcount);
-		logger.info(pageMaker.getStartPage()+"");
-		logger.info(pageMaker.getEndPage()+"");
-		model.addAttribute("pageMaker",pageMaker);
+		makePage(model,cri,cno);
+		model.addAttribute("cno",cno);
 		model.addAttribute("lists",lists);
 		classList(model);
 		
 		logger.info("=================classBoard Get====================");
 	}
 	@RequestMapping(value="/read", method=RequestMethod.GET)
-	public void getRead(int bno, Model model){
+	public void getRead(SearchCriteria cri,int bno, Model model){
 		logger.info("=================read Get====================");
 		classList(model);
 		ClassBoardVO vo = service.read(bno);
@@ -76,9 +71,7 @@ public class ClassBoardController {
 			String[] imgArr = vo.getImgpath().split(",");
 			model.addAttribute("imgArr",imgArr);
 		}
-		for(ClassreplyVO vo2 : replyList){
-			logger.info(vo2.toString());
-		}
+		makePage(model,cri,vo.getCno());
 		model.addAttribute("replyList",replyList);
 		model.addAttribute("vo",vo);
 		
@@ -172,7 +165,7 @@ public class ClassBoardController {
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public void getModify(int bno,Model model){
+	public void getModify(int cno,SearchCriteria cri,int bno,Model model){
 		logger.info("--get modify---");
 		ClassBoardVO vo = service.read(bno);
 		if(vo.getImgpath() !=null){
@@ -180,6 +173,8 @@ public class ClassBoardController {
 			model.addAttribute("imgArr",imgArr);
 		}
 		model.addAttribute("vo",vo);
+		makePage(model,cri,cno);
+		model.addAttribute("cno",cno);
 		classList(model);
 	}
 	@ResponseBody
@@ -309,6 +304,14 @@ public class ClassBoardController {
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String login(int bno){
 		return "redirect:/classboard/read?bno="+bno;
+	}
+	
+	private void makePage(Model model,SearchCriteria cri, int cno){
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		int totalcount = service.count(cno,cri);
+		pageMaker.setTotalCount(totalcount);
+		model.addAttribute("pageMaker",pageMaker);
 	}
 
 }

@@ -16,7 +16,7 @@
 		select * from qnaboard where bno = #{bno} and pw=password(#{pw})
 	</select>
 	<insert id="insert">
-		insert into qnaboard(writer,title,content,imgpath,regdate,email,pw) values(#{writer},#{title},#{content},#{imgpath},now(),#{email},password(#{pw}))
+		insert into qnaboard(writer,title,content,imgpath,regdate,email,pw,id) values(#{writer},#{title},#{content},#{imgpath},now(),#{email},password(#{pw}),#{id})
 	</insert>
 	<update id="update">
 		update qnaboard set title = #{title}, content = #{content} imgpath = #{imgpath} where bno = #{bno}

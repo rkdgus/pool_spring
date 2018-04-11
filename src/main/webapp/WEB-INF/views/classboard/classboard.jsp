@@ -173,7 +173,7 @@
 								<input id="search_writer" type="radio" name="smode" value="writer">
 								<label for="search_writer">작성자</label>
 								<img src="${pageContext.request.contextPath}/resources/img/search_img.png" class="search_img" id="search_img">
-								<input type="text" name="search">
+								<input type="text" name="search" >
 								<img src="${pageContext.request.contextPath}/resources/img/btn_search.gif" class="search_img" id="submit_img">							</form>
 						</td>
 					</tr>
@@ -183,8 +183,14 @@
 	</div>
 	<script type="text/javascript">
 		$(function(){
-			$("#insert_btn").click(function(e){
-				if(${login == null}){
+			$("#submit_img").click(function(){
+				
+				var searchType = $("input[name='smode']:checked").val();
+				var keyword = $("input[name='search']").val();
+				if(keyword !=""){
+					alert("키워드를 입력해주세요");
+					return;
+				}else{
 					
 				}
 			})

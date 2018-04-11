@@ -28,13 +28,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dgit.domain.ClassVO;
 import com.dgit.domain.GalleryVO;
 import com.dgit.domain.MemberVO;
 import com.dgit.domain.PageMaker;
+import com.dgit.domain.RegisterVO;
 import com.dgit.domain.SearchCriteria;
 import com.dgit.domain.TeacherVO;
+import com.dgit.service.ClassService;
 import com.dgit.service.GalleryService;
 import com.dgit.service.MemberService;
+import com.dgit.service.RegisterService;
 import com.dgit.service.TeacherService;
 import com.dgit.util.MediaUtils;
 
@@ -55,6 +59,11 @@ public class AdminController {
 	
 	@Autowired
 	MemberService memberService;
+	@Autowired
+	RegisterService registerService;
+	@Autowired
+	ClassService classService;
+
 	
 	
 
@@ -237,6 +246,25 @@ public class AdminController {
 		
 		return "admin/member";
 	}
-	                                                  
+	      
+	
+	@RequestMapping(value = "/member/read", method = RequestMethod.GET)
+	public String memberRead(Model model,int mno) {
+		logger.info("=================memberRead Get====================");
+		MemberVO vo = memberService.selectMemberByMno(mno);
+		List<RegisterVO> list=registerService.selectAll(mno);
+		List<String> classes = new ArrayList<>();
+		for(RegisterVO r : list){
+			
+			ClassVO c=classService.selectAll(r.getCno());
+			classes.add(c.getS_day()+")"+c.getTime()+"시"+c.getLevel()+"반");
+		}
+		model.addAttribute("vo", vo);
+		model.addAttribute("classes", classes);
+
+		
+		return "admin/read_member";
+	}
+	
 
 }

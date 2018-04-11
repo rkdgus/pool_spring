@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE>
 <html>
 <head>
@@ -133,10 +134,24 @@ span#active {
 	background: rgb(235, 235, 235);
 }
 
-#clickTitle:hover {
-	color: #9c7097;
+.memberTr:hover {
+	background: #6799FF;
+	color:white;  
 }
+
+.memberTr:hover td{
+	color:white !important;             
+}
+
 </style>
+<script type="text/javascript">
+	$(function(){
+		$(document).on("click",".memberTr",function(){
+			var no =$(this).find("td").eq(0).text();
+			location.href="${pageContext.request.contextPath }/admin/member/read?mno="+no;
+		})
+	})
+</script>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
@@ -162,7 +177,8 @@ span#active {
 					</tr>
 					<c:if test="${lists !=null }">
 						<c:forEach var="item" items="${lists }">
-							<tr>
+						
+							<tr class="memberTr">
 								<td>${item.mno }</td>
 								<td>${item.id }</td>
 								<td>${item.name }</td>
@@ -170,7 +186,7 @@ span#active {
 								<td>${item.age }</td>
 								<td>${item.tell }</td>
 								<td>${item.email }</td>
-								<td>${item.date }</td>
+								<td><fmt:formatDate value="${item.date }" pattern="yyyy.MM.dd HH:mm"/></td>
 							</tr>
 						</c:forEach>
 					</c:if>                     
@@ -198,16 +214,16 @@ span#active {
 							<form id="search_wrap">
 								<input id="smode_subject" name="smode" type="radio"
 									value="titleandcontent" checked="checked"> <label
-									for="smode_subject">제목+본문</label> <input id="smode_author"
+									for="smode_subject">이름</label> <input id="smode_author"
 									name="smode" type="radio" value="title"> <label
-									for="smode_author">제목</label> <img
+									for="smode_author">아이디</label> <img
 									src="${pageContext.request.contextPath}/resources/img/search_img.png"
 									class="search_img" id="search_img"> <input type="text"
 									name="search"> <img
 									src="${pageContext.request.contextPath}/resources/img/btn_search.gif"
 									class="search_img" id="submit_img">
 							</form>
-						</td>
+						</td>       
 					</tr>
 				</table>
 			</div>

@@ -1,5 +1,6 @@
 package com.dgit.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -19,8 +20,11 @@ public class QnaBoardDAOImpl implements QnaBoardDAO {
 	}
   
 	@Override
-	public QnaBoardVO read(int bno) {
-		return session.selectOne(namespace+".read",bno);
+	public QnaBoardVO read(int bno,String pw) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("bno",bno );
+		map.put("pw", pw);
+		return session.selectOne(namespace+".read",map);
 	}
 
 	@Override
@@ -46,5 +50,10 @@ public class QnaBoardDAOImpl implements QnaBoardDAO {
 	@Override
 	public void answerUpdate(QnaBoardVO vo) {
 		session.update(namespace+".answerUpdate",vo);
+	}
+
+	@Override
+	public QnaBoardVO selectByBno(int bno) {
+		return session.selectOne(namespace+".selectByBno",bno);
 	}
 }

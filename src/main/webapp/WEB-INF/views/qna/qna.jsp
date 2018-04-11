@@ -15,6 +15,11 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath }/resources/qna/qna.css">
+	<style>
+		#leftArea{
+			width:178px !important;
+		}
+	</style>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />

@@ -5,9 +5,6 @@
     		color:white !important;
     		background-color: #6799FF;
     	}
-    	#leftArea{
-		width:178px; !important;
-	}
     </style>
 	<div id="leftArea">
 		<h2>문의하기</h2>

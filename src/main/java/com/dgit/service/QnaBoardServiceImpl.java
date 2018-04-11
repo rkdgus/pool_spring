@@ -26,8 +26,8 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	}
 
 	@Override
-	public QnaBoardVO read(int bno) {		
-		return dao.read(bno);
+	public QnaBoardVO read(int bno,String pw) {		
+		return dao.read(bno,pw);
 	}
 
 	@Override
@@ -47,13 +47,18 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	}
 
 	@Override
-	public int count(int cno) {
+	public void modifyAnswer(QnaBoardVO vo) {
+		dao.answerUpdate(vo);
+	}
+
+	@Override
+	public int countByAll() {
 		return dao.countByAll();
 	}
 
 	@Override
-	public void modifyAnswer(QnaBoardVO vo) {
-		dao.answerUpdate(vo);
+	public QnaBoardVO selectByBno(int bno) {
+		return dao.selectByBno(bno);
 	}
 
 }

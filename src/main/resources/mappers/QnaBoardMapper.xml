@@ -9,8 +9,11 @@
 	<select id="countByAll" resultType="int">
 		select count(*) from qnaboard
 	</select>
+	<select id="selectByBno" resultType="QnaBoardVO">
+		select * from qnaboard where bno=#{bno}
+	</select>
 	<select id="read" resultType="QnaBoardVO">
-		select * from qnaboard where bno = #{bno}
+		select * from qnaboard where bno = #{bno} and pw=password(#{pw})
 	</select>
 	<insert id="insert">
 		insert into qnaboard(writer,title,content,imgpath,regdate,email,pw) values(#{writer},#{title},#{content},#{imgpath},now(),#{email},password(#{pw}))

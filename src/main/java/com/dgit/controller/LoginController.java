@@ -33,6 +33,11 @@ public class LoginController {
 		logger.info("=================login Get====================");
 	}
 	
+	@RequestMapping(value="/auther")
+	public void auther(){
+		logger.info("=================auther====================");
+	}
+	
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public void postLogin(HttpSession session,String id,String pw,String title){
 		logger.info("=================login post====================");

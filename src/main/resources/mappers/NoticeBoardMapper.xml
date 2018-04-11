@@ -20,7 +20,7 @@
 		insert into notice(title,content,imgpath) values(#{title},#{content},#{imgpath})
 	</insert>
 	<update id="update">
-		update notice set title = #{title}, content = #{content} imgpath = #{imgpath} where nno = #{nno}
+		update notice set title = #{title}, content = #{content}, imgpath = #{imgpath} where nno = #{nno}
 	</update>
 	
 	<update id="updatecnt">

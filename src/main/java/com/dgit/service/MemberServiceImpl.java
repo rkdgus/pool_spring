@@ -1,5 +1,7 @@
 package com.dgit.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +33,18 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public void updateIdPw(MemberVO vo) {
 		dao.updateIdPw(vo);
+	}
+
+	@Override
+	public List<MemberVO> selectMemberPage(int page) {
+		// TODO Auto-generated method stub
+		return dao.selectMemberPage(page);
+	}
+
+	@Override
+	public int countByAll() {
+		// TODO Auto-generated method stub
+		return dao.countByAll();
 	}
 
 }

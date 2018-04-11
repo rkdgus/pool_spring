@@ -1,5 +1,7 @@
 package com.dgit.persistence;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -33,6 +35,19 @@ public class MemberDAOImpl implements MemberDAO {
 	@Override
 	public void updateIdPw(MemberVO vo) {
 		session.update(namespace+".updateIdPw",vo);
+	}
+
+	@Override
+	public List<MemberVO> selectMemberPage(int page) {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".selectMemberPage",page);
+		
+	}
+
+	@Override
+	public int countByAll() {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+".countByAll");
 	}
 
 }

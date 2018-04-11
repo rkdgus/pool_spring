@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+ㅊ<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -228,6 +228,9 @@
 		var deleteIndex = 0;
 
 		$(function() {
+			$(document).on("click","#close",function(){
+				$("#count").text(" " + Object.keys(filesArr).length);
+			})
 			$("#allCheck").change(function() {
 				if ($("#allCheck").is(":checked")) {
 					$(".delcheck").attr("checked", "checked");

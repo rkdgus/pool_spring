@@ -125,7 +125,9 @@
 			<jsp:include page="contentTitle.jsp"/>
 		
 		<div id="insert_wrap">
-				<a href="insert"><button>글쓰기</button></a>
+				<c:if test="${login.title=='사장' }">
+					<a href="insert"><button>글쓰기</button></a>
+				</c:if>
 			</div>
 			
 			<div id="classboard_table">

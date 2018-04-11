@@ -8,88 +8,86 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/common/reset.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/common/common.css">
-<title>대구 아이티 수영장 - 반별게시판</title>
+<title>대구 아이티 수영장 - 공지게시판</title>
 <style>
-	#container #content #read_table table{
-		width:730px;
-		font-size:15px;
-		
-	}
-	#container #content #read_table table tr{
-		line-height:30px;
-		height:30px;
-		border-bottom:1px solid #ccc;
-	}
-	#container #content #read_table table th,#container #content #read_table table td{
-		padding:5px 0px 5px 10px;
-	}
-	#container #content #read_table table th{
-		border-top:2px solid #333333;
-		background: #ebebeb;
-		color:#333333;
-		text-align: left;
-		font-weight:bold;
-	}
-	.align_right{
-		text-align: right;
-	}
-	#btn_tr{
-		border:none !important;
-	}
-	#btn_tr td a button{
-		background: #fff;
-		border:1px solid #ccc;
-		border-radius:2px;
-	}
-	.imgs{
-		min-width: 200px;
-		min-height: 100px;
-		max-width: 100%;
-		max-height: 500px;
-	}
-	#reply_title{
-		border-top:2px solid #333333;
-		background: #ebebeb;
-	}
-	#read_count{
-		font-weight: bold;
-	}
-	.hidden_btn{
-		display: none;
-	}
-	.hidden_btn button{
-		background: #fff;
-		border:1px solid #ccc;
-		border-radius:2px;
-		margin-right:10px;
-	}
-	.align_right{
-		text-align: right;
-	}
-	.updateImg{
-		padding-right:30px;
-	}
-	#reply_insert{
-		margin:30px auto;
-		width:550px;
-		height:30px;
-	}
-	#reply_insert textarea{
-		width:500px;
-		height:36px;
-		resize:none;
-		padding:0;
-		float:left;
-		line-height:36px;
-	}
-	#reply_insert img{
-		float:left;
-		cursor: pointer;
-	}
-	.wrap_content{
-		display:block;
-		min-height:300px !important;                                
-	}
+	#container #content #read_table table {
+	width: 730px;
+	font-size: 15px;
+}
+
+#container #content #read_table table tr {
+	line-height: 30px;
+	height: 30px;
+	border-bottom: 1px solid #ccc;
+}
+
+#container #content #read_table table th, #container #content #read_table table td
+	{
+	padding: 5px 0px 5px 10px;
+}
+
+#container #content #read_table table th {
+	border-top: 2px solid #333333;
+	background: #ebebeb;
+	color: #333333;
+	text-align: left;
+	font-weight: bold;
+}
+
+.align_right {
+	text-align: right;
+}
+
+#btn_tr {
+	border: none !important;
+}
+
+#btn_tr td a button {
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+}
+
+.imgs {
+	min-width: 200px;
+	min-height: 100px;
+	max-width: 100%;
+	max-height: 500px;
+}
+
+#reply_title {
+	border-top: 2px solid #333333;
+	background: #ebebeb;
+}
+
+#read_count {
+	font-weight: bold;
+}
+
+.hidden_btn {
+	display: none;
+}
+
+.hidden_btn button {
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	margin-right: 10px;
+}
+
+.align_right {
+	text-align: right;
+	width:50%;
+}
+
+.updateImg {
+	padding-right: 30px;
+}
+.wrap_content{
+	display:block;
+	width:100%;
+	min-height:300px !important;                                                                     
+}
 </style>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/common/reset.css">
 
@@ -129,8 +127,11 @@
 					<tr id="btn_tr">
 						<td colspan="4" class="align_right">
 							<a href="${pageContext.request.contextPath}/event/"><button>목록</button></a>
-							<a href="<%-- ${pageContext.request.contextPath }/classboard/modify?bno=${vo.bno} --%>"><button>수정</button></a>
-							<a href="#"><button id="boardRemoveBtn">삭제</button></a>
+							<c:if test="${login.title=='사장' }">
+								<a href="${pageContext.request.contextPath }/event/modify?nno=${vo.nno}"><button>수정</button></a>
+								<a href="#"><button id="boardRemoveBtn">삭제</button></a>
+							</c:if>
+							
 						</td>
 					</tr>
 				</table>

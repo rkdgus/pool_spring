@@ -20,10 +20,13 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			ModelAndView modelAndView) throws Exception {
 		logger.info("===========postHandler================");
 		HttpSession session = request.getSession();
-		 
 		if(session.getAttribute("login") !=null){
 			logger.info("===========login success================");
-			response.sendRedirect("/pool/");
+			Object dest = session.getAttribute("dest");
+			String path = (dest !=null)? (String) dest : request.getContextPath();
+			//프로젝트 이름을 반환 : request.getContextPath()
+			session.removeAttribute("dest");
+			response.sendRedirect(path);//homecontroller로 이동
 		}
 	}
 
@@ -31,14 +34,15 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		logger.info("=================preHandler================");
+	
 		HttpSession session = request.getSession();
 		if(session.getAttribute("login")!=null){
 			logger.info("이전 login 정보 삭제");
 			session.removeAttribute("login");
 		}
+		
 		return true;
 	}
-	
 	
 	
 }

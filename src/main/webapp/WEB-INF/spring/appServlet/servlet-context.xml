@@ -28,10 +28,17 @@
 		<beans:constructor-arg value="c:/zzz/upload/"></beans:constructor-arg>
 	</beans:bean>
   <beans:bean id="Logininterceptor" class="com.dgit.interceptor.LoginInterceptor"/>
+  <beans:bean id="Authinterceptor" class="com.dgit.interceptor.AuthInterceptor"></beans:bean>
+  
    <interceptors>
 		<interceptor>
 			<mapping path="/login/login"/>
 			<beans:ref bean="Logininterceptor"/>         
+		</interceptor>
+		<interceptor>
+			<mapping path="/classboard/insert"/>
+			<mapping path="/classboard/login"/>
+			<beans:ref bean="Authinterceptor"/>
 		</interceptor>
 	</interceptors>
 	

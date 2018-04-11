@@ -56,7 +56,7 @@ public class ClassBoardController {
 		PageMaker pageMaker = new PageMaker();
 		 
 		pageMaker.setCri(cri);
-		int totalcount = service.count(1);
+		int totalcount = service.count(2);
 		pageMaker.setTotalCount(totalcount);
 		logger.info(pageMaker.getStartPage()+"");
 		logger.info(pageMaker.getEndPage()+"");
@@ -273,6 +273,7 @@ public class ClassBoardController {
 		}
 		return entity;
 	}
+
 	@RequestMapping(value = "deleteReply", method = RequestMethod.GET)
 	public @ResponseBody ResponseEntity<List<ClassreplyVO>> deleteReply(ClassreplyVO vo){
 		logger.info("deleteReply");
@@ -304,5 +305,10 @@ public class ClassBoardController {
 		}
 		return entity;
 	}
-	
+
+	@RequestMapping(value="/login",method=RequestMethod.GET)
+	public String login(int bno){
+		return "redirect:/classboard/read?bno="+bno;
+	}
+
 }

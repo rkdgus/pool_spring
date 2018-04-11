@@ -190,7 +190,9 @@
 					<tr>
 						<td>이미지</td>
 						<td><input type="button" value="이미지추가" class="btn_admin"
-							data-toggle="modal" data-target="#modal" id="add"></td>
+							data-toggle="modal" data-target="#modal" id="add">
+							<span id="count"></span>	
+						</td>
 					</tr>
 				</table>
 				<div id="btnWrap">
@@ -240,6 +242,9 @@
 		var deleteIndex = 0;
 
 		$(function() {
+			$(document).on("click","#close",function(){
+				$("#count").text(" " + Object.keys(filesArr).length + "개가 선택 되었습니다.");
+			})
 			$("#allCheck").change(function() {
 				if ($("#allCheck").is(":checked")) {
 					$(".delcheck").attr("checked", "checked");
@@ -349,6 +354,7 @@
 		function modalset() {
 			$("#close").trigger("click");
 		}
+		
 	</script>
 </body>
 </html>

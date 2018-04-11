@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.dgit.domain.ClassBoardVO;
 import com.dgit.domain.ClassVO;
+import com.dgit.domain.ClassreplyVO;
 import com.dgit.persistence.ClassBoardDAO;
 @Service
 public class ClassBoardServiceImpl implements ClassBoardService {
@@ -63,6 +64,26 @@ public class ClassBoardServiceImpl implements ClassBoardService {
 	@Override
 	public List<ClassVO> selectByClass() {
 		return dao.selectByClass();
+	}
+
+	@Override
+	public void createReply(ClassreplyVO vo) {
+		dao.insertReply(vo);
+	}
+
+	@Override
+	public void modifyReply(ClassreplyVO vo) {
+		dao.updateReply(vo);
+	}
+
+	@Override
+	public void removeReply(int rno) {
+		dao.deleteReply(rno);
+	}
+
+	@Override
+	public List<ClassreplyVO> replySelectByBno(int bno) {
+		return dao.replySelectByBno(bno);
 	}
 
 }

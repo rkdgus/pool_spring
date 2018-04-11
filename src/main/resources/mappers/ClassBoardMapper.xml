@@ -24,4 +24,16 @@
 	<select id="selectByClass" resultType="ClassVO">
 		select cno,level,time from class;
 	</select>
+	<insert id="insertReply">
+		insert into classreply(bno,id,replytext) values(#{bno},#{id},#{replytext})
+	</insert>
+	<update id="updateReply">
+		update classreply set replytext = #{replytext} where rno = #{rno}
+	</update>
+	<delete id="deleteReply">
+		delete from classreply where rno = #{rno}
+	</delete>
+	<select id="replySelectByBno" resultType="ClassreplyVO">
+		select * from classreply where bno = #{bno}
+	</select>
 </mapper>

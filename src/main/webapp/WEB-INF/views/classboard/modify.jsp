@@ -139,6 +139,9 @@
 .ver{
 	vertical-align: top;
 }
+#count{
+	font-size: 13px;
+}
 .imgs{
 		min-width: 200px;
 		min-height: 100px;
@@ -220,6 +223,7 @@
 						<td>이미지</td>
 						<td><input type="button" value="이미지추가" class="btn_admin"
 							data-toggle="modal" data-target="#modal" id="add">
+							<span id="count"></span>
 						</td>
 					</tr>
 				</table>
@@ -271,6 +275,9 @@
 		var deleteIndex = 0;
 		
 		$(function() {
+			$(document).on("click","#close",function(){
+				$("#count").text(" " + Object.keys(filesArr).length + "개가 선택 되었습니다.");
+			})
 			$("#update_select").val("${vo.cno}")
 			$("#allCheck").change(function(){
 		          if($("#allCheck").is(":checked")){
@@ -362,7 +369,7 @@
 				contentType : false,
 				dataType : "text", 
 				success : function(result) {
-					alert("글 작성에 성공하였습니다.");
+					alert("글을 수정하였습니다.");
 					location.href="read?bno="+$("#bno").val();
 				}
 			})

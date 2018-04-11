@@ -17,6 +17,9 @@
 		float:right;
 		
 	}
+	#count{
+	font-size: 13px;
+	}
 	#container #content #classboard_table table{
 		width:730px;
 		font-size:15px;

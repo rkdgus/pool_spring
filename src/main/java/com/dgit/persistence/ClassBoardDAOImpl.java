@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.dgit.domain.ClassBoardVO;
 import com.dgit.domain.ClassVO;
+import com.dgit.domain.ClassreplyVO;
 
 @Repository
 public class ClassBoardDAOImpl implements ClassBoardDAO{
@@ -50,5 +51,25 @@ public class ClassBoardDAOImpl implements ClassBoardDAO{
 	@Override
 	public List<ClassVO> selectByClass() {
 		return session.selectList(namespace+".selectByClass");
+	}
+
+	@Override
+	public void insertReply(ClassreplyVO vo) {
+		session.insert(namespace+".insertReply",vo);
+	}
+
+	@Override
+	public void updateReply(ClassreplyVO vo) {
+		session.update(namespace+".updateReply",vo);
+	}
+
+	@Override
+	public void deleteReply(int rno) {
+		session.delete(namespace+".deleteReply",rno);
+	}
+
+	@Override
+	public List<ClassreplyVO> replySelectByBno(int bno) {
+		return session.selectList(namespace+".replySelectByBno",bno);
 	}
 }

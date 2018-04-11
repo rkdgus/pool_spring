@@ -30,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.dgit.domain.ClassBoardVO;
 import com.dgit.domain.ClassVO;
+import com.dgit.domain.ClassreplyVO;
 import com.dgit.domain.PageMaker;
 import com.dgit.domain.SearchCriteria;
 import com.dgit.service.ClassBoardService;
@@ -71,10 +72,15 @@ public class ClassBoardController {
 		logger.info("=================read Get====================");
 		classList(model);
 		ClassBoardVO vo = service.read(bno);
+		List<ClassreplyVO> replyList = service.replySelectByBno(bno);
 		if(vo.getImgpath() !=null){
 			String[] imgArr = vo.getImgpath().split(",");
 			model.addAttribute("imgArr",imgArr);
 		}
+		for(ClassreplyVO vo2 : replyList){
+			logger.info(vo2.toString());
+		}
+		model.addAttribute("replyList",replyList);
 		model.addAttribute("vo",vo);
 		
 	}
@@ -245,5 +251,18 @@ public class ClassBoardController {
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return entity;         
+	}
+	@RequestMapping(value = "insertReply", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<List<ClassreplyVO>> insertReply(ClassreplyVO vo){
+		ResponseEntity<List<ClassreplyVO>> entity = null;
+		try{
+			service.createReply(vo);
+			List<ClassreplyVO> replyList = service.replySelectByBno(vo.getBno());
+			entity = new ResponseEntity<>(replyList,HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.OK);
+		}
+		return entity;
 	}
 }

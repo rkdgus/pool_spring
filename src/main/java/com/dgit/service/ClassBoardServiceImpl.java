@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.dgit.domain.ClassBoardVO;
 import com.dgit.domain.ClassVO;
 import com.dgit.domain.ClassreplyVO;
+import com.dgit.domain.SearchCriteria;
 import com.dgit.persistence.ClassBoardDAO;
 @Service
 public class ClassBoardServiceImpl implements ClassBoardService {
@@ -24,12 +25,8 @@ public class ClassBoardServiceImpl implements ClassBoardService {
 	}
 
 	@Override
-	public List<ClassBoardVO> selectByCno(int cno, int page) {
-		HashMap<String,Object> map = new HashMap<>();
-		page = page * 15;
-		map.put("cno",cno);
-		map.put("page",page);
-		return dao.selectByCno(map);
+	public List<ClassBoardVO> selectByCno(int cno, SearchCriteria cri) {
+		return dao.selectByCno(cno,cri);
 	}
 
 	@Override
@@ -57,8 +54,8 @@ public class ClassBoardServiceImpl implements ClassBoardService {
 	}
 
 	@Override
-	public int count(int cno) {
-		return dao.countByCno(cno);
+	public int count(int cno, SearchCriteria cri) {
+		return dao.countByCno(cno,cri);
 	}
  
 	@Override

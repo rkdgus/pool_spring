@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.dgit.domain.ClassBoardVO;
 import com.dgit.domain.ClassVO;
 import com.dgit.domain.ClassreplyVO;
+import com.dgit.domain.SearchCriteria;
 
 @Repository
 public class ClassBoardDAOImpl implements ClassBoardDAO{
@@ -19,7 +20,10 @@ public class ClassBoardDAOImpl implements ClassBoardDAO{
 	private SqlSession session;
 
 	@Override
-	public List<ClassBoardVO> selectByCno(HashMap<String,Object> map) {
+	public List<ClassBoardVO> selectByCno(int cno, SearchCriteria cri) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("cno",cno);
+		map.put("cri",cri);
 		return session.selectList(namespace+".selectByCno",map);
 	}
 
@@ -44,8 +48,11 @@ public class ClassBoardDAOImpl implements ClassBoardDAO{
 	}
 
 	@Override
-	public int countByCno(int cno) {
-		return session.selectOne(namespace+".countByCno",cno);
+	public int countByCno(int cno, SearchCriteria cri) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("cno",cno);
+		map.put("cri",cri);
+		return session.selectOne(namespace+".countByCno",map);
 	}
  
 	@Override

@@ -37,7 +37,7 @@
 			<a href="${pageContext.request.contextPath }/admin/gallery" class="box">갤러리관리</a>
 			<a href="" class="box">반별게시판관리</a>
 			<a href="" class="box">공지관리</a>
-			<a href="" class="box">문의관리</a>
+			<a href="${pageContext.request.contextPath }/adminQna/qna" class="box">문의관리</a>
 			
 		</div>
 	</div>

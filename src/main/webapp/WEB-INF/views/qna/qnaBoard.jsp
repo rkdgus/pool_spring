@@ -13,8 +13,6 @@
 	<jsp:include page="../include/header.jsp" />
 	<script>
 		$(function() {
-				
-		
 			
 			$(document).on("click", ".data_tr", function() {
 				var bno = $(this).find(".bno").text();

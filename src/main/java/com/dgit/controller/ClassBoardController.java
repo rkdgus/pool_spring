@@ -21,7 +21,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -53,7 +52,7 @@ public class ClassBoardController {
 	public void getClassboard(@RequestParam(value="cno", defaultValue="0") int cno,SearchCriteria cri,Model model){
 		logger.info(cno+"" + "page" + cri.getPage());
 		List<ClassBoardVO> lists = service.selectByCno(1,cri.getPage()-1);
-				
+
 		PageMaker pageMaker = new PageMaker();
 		 
 		pageMaker.setCri(cri);
@@ -139,7 +138,7 @@ public class ClassBoardController {
 		logger.info(vo.toString());
 		ResponseEntity<String> entity = null;
 		File dirPath = new File(outUploadPath);
-		String imgpath = "";
+		String imgpath = null;
 		
 		for(MultipartFile m : fileList){
 			logger.info(m.getOriginalFilename()+"");
@@ -147,20 +146,25 @@ public class ClassBoardController {
 		if (!dirPath.exists()) {
 			dirPath.mkdirs();
 		}
-		for (int i = 0; i < fileList.size(); i++) {
-			String filePath = outUploadPath + "classboard/"+vo.getCno()+"반";
-			try {
-				String savedName = UploadFileUtils.uploadFile(filePath, fileList.get(i).getOriginalFilename(),
-						fileList.get(i).getBytes());
-				if ((i + 1) == fileList.size()) {
-					imgpath += savedName;
-				} else {
-					imgpath += savedName + ",";
+		if(fileList.size() !=0){
+			imgpath = "";
+			for (int i = 0; i < fileList.size(); i++) {
+				String filePath = outUploadPath + "classboard/"+vo.getCno()+"반";
+				try {
+					String savedName = UploadFileUtils.uploadFile(filePath, fileList.get(i).getOriginalFilename(),
+							fileList.get(i).getBytes());
+					if ((i + 1) == fileList.size()) {
+						imgpath += savedName;
+					} else {
+						imgpath += savedName + ",";
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
+				
 			}
 		}
+		
 		vo.setImgpath(imgpath);
 		service.create(vo);
 		entity = new ResponseEntity<String>("success",HttpStatus.OK);
@@ -226,7 +230,9 @@ public class ClassBoardController {
 				}
 			}
 		}
-		
+		if(imgPath.length() ==0){
+			imgPath = null;
+		}
 		vo.setImgpath(imgPath);
 		logger.info(vo.toString());
 		service.modify(vo);
@@ -243,18 +249,20 @@ public class ClassBoardController {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(type);
              
-			in = new FileInputStream(filename);                
+			in = new FileInputStream(filename);
 
 			entity = new ResponseEntity<>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
-		return entity;         
+		return entity;
 	}
 	@RequestMapping(value = "insertReply", method = RequestMethod.POST)
 	public @ResponseBody ResponseEntity<List<ClassreplyVO>> insertReply(ClassreplyVO vo){
+		logger.info("insertReply");
 		ResponseEntity<List<ClassreplyVO>> entity = null;
+		logger.info(vo.toString());
 		try{
 			service.createReply(vo);
 			List<ClassreplyVO> replyList = service.replySelectByBno(vo.getBno());
@@ -265,4 +273,36 @@ public class ClassBoardController {
 		}
 		return entity;
 	}
+	@RequestMapping(value = "deleteReply", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<List<ClassreplyVO>> deleteReply(ClassreplyVO vo){
+		logger.info("deleteReply");
+		ResponseEntity<List<ClassreplyVO>> entity = null;
+		logger.info(vo.toString());
+		try{
+			service.removeReply(vo.getRno());
+			List<ClassreplyVO> replyList = service.replySelectByBno(vo.getBno());
+			entity = new ResponseEntity<>(replyList,HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.OK);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value = "updateReply", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<List<ClassreplyVO>> updateReply(ClassreplyVO vo){
+		logger.info("updateReply");
+		ResponseEntity<List<ClassreplyVO>> entity = null;
+		logger.info(vo.toString());
+		try{
+			service.modifyReply(vo);
+			List<ClassreplyVO> replyList = service.replySelectByBno(vo.getBno());
+			entity = new ResponseEntity<>(replyList,HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<>(HttpStatus.OK);
+		}
+		return entity;
+	}
+	
 }

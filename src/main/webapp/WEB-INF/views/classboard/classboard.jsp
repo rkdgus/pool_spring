@@ -124,7 +124,7 @@
 		<div id="content">
 			<jsp:include page="contentTitle.jsp" />
 			<div id="insert_wrap">
-				<a href="insert"><button>글쓰기</button></a>
+				<a href="insert" id="insert_btn"><button>글쓰기</button></a>
 			</div>
 			
 			<div id="classboard_table">
@@ -181,6 +181,15 @@
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		$(function(){
+			$("#insert_btn").click(function(e){
+				if(${login == null}){
+					
+				}
+			})
+		})
+	</script>
 	<jsp:include page="../include/footer.jsp"/>
 </body>
 </html>

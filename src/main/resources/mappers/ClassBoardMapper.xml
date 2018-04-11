@@ -34,6 +34,6 @@
 		delete from classreply where rno = #{rno}
 	</delete>
 	<select id="replySelectByBno" resultType="ClassreplyVO">
-		select * from classreply where bno = #{bno}
+		select * from classreply where bno = #{bno} order by rno desc
 	</select>
 </mapper>

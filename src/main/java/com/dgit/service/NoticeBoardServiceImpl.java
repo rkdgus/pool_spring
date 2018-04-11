@@ -49,4 +49,10 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		return dao.countByAll();
 	}
 
+	@Override
+	public List<NoticeBoardVO> selectByMain() {
+		// TODO Auto-generated method stub
+		return dao.selectByMain();
+	}
+
 }

@@ -4,21 +4,30 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dgit.mapper.NoticeBoardMapper">
 	<select id="selectByAll" resultType="NoticeBoardVO">
-		select * from noticeboard order by regdate desc limit #{page},15
+		select * from notice order by regdate desc limit #{page},15
 	</select>
+	<select id="selectByMain" resultType="NoticeBoardVO">
+		select * from notice order by regdate desc limit 0,5           
+	</select>
+	
 	<select id="countByAll" resultType="int">
-		select count(*) from noticeboard
+		select count(*) from notice
 	</select>
 	<select id="read" resultType="NoticeBoardVO">
-		select * from noticeboard where nno = #{nno}
+		select * from notice where nno = #{nno}
 	</select>
 	<insert id="insert">
-		insert into noticeboard(title,content,imgpath) values(#{title},#{content},#{imgpath})
+		insert into notice(title,content,imgpath) values(#{title},#{content},#{imgpath})
 	</insert>
 	<update id="update">
-		update noticeboard set title = #{title}, content = #{content} imgpath = #{imgpath} where nno = #{nno}
+		update notice set title = #{title}, content = #{content} imgpath = #{imgpath} where nno = #{nno}
 	</update>
+	
+	<update id="updatecnt">
+		update notice set readcnt = #{readcnt} where nno = #{nno}
+	</update>
+	
 	<delete id="delete">
-		delete from noticeboard where nno = #{nno}
+		delete from notice where nno = #{nno}
 	</delete>
 </mapper>

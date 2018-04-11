@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dgit.domain.GalleryVO;
+import com.dgit.domain.NoticeBoardVO;
 import com.dgit.service.GalleryService;
+import com.dgit.service.NoticeBoardService;
 import com.dgit.util.MediaUtils;
 
 /**
@@ -33,6 +35,9 @@ public class HomeController {
 
 	@Autowired
 	GalleryService galleryService;
+	
+	@Autowired
+	NoticeBoardService noticeService;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */ 
@@ -41,12 +46,13 @@ public class HomeController {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		List<GalleryVO> list = galleryService.selectAll();
+		List<NoticeBoardVO> board = noticeService.selectByMain();
 		if(list.size()>6){
 			list.subList(0, 5);
 		}
 		
 		model.addAttribute("list",list);
-	
+		model.addAttribute("board",board);
 		
 		return "home";  
 	}

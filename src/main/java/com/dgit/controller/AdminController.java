@@ -29,8 +29,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dgit.domain.GalleryVO;
+import com.dgit.domain.MemberVO;
+import com.dgit.domain.PageMaker;
+import com.dgit.domain.SearchCriteria;
 import com.dgit.domain.TeacherVO;
 import com.dgit.service.GalleryService;
+import com.dgit.service.MemberService;
 import com.dgit.service.TeacherService;
 import com.dgit.util.MediaUtils;
 
@@ -48,6 +52,9 @@ public class AdminController {
 	
 	@Autowired
 	TeacherService teacherService;
+	
+	@Autowired
+	MemberService memberService;
 	
 	
 
@@ -209,7 +216,27 @@ public class AdminController {
 		teacherService.update(vo);
 		
 		return "redirect:/admin/teacher";
-	}       
+	}  
+	
+	
+	@RequestMapping(value="/member", method=RequestMethod.GET )
+	public String memberGet(SearchCriteria cri,Model model){
+		
+		List<MemberVO> lists = memberService.selectMemberPage((cri.getPage()-1)*15);
+		
+		PageMaker pageMaker = new PageMaker();
+		 
+		pageMaker.setCri(cri);
+		int totalcount = memberService.countByAll();
+		pageMaker.setTotalCount(totalcount);
+		logger.info(pageMaker.getStartPage()+"");
+		logger.info(pageMaker.getEndPage()+"");
+		model.addAttribute("pageMaker",pageMaker);
+		model.addAttribute("lists",lists);
+		
+		
+		return "admin/member";
+	}
 	                                                  
 
 }

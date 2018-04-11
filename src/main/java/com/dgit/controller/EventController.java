@@ -156,5 +156,74 @@ public class EventController {
 		
 		return "redirect:/event/";
 	}
+	
+	@RequestMapping(value="/modify", method=RequestMethod.GET)
+	public void getModify(int nno,Model model){
+		logger.info("--get modify---");
+		NoticeBoardVO vo = service.read(nno);
+		if(vo.getImgpath() !=null){
+			String[] imgArr = vo.getImgpath().split(",");
+			model.addAttribute("imgArr",imgArr);
+		}
+		model.addAttribute("vo",vo);
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	public ResponseEntity<String> postModify(int nno,List<MultipartFile> fileList,String[] name,NoticeBoardVO vo,String deleteImg) throws Exception{
+		logger.info("--post modify---");
+		ResponseEntity<String> entity = new ResponseEntity<String>("success",HttpStatus.OK);
+		NoticeBoardVO v = service.read(vo.getNno());
+		
+		String imgPath = "";
+		if(v.getImgpath() !=null){
+			imgPath = v.getImgpath();
+		}
+		
+		logger.info(imgPath);
+		System.gc();
+		if(deleteImg !=null){
+			String[] delImg = deleteImg.split(",");
+			for(int i=0; i <delImg.length; i++){
+			File file = new File(delImg[i]);
+				file.delete();
+				imgPath = imgPath.replace(delImg[i], "");
+			}
+			imgPath.replaceAll(",,",",");
+			if(imgPath.indexOf(",") == 0){
+				imgPath = imgPath.replace(",","");
+			}
+		}
+		
+		
+		logger.info(imgPath);
+		if(fileList.size() > 0){
+			if(imgPath.length() !=0){
+				imgPath += ",";
+			}
+			for (int i = 0; i < fileList.size(); i++) {
+				String filePath = outUploadPath + "notice";
+				try {
+					String savedName = UploadFileUtils.uploadFile(filePath, fileList.get(i).getOriginalFilename(),
+							fileList.get(i).getBytes());
+					if ((i + 1) == fileList.size()) {
+						imgPath += savedName;
+					} else {
+						imgPath += savedName + ",";
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		if(imgPath.length() ==0){
+			imgPath = null;
+		}
+		vo.setImgpath(imgPath);
+		logger.info(vo.toString());
+		service.modify(vo);
+		return entity;
+	}
 
 }

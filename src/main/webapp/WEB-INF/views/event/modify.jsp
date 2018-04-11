@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>대구 아이티 수영장 - 반별게시판</title>
+<title>대구 아이티 수영장 - 공지게시판</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -176,24 +176,9 @@
 			</h2>
 			<form id="update_f" action="update" method="post">
 				<input type="hidden" id="deleteImg">
-				<input type="hidden" id="bno" value="${vo.bno }">
+				<input type="hidden" id="nno" value="${vo.nno }">
 				<table>
-					<tr>
-						<td>작성자</td>
-						<td><input type="text" name="id" value="${vo.id }" readonly="readonly"></td>
-					</tr>
-					<tr>
-						<td>반</td>
-						<td>
-							<select name="cno" id="update_select">
-								<option value="선택">선택</option>
-								<c:forEach var="item" items="${classList }">
-									<option value="${item.cno }">${item.time }/
-										${item.level }</option>
-								</c:forEach>
-							</select>
-						</td>
-					</tr>
+
 					<tr>
 						<td>제목</td>
 						<td><input type="text" name="title" id="update_title" value="${vo.title }"></td>
@@ -251,10 +236,9 @@
 					<table class="galleyTable" id="modal_table">
 						<tr>
 							<th width="20"><input type="checkbox" id="allCheck"></th>
-							<th width="">이름</th>
-							<th width="360">이미지</th>
+							<th width="">이미지</th>
 						</tr>
-					</table>
+					</table>          
 				</div>
 				<div class="modal-footer">
 					<input type="button" class="btn btn-success" value="업로드"
@@ -267,8 +251,7 @@
 
 		</div>
 	</div>
-</body>
-<script type="text/javascript">
+	<script type="text/javascript">
 		var index = 1;
 		var filesArr = {};
 		var previewIndex = 0;
@@ -278,7 +261,7 @@
 			$(document).on("click","#close",function(){
 				$("#count").text(" " + Object.keys(filesArr).length + "개가 선택 되었습니다.");
 			})
-			$("#update_select").val("${vo.cno}")
+			
 			$("#allCheck").change(function(){
 		          if($("#allCheck").is(":checked")){
 		             $(".delcheck").attr("checked","checked");
@@ -302,7 +285,6 @@
 										$("#modal_table")
 												.append(
 														"<tr><td><input type='checkbox' class='delcheck'></td>"
-																+ "<td><input type='text' name='name'></td>"
 																+ "<td><img src='"+e.target.result+"' class='imgs'><span class='hiddenSpan'>"+imgNum+"</span></td>"
 																+ "</tr>");
 											
@@ -331,33 +313,23 @@
 
 			for (var i = 0; i < Object.keys(filesArr).length + deleteIndex; i++) {
 				formData.append("fileList",filesArr[i]);
-				formData.append("name", $("input[name='name']").eq(i).val());
 			}
-			var id = $("input[name='id']").val();
-			var cno = $("#update_select").val();
+
 			var title = $("input[name='title']").val();
 			var c =  $("#update_content").val();
 			var content = c.replace(/(?:\r\n|\r|\n)/g, '<br />');
 			
-			if(id ==""){
-				alert("아이디를 입력해주세요");
-				return false;
-			}else if(cno =="선택"){
-				alert("반을 선택해주세요");
-				return false;
-			}else if(title==""){
+			if(title==""){
 				alert("제목을 입력해주세요");
 				return false;
 			}else if(content ==""){
 				alert("내용을 입력해주세요");
 				return false;
 			}
-			alert($("#bno").val());
-			formData.append("cno",cno);
-			formData.append("id",id);
+
 			formData.append("title",title);
 			formData.append("content",content);
-			formData.append("bno",$("#bno").val());
+			formData.append("nno",$("#nno").val());
 			if($("#deleteImg").val() !=""){
 				formData.append("deleteImg",$("#deleteImg").val());
 			}
@@ -370,7 +342,7 @@
 				dataType : "text", 
 				success : function(result) {
 					alert("글을 수정하였습니다.");
-					location.href="read${pageMaker.makeSearch(pageMaker.cri.page)}&cno=${cno }&bno="+$("#bno").val();
+					location.href="read?nno="+$("#nno").val();
 				}
 			})
 		}
@@ -395,4 +367,6 @@
 			alert($("#deleteImg").val());
 	 	}
 </script>
+</body>
+
 </html>

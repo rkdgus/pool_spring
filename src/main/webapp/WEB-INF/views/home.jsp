@@ -258,7 +258,7 @@ div#header {
 			id="main_img">
 		<div class="event_ul">
 			<h2>공지사항</h2>
-			<a id="plus" href=""><span>+</span>더보기</a>            
+			<a id="plus" href="event/"><span>+</span>더보기</a>            
 			<ul>
 				<c:forEach items="${board }" var="item">
 					<li>

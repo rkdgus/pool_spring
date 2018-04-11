@@ -31,13 +31,14 @@
 		<div id="content">
 			<jsp:include page="contentTitle.jsp"/>
 			
-			<a href="" class="box">회원관리</a>
+			<a href="${pageContext.request.contextPath }/admin/member" class="box">회원관리</a>
 			<a href="${pageContext.request.contextPath }/admin/teacher" class="box">강사관리</a>
 			<a href="" class="box">수영클리닉관리</a>
 			<a href="${pageContext.request.contextPath }/admin/gallery" class="box">갤러리관리</a>
 			<a href="" class="box">반별게시판관리</a>
 			<a href="" class="box">공지관리</a>
 			<a href="${pageContext.request.contextPath }/adminQna/qna" class="box">문의관리</a>
+
 			
 		</div>
 	</div>

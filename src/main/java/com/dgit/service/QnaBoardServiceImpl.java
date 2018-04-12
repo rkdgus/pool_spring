@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dgit.domain.QnaBoardVO;
+import com.dgit.domain.SearchCriteria;
 import com.dgit.persistence.QnaBoardDAO;
 @Service
 public class QnaBoardServiceImpl implements QnaBoardService {
@@ -21,8 +22,8 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	private QnaBoardDAO dao;
 	 
 	@Override
-	public List<QnaBoardVO> selectByAll(int page) {
-		return dao.selectByAll(page);
+	public List<QnaBoardVO> selectByAll(SearchCriteria cri) {
+		return dao.selectByAll(cri);
 	}
 
 	@Override
@@ -52,13 +53,19 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 	}
 
 	@Override
-	public int countByAll() {
-		return dao.countByAll();
+	public int countByAll(SearchCriteria cri) {
+		return dao.countByAll(cri);
 	}
 
 	@Override
 	public QnaBoardVO selectByBno(int bno) {
 		return dao.selectByBno(bno);
+	}
+
+	@Override
+	public void answerUpdate(QnaBoardVO vo) {
+		dao.answerUpdate(vo);
+		
 	}
 
 }

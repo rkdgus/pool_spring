@@ -88,9 +88,9 @@ public class QnaController {
 		public void qnaAndAswer(SearchCriteria cri,Model model){
 			PageMaker pageMaker = new PageMaker();
 			pageMaker.setCri(cri);
-			pageMaker.setTotalCount(service.countByAll());
+			pageMaker.setTotalCount(service.countByAll(cri));
 			logger.info("======== qnaBoard get ==========");
-			List<QnaBoardVO> list = service.selectByAll((cri.getPage()-1)*15);
+			List<QnaBoardVO> list = service.selectByAll(cri);
 			model.addAttribute("pageMaker", pageMaker);
 			model.addAttribute("list", list);
 		}

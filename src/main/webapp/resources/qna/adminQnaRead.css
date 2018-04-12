@@ -1,0 +1,83 @@
+@CHARSET "UTF-8";
+	#show_t table, #input_t table{
+		width:100%;
+		border-top: 2px solid #333333;
+		border-bottom:2px solid #333333 !important;
+	}
+	#show_t table tr, #input_t talbe{
+		border-bottom: 1px solid #d7d7d7;
+	}
+	#show_t table tr td, #input_t table tr td{
+		padding-left: 10px;
+	}
+	#date{
+		width:120px;
+	}
+	.title_tr{
+		background: #ebebeb;
+		height:30px;
+		line-height: 30px;
+		font-size: 13px;
+		font-weight: bold;
+	}
+	#title_tr2{
+		height:25px;
+		line-height: 25px; 
+		font-size: 12px;
+		color:gray;
+	}
+	#qnaContent{
+		padding:5px;
+		font-size: 13px;
+	}
+	#main{
+		font-size: 14px;
+		font-weight: bold;
+		height:30px;
+		line-height: 30px;
+		margin-bottom: 10px;
+	}
+	#main #mark{
+		font-size: 12px;
+	}
+	#header_title{
+		margin-bottom: 20px !important;
+	}
+	#show_t img{
+		max-width:700px;
+	}
+	#input_t{
+		margin-top: 30px;
+	}
+	#input_t textarea{
+		width:700px;
+		min-height: 150px;
+		resize:none;
+		margin-top: 5px;
+		margin-bottom: 5px;
+	}
+	.btn{
+		border:1px solid #5c5c5c;
+		background: white;
+		font-size: 12px;
+		outline: none;
+		padding:5px 10px;
+	}
+	.btn:HOVER {
+		background: #ebebeb;
+}
+.btnGroup{
+	margin-top: 10px;
+	text-align: right;
+}
+#input_t{
+	display: none;
+}
+#answerSuccess{
+	font-size: 13px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+#answerdate{
+	width:80px;
+}

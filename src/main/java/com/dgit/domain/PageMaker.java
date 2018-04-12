@@ -98,4 +98,14 @@ public class PageMaker {
 				.build();
 		return uriComponents.toUriString();
 	}
+	
+	
+	public String makeQna(int page){
+		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+				.queryParam("page",page)
+				.queryParam("perPageNum", cri.getPerPageNum())
+				.queryParam("searchType",((SearchCriteria)cri).getSearchType())
+				.build();
+		return uriComponents.toUriString();
+	}
 }

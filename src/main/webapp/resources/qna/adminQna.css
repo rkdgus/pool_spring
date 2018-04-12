@@ -1,0 +1,73 @@
+@CHARSET "UTF-8";
+
+	#main_t{
+		width:100%;
+		border-top:2px solid #333333;
+		border-bottom: 3px solid #333333 !important;
+	}
+	#main_tr{
+		font-size: 14px;
+		color:white;
+		font-weight: bold;
+		background: #333333;
+		height:30px;
+		line-height: 30px;
+		text-align: center;
+	}
+	#main_t .tr{
+		cursor: pointer;
+		height:25px;
+		line-height:25px;
+		border-bottom: 1px solid #d7d7d7;
+		padding:5px;
+	}
+	#main_t .tr:HOVER{
+		background-color: #d7d7d7;
+	}
+	#main_t .td{
+		font-size: 13px;
+		text-align: center;
+		
+	}
+	#main_tr .bno_title,.answer_title{
+		width:60px;
+	}
+	#main_tr .regdate_title{
+		width:120px;
+	}
+	#main_tr .writer_title{
+		width:80px;
+	}
+	#main_t .title{
+		text-align: left !important;
+	}
+	
+	#paging{
+	margin-top:20px;
+	text-align: center;
+	height:30px;
+	
+}
+.pageNum{
+	width:24px;
+	height:25px;
+	line-height:25px;
+	color:black;
+	display: inline-block;
+	border:1px solid #ccc;
+	font-size: 14px;
+}
+.pageNum:HOVER {
+	background: #ebebeb;
+}
+#active{
+	background: rgb(235, 235, 235);
+}
+#header_title{
+		margin-bottom: 20px;
+	}
+	#sel{
+		width:90px;
+		height:20px;
+		margin-bottom: 10px;
+	}

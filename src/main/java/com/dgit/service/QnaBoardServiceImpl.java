@@ -68,4 +68,14 @@ public class QnaBoardServiceImpl implements QnaBoardService {
 		
 	}
 
+	@Override
+	public List<QnaBoardVO> selectbyIdQna(String id, SearchCriteria cri) {
+		return dao.selectbyIdQna(id, cri);
+	}
+
+	@Override
+	public int selectbyIdCount(String id) {
+		return dao.selectbyIdCount(id);
+	}
+
 }

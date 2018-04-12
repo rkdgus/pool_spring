@@ -15,5 +15,7 @@ public interface QnaBoardDAO {
 	public int countByAll(SearchCriteria cri);
 	public void answerUpdate(QnaBoardVO vo);
 	public QnaBoardVO selectByBno(int bno);
+	public List<QnaBoardVO> selectbyIdQna(String id, SearchCriteria cri);
+	public int selectbyIdCount(String id);
 }
  

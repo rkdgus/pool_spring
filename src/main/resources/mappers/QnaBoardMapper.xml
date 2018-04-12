@@ -46,4 +46,33 @@
 			where title like CONCAT('%',#{keyword},'%')
 		</if>
 	</sql>
+	
+	<select id="selectbyIdQna" resultType="QnaBoardVO">
+		select * from qnaboard where id=#{id}
+		<include refid="searchV2"></include>
+		order by regdate desc limit #{cri.pageStart},15
+	</select>
+	
+	<select id="selectbyIdCount" resultType="int">
+		select count(*) from qnaboard where id=#{id}
+	</select>
+	<sql id="searchV2">
+		<if test="cri.searchType == 'noanswer.title'.toString()">
+			and replycheck=false and title like CONCAT('%',#{cri.keyword},'%')
+		</if>
+		<if test="cri.searchType == 'answer.title'.toString()">
+			and replycheck=true and title like CONCAT('%',#{cri.keyword},'%')
+		</if>
+		<if test="cri.searchType == '.title'.toString()">
+				and title like CONCAT('%',#{cri.keyword},'%')
+		</if>
+		<if test="cri.searchType == 'answer'.toString()">
+			and replycheck=true
+		</if>
+		<if test="cri.searchType == 'noanswer'.toString()">
+			and replycheck=false
+		</if>
+	</sql>
+	
+	
 </mapper>

@@ -57,4 +57,17 @@ public class QnaBoardDAOImpl implements QnaBoardDAO {
 	public QnaBoardVO selectByBno(int bno) {
 		return session.selectOne(namespace+".selectByBno",bno);
 	}
+
+	@Override
+	public List<QnaBoardVO> selectbyIdQna(String id, SearchCriteria cri) {
+		HashMap<String, Object> map =  new HashMap<>();
+		map.put("id", id);
+		map.put("cri", cri);
+		return session.selectList(namespace+".selectbyIdQna",map);
+	}
+
+	@Override
+	public int selectbyIdCount(String id) {
+		return session.selectOne(namespace+".selectbyIdCount",id);
+	}
 }

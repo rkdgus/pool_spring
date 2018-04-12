@@ -14,6 +14,8 @@ public interface QnaBoardService {
 	public int countByAll(SearchCriteria cri);
 	public void modifyAnswer(QnaBoardVO vo);
 	public QnaBoardVO selectByBno(int bno);
-	public void answerUpdate(QnaBoardVO vo); 
+	public void answerUpdate(QnaBoardVO vo);
+	public List<QnaBoardVO> selectbyIdQna(String id,SearchCriteria cri);
+	public int selectbyIdCount(String id);
 }
  

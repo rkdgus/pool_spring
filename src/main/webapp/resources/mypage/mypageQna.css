@@ -1,85 +1,68 @@
 @CHARSET "UTF-8";
-
-#list {
+#t {
 	width: 100%;
+	border-top: 2px solid #333333;
 	border-bottom: 2px solid #333333;
 }
 
-#list #first {
-	background: #333333;
-	height: 30px;
-	line-height: 30px;
-}
-
-#list tr {
-	border-bottom: #d7d7d7 1px solid;
+#t .list_tr {
+	border-bottom: 1px solid #d7d7d7;
 	height: 25px;
 	line-height: 25px;
 	cursor: pointer;
 }
 
-#list tr:HOVER {
-	background-color: #d7d7d7;
-}
-
-#list .th {
-	font-size: 14px;
-	color: white;
-	font-weight: bold;
-}
-
-#list .th:nth-child(1) {
-	width: 60px;
-}
-
-.th:nth-child(3) {
-	width: 70px;
-}
-
-.th:nth-child(5), .th:nth-child(4) {
-	width: 80px;
-}
-
-.td_title {
-	text-align: left;
-	font-size: 12px;
-}
-
-#list .td {
-	text-align: center;
-	font-size: 12px;
-}
-
-#nolist {
+#t .list_tr td {
 	font-size: 13px;
 	text-align: center;
 }
-#list_content{
-	margin-bottom: 10px;
-}
-#paging{
-	margin-top:20px;
+
+#t #main_tr {
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	color: white;
+	background: #333333;
 	text-align: center;
-	height:30px;
-	
 }
-.pageNum{
-	width:24px;
-	height:25px;
-	line-height:25px;
-	color:black;
+
+#t .list_tr:HOVER {
+	background: #d7d7d7;
+}
+
+#t #main_tr #main_bno {
+	width: 60px;
+}
+
+#main_regdate, #main_answer {
+	width: 80px;
+}
+
+#paging {
+	margin-top: 20px;
+	text-align: center;
+	height: 30px;
+}
+
+.pageNum {
+	width: 24px;
+	height: 25px;
+	line-height: 25px;
+	color: black;
 	display: inline-block;
-	border:1px solid #ccc;
+	border: 1px solid #ccc;
 	font-size: 14px;
 }
+
 .pageNum:HOVER {
 	background: #ebebeb;
 }
-#active{
+
+#active {
 	background: rgb(235, 235, 235);
 }
 
-#search_div{
+	#search_div{
 		margin-top:10px;
 		width:100%;
 		height:40px;
@@ -110,3 +93,11 @@
 	text-align: right;
 	margin-bottom: 10px;
 }
+#sel{
+		width:90px;
+		height:20px;
+		margin-bottom: 10px;
+}
+#searchBtn{
+		cursor: pointer;
+	}

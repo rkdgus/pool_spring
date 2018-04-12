@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>대구 아이티 수영장 - 반별게시판</title>
+<title>대구 아이티 수영장 - 수영클리닉 관리</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -23,9 +23,11 @@
 	width: 100%;
 	border: 1px solid #d7d7d7;
 }
-table{
-	font-size:13px !important;
+
+table {
+	font-size: 13px !important;
 }
+
 #content #insert_f table td {
 	padding: 5px;
 }
@@ -54,15 +56,18 @@ table{
 #content #insert_f table tr td:FIRST-CHILD {
 	background: #ebebeb;
 }
+
 #btnWrap {
 	background: none;
 	border: none;
 	margin-top: 10px;
 	text-align: right;
 }
+
 #insert_select {
 	width: 120px;
 }
+
 #btnWrap input {
 	width: 130px;
 	margin-top: 5px;
@@ -161,27 +166,26 @@ table{
 			<jsp:include page="contentTitle.jsp" />
 			<input type="hidden" value="${cno }" id="cno">
 			<h2>
-				<span class="mark22">■</span> 글쓰기
+				<span class="mark22">■</span> 수영클리닉 관리 추가
 			</h2>
 			<form id="insert_f" action="insert" method="post">
 				<table>
 					<tr>
-						<td>작성자</td>
-						<td><input type="text" name="id"></td>
-					</tr>
-					<tr>
-						<td>반</td>
-						<td><select name="cno" id="insert_select">
-								<option value="선택">선택</option>
-								<c:forEach var="item" items="${classList }">
-									<option value="${item.cno }">${item.time }/
-										${item.level }</option>
-								</c:forEach>
-						</select></td>
+						<td>제목</td>
+						<td><input type="text" name="title" id="insert_title"></td>
 					</tr>
 					<tr>
 						<td>제목</td>
-						<td><input type="text" name="title" id="insert_title"></td>
+						<td>
+							<select id="sel">
+								<option value="noSelect">선택</option>
+								<option value="freestyle">자유형</option>
+								<option value="backstroke">배영</option>
+								<option value="breaststroke">평영</option>
+								<option value="butterfly">접영</option>
+								<option value="startAndTrun">스타트 & 턴</option>
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<td id="ver">내용</td>
@@ -190,14 +194,13 @@ table{
 					<tr>
 						<td>이미지</td>
 						<td><input type="button" value="이미지추가" class="btn_admin"
-							data-toggle="modal" data-target="#modal" id="add">
-							<span id="count"></span>	
-						</td>
+							data-toggle="modal" data-target="#modal" id="add"> <span
+							id="count"></span></td>
 					</tr>
 				</table>
 				<div id="btnWrap">
 					<input type="button" value="취소" id="cencelBtn"> <input
-						type="button" value="전송" onclick="submitBtn()">
+						type="button" value="추가" onclick="submitBtn()">
 				</div>
 			</form>
 		</div>
@@ -219,7 +222,6 @@ table{
 					<table class="galleyTable" id="modal_table">
 						<tr>
 							<th width="20"><input type="checkbox" id="allCheck"></th>
-							<th width="">이름</th>
 							<th width="360">이미지</th>
 						</tr>
 					</table>
@@ -240,11 +242,16 @@ table{
 		var filesArr = {};
 		var previewIndex = 0;
 		var deleteIndex = 0;
-		window.scrollBy(0,80);
+		window.scrollBy(0, 80);
 		$(function() {
-			$(document).on("click","#close",function(){
-				$("#count").text(" " + Object.keys(filesArr).length + "개가 선택 되었습니다.");
-			})
+			$(document).on(
+					"click",
+					"#close",
+					function() {
+						$("#count").text(
+								" " + Object.keys(filesArr).length
+										+ "개가 선택 되었습니다.");
+					})
 			$("#allCheck").change(function() {
 				if ($("#allCheck").is(":checked")) {
 					$(".delcheck").attr("checked", "checked");
@@ -252,10 +259,10 @@ table{
 					$(".delcheck").removeAttr("checked");
 				}
 			})
-			$("#cencelBtn").click(function(){
-				if(confirm("글 작성을 취소하시겠습니까?")){
+			$("#cencelBtn").click(function() {
+				if (confirm("글 작성을 취소하시겠습니까?")) {
 					var cno = $("#cno").val();
-					location.href="classboard?cno="+cno;
+					location.href = "classboard?cno=" + cno;
 				}
 			})
 			$(document)
@@ -274,7 +281,6 @@ table{
 									$("#modal_table")
 											.append(
 													"<tr><td><input type='checkbox' class='delcheck'></td>"
-															+ "<td><input type='text' name='name'></td>"
 															+ "<td><img src='"+e.target.result+"' class='imgs'><span class='hiddenSpan'>"
 															+ imgNum
 															+ "</span></td>"
@@ -307,30 +313,26 @@ table{
 				formData.append("fileList", filesArr[i]);
 				formData.append("name", $("input[name='name']").eq(i).val());
 			}
-			var id = $("input[name='id']").val();
-			var cno = $("#insert_select").val();
-			var title = $("input[name='title']").val();
+			
+			var clinic_type = $("#sel").val();
+			var clinic_title = $("#clinic_title").val();
 			var c = $("#insert_content").val();
-			var content = c.replace(/(?:\r\n|\r|\n)/g, '<br />');
+			var clinic_content = c.replace(/(?:\r\n|\r|\n)/g, '<br />');
 
-			if (id == "") {
-				alert("아이디를 입력해주세요");
+			if (clinic_type == "noSelect") {
+				alert("타입을 선택해주세요");
 				return false;
-			} else if (cno == "선택") {
-				alert("반을 선택해주세요");
-				return false;
-			} else if (title == "") {
+			} else if (clinic_title == "") {
 				alert("제목을 입력해주세요");
 				return false;
-			} else if (content == "") {
+			} else if (clinic_content == "") {
 				alert("내용을 입력해주세요");
 				return false;
 			}
 
-			formData.append("cno", cno);
-			formData.append("id", id);
-			formData.append("title", title);
-			formData.append("content", content);
+			formData.append("clinic_type", clinic_type);
+			formData.append("clinic_title", clinic_title);
+			formData.append("clinic_content", clinic_content);
 			$.ajax({
 				url : "insert",
 				data : formData,
@@ -340,7 +342,7 @@ table{
 				dataType : "text",
 				success : function(result) {
 					alert("글 작성에 성공하였습니다.");
-					location.href = "classboard?cno=" + cno;
+					location.href = "adminClinic";
 				}
 			})
 		}
@@ -360,7 +362,6 @@ table{
 		function modalset() {
 			$("#close").trigger("click");
 		}
-		
 	</script>
 </body>
 </html>

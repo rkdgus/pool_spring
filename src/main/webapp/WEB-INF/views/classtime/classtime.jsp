@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	h2{
+	.h2{
 		font-size:16px !important;
 		margin-bottom:25px !important;    
 		font-weight: bold !important;
@@ -59,12 +59,12 @@
 			<jsp:include page="side.jsp" />
 		<div id="content">   
 			<jsp:include page="contentTitle.jsp" />  
-			<h2><img src="${pageContext.request.contextPath }/resources/img/classtime.png"> 수강접수 기간 안내(선착순)</h2>
+			<h2 class="h2"><img src="${pageContext.request.contextPath }/resources/img/classtime.png"> 수강접수 기간 안내(선착순)</h2>
 			<ul id="list_ul">
 				<li>-인터넷접수:매월 15일~20일</li>
 				<li>-방문접수:매월 20일~말일</li>
 			</ul>
-			<h2><img src="${pageContext.request.contextPath }/resources/img/classtime.png"> 수강시간</h2>
+			<h2 class="h2"><img src="${pageContext.request.contextPath }/resources/img/classtime.png"> 수강시간</h2>
 			<table class="classtime_table">
 				<tr>
 					<th width="78">요일</th>
@@ -132,7 +132,7 @@
 				<span class="red_color">해당 월의 강습편성 내역</span><span class="blue_color">을 반드시</span>
 				<span class="red_color">『공지사항』에서 확인하시기 바랍니다</span>
 			</h3>
-			<h2><img src="${pageContext.request.contextPath }/resources/img/classtime.png"> 수영과정별 수강내용</h2>
+			<h2 class="h2"><img src="${pageContext.request.contextPath }/resources/img/classtime.png"> 수영과정별 수강내용</h2>
 			<table class="classtime_table">
 				<tr>
 					<th width="100">수강반</th>

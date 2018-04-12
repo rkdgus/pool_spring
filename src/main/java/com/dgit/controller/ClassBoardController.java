@@ -56,8 +56,6 @@ public class ClassBoardController {
 		makePage(model,cri,cno);
 		model.addAttribute("cno",cno);
 		model.addAttribute("lists",lists);
-
-		
 		logger.info("=================classBoard Get====================");
 	}
 	@RequestMapping(value="/read", method=RequestMethod.GET)

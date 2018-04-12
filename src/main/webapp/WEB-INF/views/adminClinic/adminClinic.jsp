@@ -39,7 +39,7 @@
 	text-align: center;
 }
 
-#main_tr .bno_title{
+#main_tr .bno_title {
 	width: 60px;
 }
 
@@ -85,7 +85,7 @@
 	margin-bottom: 10px;
 }
 </style>
-<title>Insert title here</title>
+<title>대구 아이티 수영장 - 수영클리닉 관리</title>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
@@ -95,11 +95,11 @@
 			<jsp:include page="contentTitle.jsp" />
 			<select id="sel">
 				<option value="">전체보기</option>
-				<option value="noanswer">자유형</option>
-				<option value="answer">배영</option>
-				<option value="answer">평영</option>
-				<option value="answer">접영</option>
-				<option value="answer">스타트 & 턴</option>
+				<option value="freestyle">자유형</option>
+				<option value="backstroke">배영</option>
+				<option value="breaststroke">평영</option>
+				<option value="butterfly">접영</option>
+				<option value="startAndTrun">스타트 & 턴</option>
 			</select>
 			<button id="insert_btn">클리닉 추가하기</button>
 			<table id="main_t">
@@ -136,13 +136,13 @@
 		</div>
 	</div>
 	<script type="text/javascript">
-		$(function(){
-			$(document).on("click",".tr",function(){
+		$(function() {
+			$(document).on("click", ".tr", function() {
 				var bno = $(this).find(".bno").text();
-				location.href="read?bno";
+				location.href = "read?bno";
 			})
-			$("#insert_btn").click(function(){
-				location.href="insert";
+			$("#insert_btn").click(function() {
+				location.href = "insert";
 			})
 		})
 	</script>

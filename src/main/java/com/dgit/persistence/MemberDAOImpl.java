@@ -57,4 +57,10 @@ public class MemberDAOImpl implements MemberDAO {
 		
 	}
 
+	@Override
+	public MemberVO findMember(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+".findMember",vo);
+	}
+
 }

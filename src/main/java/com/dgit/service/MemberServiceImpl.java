@@ -48,4 +48,10 @@ public class MemberServiceImpl implements MemberService {
 		return dao.countByAll(cri);
 	}
 
+	@Override
+	public MemberVO findMember(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return dao.findMember(vo);
+	}
+
 }

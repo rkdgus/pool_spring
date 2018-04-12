@@ -12,5 +12,6 @@ public interface MemberService {
 	public void updateIdPw(MemberVO vo);
 	public List<MemberVO> selectMemberPage(SearchCriteria cri);
 	public int countByAll(SearchCriteria cri);
+	public MemberVO findMember(MemberVO vo);
 }
  

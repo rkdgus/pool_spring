@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>ID/PW찾기 : 대구 아이티 수영장</title>
+<script
+   src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <style type="text/css">
 #title_img {
 	margin: 0 auto;
@@ -63,6 +65,16 @@
 	left: 0;
 }
 </style>
+<script type="text/javascript">
+ 	$(function(){
+		$("#id_btn").click(function(){
+			$("#idf").submit(); 
+			return false;
+			
+		})                                                             
+	}) 
+		
+</script>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
@@ -89,15 +101,15 @@
 						src="${pageContext.request.contextPath }/resources/images/title_id.png"
 						class="timg">
 					<form id="idf"
-						action="${pageContext.request.contextPath }/login/login"
+						action="${pageContext.request.contextPath }/login/search"
 						method="post">
 						<p>
-							<label for="id">NAME</label> <input type="text"
-								 id="id" name="id">
+							<label for="name1">NAME</label> <input type="text"
+								 id="name1" name="name">
 						</p>
 						<p>
-							<label for="pw">EMAIL</label> <input type="password" id="pw"
-								name="pw">
+							<label for="email1">EMAIL</label> <input type="email" id="email1"
+								name="email">
 						</p>
 						<a href="#" class='ok_btn' id="id_btn"><img
 							src="${pageContext.request.contextPath }/resources/images/ok_btn.gif"></a>
@@ -105,7 +117,7 @@
 
 				</div>
 
-				<div id="search_pw">
+				<div id="search_pw">             
 					<img
 						src="${pageContext.request.contextPath }/resources/images/title_pw.png"
 						class="timg">
@@ -113,16 +125,16 @@
 						action="${pageContext.request.contextPath }/login/login"
 						method="post">
 						<p>
-							<label for="id">ID</label> <input type="text"
-								 id="id" name="id">
+							<label for="id2">ID</label> <input type="text"
+								 id="id2" name="id">
 						</p>
 						<p>
-							<label for="id">NAME</label> <input type="text"
-								 id="id" name="id">
+							<label for="name2">NAME</label> <input type="text"
+								 id="name2" name="name">
 						</p>
 						<p>
-							<label for="pw">EMAIL</label> <input type="password" id="pw"
-								name="pw">
+							<label for="email2">EMAIL</label> <input type="email" id="email2"
+								name="email">
 						</p>
 						<a href="#" class='ok_btn' id="pw_btn"><img
 							src="${pageContext.request.contextPath }/resources/images/ok_btn.gif"></a>

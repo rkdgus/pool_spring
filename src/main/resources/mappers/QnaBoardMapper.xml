@@ -39,5 +39,11 @@
 		<if test="searchType =='answer'.toString()">
 			where replycheck = true
 		</if>
+		<if test="searchType =='writer'.toString()">
+			where writer like CONCAT('%',#{keyword},'%')
+		</if>
+		<if test="searchType =='title'.toString()">
+			where title like CONCAT('%',#{keyword},'%')
+		</if>
 	</sql>
 </mapper>

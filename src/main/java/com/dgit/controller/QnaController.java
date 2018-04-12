@@ -93,13 +93,15 @@ public class QnaController {
 			List<QnaBoardVO> list = service.selectByAll(cri);
 			model.addAttribute("pageMaker", pageMaker);
 			model.addAttribute("list", list);
+			makePage(model,cri);
 		}
 		
 		@RequestMapping(value="/qnaRead",method=RequestMethod.GET)
-		public void readQna(int bno,Model model,int page){
+		public void readQna(int bno,Model model,SearchCriteria cri){
 			logger.info("======== qnaRead get ==========");
-			model.addAttribute("page", page);
+			model.addAttribute("cri", cri);
 			model.addAttribute("bno", bno);
+			makePage(model,cri);
 		}
 		
 		@ResponseBody
@@ -128,7 +130,7 @@ public class QnaController {
 		}
 		
 		@RequestMapping(value="/qnaReadSuccess",method=RequestMethod.GET)
-		public void pwSuccess(Model model,int bno,int page){
+		public void pwSuccess(Model model,int bno,SearchCriteria cri){
 			
 			logger.info("======== pwSuccess get ==========");
 			
@@ -141,7 +143,8 @@ public class QnaController {
 			}
 			
 			model.addAttribute("qnaBoard", vo);
-			model.addAttribute("page", page);
+			model.addAttribute("cri", cri);
+			makePage(model,cri);
 			
 		}
 		
@@ -187,5 +190,13 @@ public class QnaController {
 			
 		}
 		return entity;
+	}
+	
+	private void makePage(Model model,SearchCriteria cri){
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		int totalcount = service.countByAll(cri);
+		pageMaker.setTotalCount(totalcount);
+		model.addAttribute("pageMaker",pageMaker);
 	}
 }

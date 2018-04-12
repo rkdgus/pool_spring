@@ -8,6 +8,12 @@
 <meta charset="UTF-8">
 <title>관리자 모드 : 문의관리</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/qna/adminQna.css">
+<style>
+	#noqna{
+		text-align: center;
+		font-size: 13px;
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
@@ -65,6 +71,11 @@
 						
 					</tr>
 				</c:forEach>
+				<c:if test="${qna.size()==0 }">
+					<tr class="tr">
+						<td colspan="5" id="noqna">문의 내역이 없습니다.</td>
+					</tr>
+				</c:if>
 			</table>
 			
 				<div id="paging">

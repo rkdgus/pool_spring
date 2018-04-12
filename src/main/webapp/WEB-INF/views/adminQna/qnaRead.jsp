@@ -8,6 +8,11 @@
 <meta charset="UTF-8">
 <title>관리자 모드 : 문의관리</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/qna/adminQnaRead.css">
+<style>
+	#header_title{
+		margin-bottom: 20px !important;
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
@@ -38,6 +43,27 @@
 							}
 						}
 					}) 
+			})
+			
+			$("#btnRemove").click(function(){
+				var bno ="${qna.bno}";
+				
+				if(confirm("문의 내역을 삭제 할까요?")){
+					$.ajax({
+						url:"/pool/adminQna/qnaRemove",
+						type:"post",
+						dataType:"text",
+						data:{"bno":bno},
+						success:function(result){
+							console.log(result);
+							if(result=="success"){
+								alert("문의 내역을 삭제되었습니다.");
+								location.href="qna${pageMaker.makeQna(pageMaker.cri.page)}";
+							}
+						}
+					}) 
+				}
+				
 			})
 			
 			$("#up").click(function(){
@@ -83,6 +109,7 @@
 					</table>
 					<div class="btnGroup">
 						<button class="btn" id="btnclick">답변</button>
+						<button class="btn" id="btnRemove">삭제</button>
 						<a href="${pageContext.request.contextPath }/adminQna/qna${pageMaker.makeQna(pageMaker.cri.page)}"><button class="btn">목록</button></a>
 						<button class="btn" id="up">위로</button>
 					</div>

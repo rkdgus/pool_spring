@@ -8,18 +8,79 @@
 <meta charset="UTF-8">
 <title>문의하기 : 질문 및 답변 : 대구 아이티 수영장</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/qna/qnaBoard.css">
+<style>
+	#search_div{
+		margin-top:10px;
+		width:100%;
+		height:40px;
+		line-height: 40px;
+		color:#9a9a9a;
+		font-size:13px;
+		text-align:center;
+		background: rgb(235,235,235);
+	}
+	#search_div img{
+		margin-left:10px;
+		vertical-align: middle;
+	}
+	.btn{
+		border:1px solid #5c5c5c;
+		background: white;
+		font-size: 12px;
+		outline: none;
+		padding:5px 10px;
+	}
+	.btn:HOVER {
+	background: #ebebeb;
+}
+#header_title{
+	margin-bottom: 20px !important;
+}
+#btn_group{
+	text-align: right;
+	margin-bottom: 10px;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
 	<script>
+		var check = "${pageMaker.cri.searchType}";
+		var search = "${pageMaker.cri.keyword}";
 		$(function() {
 			
 			$(document).on("click", ".data_tr", function() {
 				var bno = $(this).find(".bno").text();
-				location.href = "qnaRead?bno=" + bno+"&page=${pageMaker.cri.page}";
+				location.href = "qnaRead${pageMaker.makeSearch(pageMaker.cri.page)}&bno=" + bno;
+				
+			})
+			$("#searchBtn").click(function(){
+				if($("#search").val()==""){
+					alert("검색어를 입력해주세요");
+					return;
+				} 
+				
+				
+			
+				location.href="qnaBoard${pageMaker.makeQuery(1)}&searchType="+$(".input:checked").val()+"&keyword="+$("#search").val();
 				
 			})
 			
+			if(check!=""){
+				$(".input").each(function(i,obj){
+					if($(this).val()==check){
+						$(this).attr("checked","checked");	
+					}
+				})
+			}
+			if(search !=""){
+				$("#search").val(search);
+			}
+			
+			$("#allBtn").click(function(){
+				location.href="qnaBoard${pageMaker.makeQuery(1)}";
+			})
+					
 		})
 	</script>
 	<div id="container">
@@ -28,6 +89,10 @@
 		<div id="content">
 			<jsp:include page="qnaBoardTitle.jsp" />
 			<div id="list_content">
+				<div id="btn_group">
+					<button class="btn" id="allBtn">전체보기</button>
+				</div>
+				
 				<table id="list">
 					<tr id="first">
 						<th class="th">번호</th>
@@ -61,7 +126,7 @@
 				</c:if>
 				<c:forEach begin="${pageMaker.startPage }"
 					end="${pageMaker.endPage }" var="idx">
-					<a href="qnaBoard?page=${idx }"><span class="pageNum"
+					<a href="qnaBoard${pageMaker.makeSearch(idx) }"><span class="pageNum"
 						${pageMaker.cri.page == idx? 'id=active' : ''}>${idx }</span></a>
 				</c:forEach>
 				<c:if test="${pageMaker.next}">
@@ -69,7 +134,13 @@
 						class="paginBtn">&raquo;</span></a>
 				</c:if>
 			</div>
-
+		<div id="search_div">
+			<input type="radio" checked="checked" value="writer" class="input" name="searcht"> 작성자 
+			<input type="radio" value="title" class="input" name="searcht"> 제목
+			<img src="${pageContext.request.contextPath }/resources/img/search_img.png">
+			<input type="text" id="search">
+			<img src="${pageContext.request.contextPath }/resources/img/btn_search.gif" id="searchBtn">
+		</div>
 		</div>
 	</div>
 

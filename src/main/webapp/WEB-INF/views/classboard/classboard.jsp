@@ -98,16 +98,8 @@
 	}
 	#insert_wrap{
 		width:100%;
-		overflow: hidden;
-	}
-	#insert_wrap button{
-		background: rgb(235, 235, 235);
-		float:right;
-		border:none;
-		font-size:13px;
-		font-family: "맑은 고딕";
-		color:#9a9a9a;
-		padding:3px 6px;	
+		text-align: right;
+		margin-bottom: 10px;
 	}
 	#content a{
 		color:black;
@@ -128,6 +120,16 @@
 	table tr.list{
 		cursor: pointer;
 	}
+	.btn{
+		border:1px solid #5c5c5c;
+		background: white;
+		font-size: 12px;
+		outline: none;
+		padding:5px 10px;
+	}
+	.btn:HOVER {
+	background: #ebebeb;
+}
 </style>
 </head>
 <body>
@@ -137,7 +139,8 @@
 		<div id="content">
 			<jsp:include page="contentTitle.jsp" />
 			<div id="insert_wrap">
-				<a href="insert?cno=${cno }" id="insert_btn"><button>글쓰기</button></a>
+				<a href="insert?cno=${cno }" id="insert_btn"><button class="btn">글쓰기</button></a>
+				<button class="btn" id="allBtn">전체보기</button>
 			</div>
 			<c:if test="${lists.size()==0}">
 				<img src="${pageContext.request.contextPath }/resources/img/goodgood.jpg">
@@ -215,6 +218,10 @@
 				location.href=$(this).find("a").attr("href");
 			})
 			window.scrollBy(0,80);
+			
+			$("#allBtn").click(function(){
+				location.href="classboard?cno=${cno}";
+			})
 		})
 	</script>
 	<jsp:include page="../include/footer.jsp"/>

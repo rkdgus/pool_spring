@@ -95,16 +95,19 @@
 	}
 	#insert_wrap{
 		width:100%;
-		overflow: hidden;
+		text-align: right;
+		margin-bottom: 10px;
 	}
 	#insert_wrap button{
-		background: rgb(235, 235, 235);
-		float:right;
-		border:none;
-		font-size:13px;
-		font-family: "맑은 고딕";
-		color:#9a9a9a;
-		padding:3px 6px;	
+		border:1px solid #5c5c5c;
+		background: #fff;
+		font-size: 12px;
+		outline: none;
+		padding:5px 10px;
+		border-radius:2px;
+	}
+	#insert_wrap button:HOVER{
+		background:#ebebeb;
 	}
 	#content a{
 		color:black;

@@ -81,8 +81,19 @@
 
 #sel {
 	width: 90px;
-	height: 20px;
-	margin-bottom: 10px;
+	height: 27px;
+}
+#insert_btn{
+	border:1px solid #5c5c5c;
+		background: #fff;
+		font-size: 12px;
+		outline: none;
+		padding:5px 10px;
+		border-radius:2px;
+		margin-bottom: 5px;
+}
+#insert_btn:HOVER {
+	background: #ebebeb;
 }
 </style>
 <title>Insert title here</title>

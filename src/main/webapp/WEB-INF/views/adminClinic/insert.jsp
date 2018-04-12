@@ -172,7 +172,7 @@ table {
 				<table>
 					<tr>
 						<td>제목</td>
-						<td><input type="text" name="title" id="insert_title"></td>
+						<td><input type="text" name="title" id="clinic_title"></td>
 					</tr>
 					<tr>
 						<td>제목</td>

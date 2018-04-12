@@ -61,8 +61,6 @@ public class ClassBoardController {
 	@RequestMapping(value="/read", method=RequestMethod.GET)
 	public void getRead(SearchCriteria cri,int bno, Model model,String rnt){
 		logger.info("=================read Get====================");
-		
-		
 		ClassBoardVO vo = service.read(bno);
 		List<ClassreplyVO> replyList = service.replySelectByBno(bno);
 		if(vo.getImgpath() !=null){

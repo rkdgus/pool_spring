@@ -149,8 +149,8 @@
 	<script type="text/javascript">
 		$(function() {
 			$(document).on("click", ".tr", function() {
-				var bno = $(this).find(".bno").text();
-				location.href = "read?bno";
+				var no = $(this).find(".bno").text();
+				location.href = "read?no="+no;
 			})
 			$("#insert_btn").click(function() {
 				location.href = "insert";

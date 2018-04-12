@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dgit.domain.QnaBoardVO;
+import com.dgit.domain.SearchCriteria;
 @Repository
 public class QnaBoardDAOImpl implements QnaBoardDAO {
 	private static final String namespace = "com.dgit.mapper.QnaBoardMapper";
@@ -15,8 +16,8 @@ public class QnaBoardDAOImpl implements QnaBoardDAO {
 	@Autowired
 	private SqlSession session;
 	@Override
-	public List<QnaBoardVO> selectByAll(int page) {
-		return session.selectList(namespace+".selectByAll",page);
+	public List<QnaBoardVO> selectByAll(SearchCriteria cri) {
+		return session.selectList(namespace+".selectByAll",cri);
 	}
   
 	@Override
@@ -43,8 +44,8 @@ public class QnaBoardDAOImpl implements QnaBoardDAO {
 	}
 
 	@Override
-	public int countByAll() {
-		return session.selectOne(namespace+".countByAll");
+	public int countByAll(SearchCriteria cri) {
+		return session.selectOne(namespace+".countByAll",cri);
 	}
 
 	@Override

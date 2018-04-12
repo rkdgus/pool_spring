@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgit.mapper.ClinicMapper">
+	<select id="selectByList" resultType="ClinicVO">
+		select * from clinic
+		<include refid="search" />
+		order by clinic_no desc 
+		limit #{pageStart},15
+	</select>
+	<select id="count" resultType="int">
+		select count(*) from clinic
+		<include refid="search" />
+	</select>
+	<select id="selectByNo" resultType="ClinicVO">
+		select * from clinic where clinic_no = #{clinic_no}
+	</select>
+	<insert id="insert">
+		insert into clinic(clinic_type,clinic_title,clinic_content,clinic_path) values(#{clinic_type},#{clinic_title},#{clinic_content},#{clinic_path})
+	</insert>
+	<update id="update">
+		update clinic set clinic_type=#{clinic_type},clinic_path = #{clinic_path},clinic_title = #{clinic_title},clinic_content = #{clinic_content} where clinic_no = #{clinic_no} 
+	</update>
+	<delete id="delete">
+		delete from clinic where clinic_no = #{clinic_no} 
+	</delete>
+	<sql id="search">
+		<if test="searchType =='titleandcontent'.toString()">
+			
+		</if>
+		<if test="searchType =='title'.toString()">
+			
+		</if>
+		<if test="searchType =='writer'.toString()">
+			
+		</if>
+	</sql>
+</mapper>

@@ -85,7 +85,7 @@ public class ClassBoardController {
 	}
 	@RequestMapping(value="/insert", method=RequestMethod.GET)
 	public void getInsert(int cno,Model model){
-		
+		classList(model);
 		model.addAttribute("cno",cno);
 		logger.info("=================insert Get====================");
 	}
@@ -178,6 +178,7 @@ public class ClassBoardController {
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
 	public void getModify(int cno,SearchCriteria cri,int bno,Model model){
 		logger.info("--get modify---");
+		classList(model);
 		ClassBoardVO vo = service.read(bno);
 		if(vo.getImgpath() !=null){
 			String[] imgArr = vo.getImgpath().split(",");
@@ -321,4 +322,8 @@ public class ClassBoardController {
 		pageMaker.setTotalCount(totalcount);
 		model.addAttribute("pageMaker",pageMaker);
 	}
+	 private void classList(Model model){
+	      List<ClassVO> classList = service.selectByClass();
+	      model.addAttribute("classList",classList);
+	 }
 }

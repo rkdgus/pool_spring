@@ -1,5 +1,6 @@
 package com.dgit.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.dgit.domain.MemberVO;
+import com.dgit.domain.SearchCriteria;
 import com.mysql.fabric.xmlrpc.base.Member;
 
 @Repository
@@ -37,17 +39,22 @@ public class MemberDAOImpl implements MemberDAO {
 		session.update(namespace+".updateIdPw",vo);
 	}
 
+
 	@Override
-	public List<MemberVO> selectMemberPage(int page) {
+	public int countByAll(SearchCriteria cri) {
 		// TODO Auto-generated method stub
-		return session.selectList(namespace+".selectMemberPage",page);
-		
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("cri", cri);
+		return session.selectOne(namespace+".countByAll",map);
 	}
 
 	@Override
-	public int countByAll() {
+	public List<MemberVO> selectMemberPage(SearchCriteria cri) {
 		// TODO Auto-generated method stub
-		return session.selectOne(namespace+".countByAll");
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("cri", cri);
+		return session.selectList(namespace+".selectMemberPage",map);
+		
 	}
 
 }

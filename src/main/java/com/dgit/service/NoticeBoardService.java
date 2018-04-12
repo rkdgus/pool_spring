@@ -12,5 +12,6 @@ public interface NoticeBoardService {
 	public void remove(int nno);
 	public int count();
 	public List<NoticeBoardVO> selectByMain();
+	public void updatecnt(NoticeBoardVO vo);
 }
  

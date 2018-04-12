@@ -47,7 +47,7 @@ public class EventController {
 	public String event(SearchCriteria cri,Model model) {
 		logger.info("=================event Get====================");
 		List<NoticeBoardVO> lists = service.selectByAll((cri.getPage()-1)*15);
-		
+
 		PageMaker pageMaker = new PageMaker();
 		 
 		pageMaker.setCri(cri);
@@ -109,16 +109,26 @@ public class EventController {
 	}
 	
 	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public String read(int nno,Model model) {
+	public String read(int nno,Model model,SearchCriteria cri,int yes) {
 		logger.info("=================read Get====================");
 		logger.info("=================read Get====================");
+		
 
 		NoticeBoardVO vo = service.read(nno);
+		if(yes==1){
+			vo.setReadcnt(vo.getReadcnt()+1);
+			service.updatecnt(vo);
+		}
 		
 		if(vo.getImgpath() !=null){
 			String[] imgArr = vo.getImgpath().split(",");
 			model.addAttribute("imgArr",imgArr);
 		}
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		/*int totalcount = service.count(cri);
+		pageMaker.setTotalCount(totalcount);*/
+		model.addAttribute("pageMaker",pageMaker);
 		model.addAttribute("vo",vo);
 		
 		return "event/read";
@@ -158,13 +168,17 @@ public class EventController {
 	}
 	
 	@RequestMapping(value="/modify", method=RequestMethod.GET)
-	public void getModify(int nno,Model model){
+	public void getModify(int nno,Model model,SearchCriteria cri){
 		logger.info("--get modify---");
 		NoticeBoardVO vo = service.read(nno);
 		if(vo.getImgpath() !=null){
 			String[] imgArr = vo.getImgpath().split(",");
 			model.addAttribute("imgArr",imgArr);
 		}
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+
+		model.addAttribute("pageMaker",pageMaker);
 		model.addAttribute("vo",vo);
 	}
 	

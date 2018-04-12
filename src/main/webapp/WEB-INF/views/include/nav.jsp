@@ -24,7 +24,7 @@
 				<c:if test="${login ==null }">
 					<li><a href="${pageContext.request.contextPath}/login/login">로그인</a></li>
 					<li><a href="${pageContext.request.contextPath}/join/joinStep1">회원가입</a></li>
-					<li><a href="">ID/PW찾기</a></li>
+					<li><a href="${pageContext.request.contextPath}/login/search">ID/PW찾기</a></li>
 				</c:if>
 				<c:if test="${login.title =='사장' }">
 					<li><a href="${pageContext.request.contextPath}/login/logOut">로그아웃</a></li>

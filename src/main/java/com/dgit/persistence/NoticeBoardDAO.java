@@ -12,5 +12,6 @@ public interface NoticeBoardDAO {
 	public void delete(int nno);
 	public int countByAll();
 	public List<NoticeBoardVO> selectByMain();
+	public void updatecnt(NoticeBoardVO vo);
 }
  

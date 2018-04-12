@@ -55,4 +55,11 @@ public class NoticeBoardServiceImpl implements NoticeBoardService {
 		return dao.selectByMain();
 	}
 
+	@Override
+	public void updatecnt(NoticeBoardVO vo) {
+		// TODO Auto-generated method stub
+		dao.updatecnt(vo);
+		
+	}
+
 }

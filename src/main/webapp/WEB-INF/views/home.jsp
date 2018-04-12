@@ -262,7 +262,7 @@ div#header {
 			<ul>
 				<c:forEach items="${board }" var="item">
 					<li>
-						<a href="event/read?nno=${item.nno }" class="read">${item.title }
+						<a href="event/read?nno=${item.nno }&yes=1" class="read">${item.title }
 							<span class="regdate"><fmt:formatDate value="${item.regdate }" var="regdate" pattern="yyyy-MM-dd"/>${regdate}</span>
 						</a>
 					</li>

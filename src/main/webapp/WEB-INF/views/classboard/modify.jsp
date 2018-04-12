@@ -287,6 +287,7 @@ table{
 					location.href="read${pageMaker.makeSearch(pageMaker.cri.page)}&cno=${cno }&bno="+$("#bno").val();
 				}
 			})
+			alert("${vo.cno}");
 			$("#update_select").val("${vo.cno}")
 			$("#allCheck").change(function(){
 		          if($("#allCheck").is(":checked")){

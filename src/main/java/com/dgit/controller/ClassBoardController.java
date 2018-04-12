@@ -56,14 +56,14 @@ public class ClassBoardController {
 		makePage(model,cri,cno);
 		model.addAttribute("cno",cno);
 		model.addAttribute("lists",lists);
-		classList(model);
+
 		
 		logger.info("=================classBoard Get====================");
 	}
 	@RequestMapping(value="/read", method=RequestMethod.GET)
 	public void getRead(SearchCriteria cri,int bno, Model model,String rnt){
 		logger.info("=================read Get====================");
-		classList(model);
+		
 		
 		ClassBoardVO vo = service.read(bno);
 		List<ClassreplyVO> replyList = service.replySelectByBno(bno);
@@ -85,7 +85,7 @@ public class ClassBoardController {
 	}
 	@RequestMapping(value="/insert", method=RequestMethod.GET)
 	public void getInsert(int cno,Model model){
-		classList(model);
+		
 		model.addAttribute("cno",cno);
 		logger.info("=================insert Get====================");
 	}
@@ -96,9 +96,14 @@ public class ClassBoardController {
 		
 		return "redirect:/classboard/classboard?cno="+cno;
 	}
-	private void classList(Model model){
+	@ResponseBody
+	@RequestMapping(value="/sidebar", method=RequestMethod.POST)	
+	private ResponseEntity<List<ClassVO>> classList(){
+		ResponseEntity<List<ClassVO>> entity= null;
 		List<ClassVO> classList = service.selectByClass();
-		model.addAttribute("classList",classList);
+		entity = new ResponseEntity<List<ClassVO>>(classList,HttpStatus.OK);
+		return entity;
+		
 	}
 	@ResponseBody
 	@RequestMapping(value="/upload", method=RequestMethod.POST)	
@@ -181,7 +186,7 @@ public class ClassBoardController {
 		model.addAttribute("vo",vo);
 		makePage(model,cri,cno);
 		model.addAttribute("cno",cno);
-		classList(model);
+
 	}
 	@ResponseBody
 	@RequestMapping(value="/modify", method=RequestMethod.POST)

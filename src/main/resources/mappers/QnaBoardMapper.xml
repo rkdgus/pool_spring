@@ -4,10 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dgit.mapper.QnaBoardMapper">
 	<select id="selectByAll" resultType="QnaBoardVO">
-		select * from qnaboard order by regdate desc limit #{page},15
+		select * from qnaboard 
+		<include refid="search"></include>
+		order by regdate desc limit #{pageStart},15
 	</select>
 	<select id="countByAll" resultType="int">
 		select count(*) from qnaboard
+		<include refid="search"></include>
 	</select>
 	<select id="selectByBno" resultType="QnaBoardVO">
 		select * from qnaboard where bno=#{bno}
@@ -22,9 +25,19 @@
 		update qnaboard set title = #{title}, content = #{content} imgpath = #{imgpath} where bno = #{bno}
 	</update>
 	<update id="answerUpdate">
-		update qnaboard set replycheck = true, answer = #{answer} answerdate = now() where bno = #{bno}
+		update qnaboard set replycheck = true, answer = #{answer} , answerdate = now() where bno = #{bno}
 	</update>
 	<delete id="delete">
 		delete from qnaboard where bno = #{bno}
 	</delete>
+	
+	
+	<sql id="search">
+		<if test="searchType == 'noanswer'.toString()">
+			where replycheck = false
+		</if>
+		<if test="searchType =='answer'.toString()">
+			where replycheck = true
+		</if>
+	</sql>
 </mapper>

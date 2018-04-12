@@ -23,8 +23,14 @@
 			})
 		
 			$("#answerBtn").click(function(){
-					alert("클릭");
+				
 				var a = $("#answer_content").val();
+				
+				if(a==""){
+					alert("답변 내용을 입력하세요");
+					return;
+				}
+				
 				var answer = a.replace(/(?:\r\n|\r|\n)/g, '<br />');
 				var bno ="${qna.bno}";
 				

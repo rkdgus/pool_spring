@@ -50,4 +50,11 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO {
 		return session.selectList(namespace+".selectByMain");
 	}
 
+	@Override
+	public void updatecnt(NoticeBoardVO vo) {
+		// TODO Auto-generated method stub
+		session.update(namespace+".updatecnt", vo);
+		
+	}
+
 }

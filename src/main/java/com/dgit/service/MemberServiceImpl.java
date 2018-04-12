@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dgit.domain.MemberVO;
+import com.dgit.domain.SearchCriteria;
 import com.dgit.persistence.MemberDAO;
 import com.mysql.fabric.xmlrpc.base.Member;
 
@@ -36,15 +37,15 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public List<MemberVO> selectMemberPage(int page) {
+	public List<MemberVO> selectMemberPage(SearchCriteria cri) {
 		// TODO Auto-generated method stub
-		return dao.selectMemberPage(page);
+		return dao.selectMemberPage(cri);
 	}
 
 	@Override
-	public int countByAll() {
+	public int countByAll(SearchCriteria cri) {
 		// TODO Auto-generated method stub
-		return dao.countByAll();
+		return dao.countByAll(cri);
 	}
 
 }

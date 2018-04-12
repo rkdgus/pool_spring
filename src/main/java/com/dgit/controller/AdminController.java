@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -84,7 +85,7 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/gallery", method = RequestMethod.POST)
-	public String galleryPost(List<MultipartFile> fileList, HttpServletRequest request,Model model,String name,String type) {
+	public String galleryPost(List<MultipartFile> fileList, HttpServletRequest request,Model model,String type) {
 		logger.info("=================gallery post====================");
 
 		File dirPath = new File(outUploadPath+"갤러리");
@@ -93,7 +94,7 @@ public class AdminController {
 			dirPath.mkdirs();
 		}
 		
-		String[] nameArr = name.split(",");
+
 		String[] typeArr =type.split(",");
 
 		String typeName="";
@@ -114,7 +115,7 @@ public class AdminController {
 		
 		for(int i = 0;i<arrFile.size();i++){
 			GalleryVO vo = new GalleryVO();
-			vo.setGallery_name(nameArr[i]);
+	
 			vo.setGallery_path(arrFile.get(i));
 			if(typeArr[i].equals("0")){
 				typeName="내부사진";
@@ -231,15 +232,14 @@ public class AdminController {
 	@RequestMapping(value="/member", method=RequestMethod.GET )
 	public String memberGet(SearchCriteria cri,Model model){
 		
-		List<MemberVO> lists = memberService.selectMemberPage((cri.getPage()-1)*15);
+		List<MemberVO> lists = memberService.selectMemberPage(cri);
 		
 		PageMaker pageMaker = new PageMaker();
 		 
 		pageMaker.setCri(cri);
-		int totalcount = memberService.countByAll();
+		int totalcount = memberService.countByAll(cri);
 		pageMaker.setTotalCount(totalcount);
-		logger.info(pageMaker.getStartPage()+"");
-		logger.info(pageMaker.getEndPage()+"");
+
 		model.addAttribute("pageMaker",pageMaker);
 		model.addAttribute("lists",lists);
 		
@@ -249,16 +249,26 @@ public class AdminController {
 	      
 	
 	@RequestMapping(value = "/member/read", method = RequestMethod.GET)
-	public String memberRead(Model model,int mno) {
+	public String memberRead(Model model,int mno,SearchCriteria cri) {
 		logger.info("=================memberRead Get====================");
 		MemberVO vo = memberService.selectMemberByMno(mno);
 		List<RegisterVO> list=registerService.selectAll(mno);
 		List<String> classes = new ArrayList<>();
+		SimpleDateFormat sd = new SimpleDateFormat("yyyy년 MM월");
 		for(RegisterVO r : list){
 			
 			ClassVO c=classService.selectAll(r.getCno());
-			classes.add(c.getS_day()+")"+c.getTime()+"시"+c.getLevel()+"반");
+			
+			
+			classes.add(sd.format(c.getS_day())+" / "+c.getTime().replace("00분", "")+c.getLevel()+"반");         
 		}
+		PageMaker pageMaker = new PageMaker();
+		 
+		pageMaker.setCri(cri);
+		int totalcount = memberService.countByAll(cri);
+		pageMaker.setTotalCount(totalcount);
+
+		model.addAttribute("pageMaker",pageMaker);
 		model.addAttribute("vo", vo);
 		model.addAttribute("classes", classes);
 

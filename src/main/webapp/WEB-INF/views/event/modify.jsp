@@ -342,7 +342,7 @@
 				dataType : "text", 
 				success : function(result) {
 					alert("글을 수정하였습니다.");
-					location.href="read?nno="+$("#nno").val();
+					location.href="read${pageMaker.makeSearch(pageMaker.cri.page)}&yes=0&nno="+$("#nno").val();
 				}
 			})
 		}

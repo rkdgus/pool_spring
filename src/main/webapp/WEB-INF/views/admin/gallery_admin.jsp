@@ -87,7 +87,7 @@
 
 								$("#modal_table")
 										.append(
-												"<tr><td><input type='text' class='name'></td>"
+												"<tr>"
 														+ "<td><img src='"+e.target.result+"' class='imgs'></td>"
 														+ "<td><select class='sel'><option>내부</option><option>외부</option><option>강습사진</option><option>주변사진</option></select></td></tr>");
 
@@ -109,17 +109,15 @@
 		})
 
 		$("#f1").submit(function() {
-			var nameArr = [];
+		
 			var typeArr = [];
 
-			$(".name").each(function(i, obj) {
-				nameArr.push($(this).val());
-			});
+		
 			$(".sel").each(function(i, obj) {
 				typeArr.push($(this).find("option:selected").index());
 			});
 
-			$("#nameArr").val(nameArr);
+			
 			$("#typeArr").val(typeArr);
 		})
                                  
@@ -196,7 +194,6 @@
 				<tr>
 					<th width="20"><input type="checkbox" id="allChecked"></th>
 					<th width="100">번호</th>
-					<th width="100">이름</th>
 					<th width="">이미지</th>
 					<th width="150">타입</th>
 				</tr>
@@ -204,7 +201,6 @@
 					<tr>
 						<td><input type="checkbox" class="check"></td>
 						<td>${imgs.gallery_num}<input type="hidden" class="num" name="no" value="${imgs.gallery_num}"></td>
-						<td>${imgs.gallery_name}</td>
 						<td><img src="displayFile?filename=${imgs.gallery_path}"></td>
 						<td>${imgs.gallery_type}</td>
 					</tr>
@@ -234,13 +230,12 @@
 					<form method="post" action="gallery" enctype="multipart/form-data"
 						id="f1">
 						<input type="file" name="fileList" multiple="multiple"
-							id="fileList" style="display: none;"> <input
-							type="hidden" name='name' id="nameArr"> <input
+							id="fileList" style="display: none;">  <input
 							type="hidden" name='type' id="typeArr">
 						<table class="galleyTable" id="modal_table">
 							<tr>
-								<th width="">이름</th>
-								<th width="250">이미지</th>
+
+								<th width="">이미지</th>
 								<th width="150">타입</th>
 							</tr>
 

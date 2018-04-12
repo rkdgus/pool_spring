@@ -148,8 +148,23 @@ span#active {
 	$(function(){
 		$(document).on("click",".memberTr",function(){
 			var no =$(this).find("td").eq(0).text();
-			location.href="${pageContext.request.contextPath }/admin/member/read?mno="+no;
+			location.href="${pageContext.request.contextPath }/admin/member/read${pageMaker.makeSearch(pageMaker.cri.page)}&mno="+no;
 		})
+		
+		
+		$("#submit_img").click(function(){
+				var searchType = $("input[name='smode']:checked").val();
+				var keyword = $("input[name='search']").val();
+				if(keyword ==""){
+					alert("키워드를 입력해주세요");
+					return false;
+				}else{
+					location.href="${pageMaker.makeQuery(1)}&searchType="+searchType+"&keyword="+keyword;
+				}
+				return false;                  
+			})
+			
+			
 	})
 </script>
 </head>
@@ -194,18 +209,18 @@ span#active {
 						<td colspan="8">
 							<div id="paging">
 								<c:if test="${pageMaker.prev}">
-									<a href="?page=${pageMaker.startPage-1 }"><span
+									<a href="${pageMaker.makeSearch(pageMaker.startPage-1)}"><span
 										class="paginBtn">&laquo;</span></a>
 								</c:if>
 								<c:forEach begin="${pageMaker.startPage }"
 									end="${pageMaker.endPage }" var="idx">
-									<a href="?page=${idx }"><span class="pageNum"
+									<a href="${pageMaker.makeSearch(idx)}"><span class="pageNum"
 										${pageMaker.cri.page == idx? 'id=active' : ''}>${idx }</span></a>
 								</c:forEach>
 								<c:if test="${pageMaker.next}">
-									<a href="?page=${pageMaker.endPage+1}"><span
+									<a href="${pageMaker.makeSearch(pageMaker.startPage+1)}"><span
 										class="paginBtn">&raquo;</span></a>
-								</c:if>
+								</c:if>                              
 							</div>
 						</td>
 					</tr>
@@ -213,15 +228,16 @@ span#active {
 						<td colspan="8">                                           
 							<form id="search_wrap">
 								<input id="smode_subject" name="smode" type="radio"
-									value="titleandcontent" checked="checked"> <label
+									value="name" checked="checked"> <label
 									for="smode_subject">이름</label> <input id="smode_author"
-									name="smode" type="radio" value="title"> <label
-									for="smode_author">아이디</label> <img
-									src="${pageContext.request.contextPath}/resources/img/search_img.png"
-									class="search_img" id="search_img"> <input type="text"
-									name="search"> <img
-									src="${pageContext.request.contextPath}/resources/img/btn_search.gif"
-									class="search_img" id="submit_img">
+									name="smode" type="radio" value="id"> <label
+									for="smode_author">아이디</label>
+
+									<img src="${pageContext.request.contextPath}/resources/img/search_img.png" class="search_img" id="search_img">
+									 <input type="text" name="search"> 
+								<a href="" id="submit_img">
+									<img src="${pageContext.request.contextPath}/resources/img/btn_search.gif" class="search_img">
+								</a>            
 							</form>
 						</td>       
 					</tr>

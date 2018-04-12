@@ -137,4 +137,10 @@ public class LoginController {
 	}
 	
 	
+	@RequestMapping(value="/search",method=RequestMethod.GET)
+	public void search(){
+		logger.info("=================search Get====================");
+	}
+	
+	
 }

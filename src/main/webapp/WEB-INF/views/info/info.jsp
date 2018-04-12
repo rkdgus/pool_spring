@@ -33,7 +33,7 @@
 	margin:0 auto;              
 }
 #teacherT tr{
-	
+	border:1px solid #ccc;                                                                  
 }
 
 #teacherT td{
@@ -42,6 +42,7 @@
 	height:200px;
 	vertical-align: middle;                         
 	text-align: center;
+	background: #ddd;                  
 }
 #teacherT td img{
 	max-width:100%;
@@ -51,9 +52,10 @@
 	font-size: 20px;
 	font-weight: bold;
 	
+	
 }
 #teacherT td p{
-	color:#777;
+	color:#555;
 	text-align: left;
 }
 </style>

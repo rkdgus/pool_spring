@@ -126,9 +126,9 @@
 					</tr>
 					<tr id="btn_tr">
 						<td colspan="4" class="align_right">
-							<a href="${pageContext.request.contextPath}/event/"><button>목록</button></a>
+							<a href="${pageContext.request.contextPath}/event/${pageMaker.makeSearch(pageMaker.cri.page)}"><button>목록</button></a>
 							<c:if test="${login.title=='사장' }">
-								<a href="${pageContext.request.contextPath }/event/modify?nno=${vo.nno}"><button>수정</button></a>
+								<a href="${pageContext.request.contextPath }/event/modify${pageMaker.makeSearch(pageMaker.cri.page)}&nno=${vo.nno}"><button>수정</button></a>
 								<a href="#"><button id="boardRemoveBtn">삭제</button></a>
 							</c:if>
 							

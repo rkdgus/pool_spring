@@ -20,6 +20,7 @@
 	#container #content #classboard_table table{
 		width:730px;
 		font-size:15px;
+           
 	}
 	#container #content #classboard_table table tr{
 		line-height:30px;
@@ -112,9 +113,16 @@
 	span#active{
 		background: rgb(235, 235, 235);             
 	}   
-	#clickTitle:hover{            
-		color:#9c7097;
-	}             
+
+	table{
+		font-size:13px !important;
+	}
+	table tr.list:HOVER {
+		background-color: #d7d7d7;
+	}
+	table tr.list{
+		cursor: pointer;              
+	}          
 </style>                                                 
 </head>             
 <body>
@@ -137,13 +145,13 @@
 						<th width="460">제목</th>
 						<th width="80" >작성자</th>
 						<th width="60">조회수</th>
-						<th width="80">작성일</th>
+						<th width="80">작성일</th>             
 					</tr>
 					<c:if test="${lists !=null }">
 						<c:forEach var="item" items="${lists }">
-							<tr>
+							<tr class="list">
 								<td>${item.nno }</td>
-								<td class="title"><a href="read?nno=${item.nno }" id="clickTitle">${item.title }</a></td>
+								<td class="title"><a href="read${pageMaker.makeSearch(pageMaker.cri.page)}&nno=${item.nno }&yes=1" id="clickTitle">${item.title }</a></td>
 								<td>관리자</td>
 								<td>${item.readcnt }</td>
 								<fmt:formatDate value="${item.regdate }" var="regdate" pattern="yyyy-MM-dd"/>
@@ -165,23 +173,19 @@
 								</c:if>
 							</div>
 						</td>
-					</tr>
-					<tr id="search_tr">
-						<td colspan="5">
-							<form id="search_wrap">
-								<input id="smode_subject" name="smode" type="radio" value="titleandcontent" checked="checked">
-								<label for="smode_subject">제목+본문</label>
-								<input id="smode_author" name="smode" type="radio" value="title">
-								<label for="smode_author">제목</label>
-								<img src="${pageContext.request.contextPath}/resources/img/search_img.png" class="search_img" id="search_img">
-								<input type="text" name="search">
-								<img src="${pageContext.request.contextPath}/resources/img/btn_search.gif" class="search_img" id="submit_img">							</form>
-						</td>
-					</tr>
+					</tr>					
 				</table>
 			</div>
 		</div>
 </div>
 	<jsp:include page="../include/footer.jsp"/>
+	<script type="text/javascript">
+		$(function(){
+			$(document).on("click",".list",function(){
+				location.href=$(this).find("a").attr("href");
+			})
+			window.scrollBy(0,80);
+		})
+	</script>
 </body>
 </html>

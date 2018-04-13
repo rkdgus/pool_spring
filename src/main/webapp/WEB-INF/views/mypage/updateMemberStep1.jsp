@@ -53,7 +53,30 @@
 	<jsp:include page="../include/header.jsp" />
 	<script>
 		$(function(){
-			
+			$("#next").click(function(e){
+				
+				$.ajax({
+					url:"checkPw",
+					type:"post",
+					dataType:"text",
+					data:{"id":"${login.id}",
+							"pw":$("#pw").val()},
+					success:function(result){
+						console.log(result);
+						if(result =="notMatch"){
+							alert("비밀번호가 일치하지 않습니다 (비밀번호를 확인해 주세요)");
+							$("#pw").val("").focus();
+							return;
+						}
+						
+						if(result =="match"){
+							location.href="updateMember?id=${login.id}";
+							return;
+						}
+					}
+				}) 
+				e.preventDefault();
+			})
 		})
 	</script>
 		<div id="container">
@@ -71,7 +94,7 @@
 					
 				</div>
 				<div id="btn">
-					<a href="#"><img src="${pageContext.request.contextPath }/resources/images/btn_ok.gif"></a>
+					<a href="#" id="next"><img src="${pageContext.request.contextPath }/resources/images/btn_ok.gif"></a>
 				</div>
 				
 			</div>

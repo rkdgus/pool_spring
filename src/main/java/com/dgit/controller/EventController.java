@@ -70,12 +70,11 @@ public class EventController {
 		ResponseEntity<String> entity = null;
 		File dirPath = new File(root_path+"/"+innerUploadPath+"/문의");
 		String imgpath = null;
-
-	
+		
 		if (!dirPath.exists()) {
 			dirPath.mkdirs();
 		}
-		if(fileList.size()!=0){
+		if(fileList.size()!=0){ 
 			imgpath="";
 			String filePath = "/pool/"+innerUploadPath+"/문의/";
 			for (int i = 0; i < fileList.size(); i++) {

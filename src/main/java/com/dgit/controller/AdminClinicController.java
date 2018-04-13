@@ -140,7 +140,6 @@ public class AdminClinicController {
 				imgPath = imgPath.replace(delImg[i]+",", "");
 			}
 		}
-		
 		if(fileList.size() > 0){
 			for (int i = 0; i < fileList.size(); i++) {
 				String filePath = outUploadPath + "clinic";

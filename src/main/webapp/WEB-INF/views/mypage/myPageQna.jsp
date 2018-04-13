@@ -8,6 +8,11 @@
 <meta charset="UTF-8">
 <title>회원 : 마이페이지 : 문의내역 : 대구 아이티 수영장</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/mypage/mypageQna.css">
+<style>
+	#list_title{
+		text-align: left !important;
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
@@ -63,7 +68,7 @@
 						<c:forEach items="${list }" var="list">
 							<tr class="list_tr">
 								<td class="bno">${list.bno }</td>
-								<td>${list.title }</td>
+								<td id="list_title">${list.title }</td>
 								<c:if test="${list.replycheck==false }">
 									<td>X</td>
 								</c:if>

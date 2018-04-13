@@ -11,7 +11,7 @@
 		<ul>
 			<li><a href="${pageContext.request.contextPath }/mypage/attendance" id="attendance">출석현황</a></li>
 			<li><a href="">수강내역</a></li>
-			<li><a href="">개인정보</a>
+			<li><a href="${pageContext.request.contextPath }/mypage/memberInfo">회원정보</a>
 				<ul>
 					<li><a href="" class="myinfo">개인정보 수정</a></li>
 					<li><a href="" class="myinfo">비밀번호 변경</a></li>

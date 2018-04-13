@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -38,12 +40,9 @@ import com.dgit.util.UploadFileUtils;
 @RequestMapping("/adminClinic/*")
 public class AdminClinicController {
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
-	
+	private String innerUploadPath = "/resources/upload";
 	@Autowired
 	private ClinicService service;
-	
-	@Resource(name = "uploadPath")
-	private String outUploadPath;
 	
 	@RequestMapping(value="/adminClinic",method=RequestMethod.GET)
 	public void adminQna(SearchCriteria cri,Model model){
@@ -61,27 +60,29 @@ public class AdminClinicController {
 	public ResponseEntity<String> postinsert(HttpServletRequest request,List<MultipartFile> fileList,ClinicVO vo) throws Exception{
 		logger.info("======= insert post ==========");
 		ResponseEntity<String> entity = null;
-		File dirPath = new File(outUploadPath);
+		String root_path = request.getSession().getServletContext().getRealPath("/");
+		File dirPath = new File(root_path+"/"+innerUploadPath+"/clinic");
 		String imgpath = null;
+		
 		String r = request.getContextPath();
-		logger.info(request.getContextPath().substring(r.lastIndexOf("/"),r.length()));
-		for(MultipartFile m : fileList){
-			logger.info(m.getOriginalFilename()+"");
-		}
+		String projectName = r.substring(r.lastIndexOf("/"),r.length());
+		
 		if (!dirPath.exists()) {
 			dirPath.mkdirs();
 		}
 		if(fileList.size() !=0){
 			imgpath = "";
+			String filePath = projectName +innerUploadPath+"/clinic/";
 			for (int i = 0; i < fileList.size(); i++) {
-				String filePath = outUploadPath + "clinic";
+				UUID uid = UUID.randomUUID();
+				String savedName = uid.toString() + "_" + fileList.get(i).getOriginalFilename();
+				File target = new File(root_path+innerUploadPath+"/clinic", savedName);
 				try {
-					String savedName = UploadFileUtils.uploadFile(filePath, fileList.get(i).getOriginalFilename(),
-							fileList.get(i).getBytes());
+					FileCopyUtils.copy(fileList.get(i).getBytes(), target);
 					if ((i + 1) == fileList.size()) {
-						imgpath += savedName;
+						imgpath += filePath+savedName;
 					} else {
-						imgpath += savedName + ",";
+						imgpath += filePath+savedName + ",";
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -120,9 +121,16 @@ public class AdminClinicController {
 	}
 	@ResponseBody
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public ResponseEntity<String> postModify(List<MultipartFile> fileList,ClinicVO vo,String deleteImg) throws Exception{
+	public ResponseEntity<String> postModify(HttpServletRequest request,List<MultipartFile> fileList,ClinicVO vo,String deleteImg) throws Exception{
 		logger.info("--post modify---");
 		ResponseEntity<String> entity = new ResponseEntity<String>("success",HttpStatus.OK);
+		String root_path = request.getSession().getServletContext().getRealPath("/");
+		File dirPath = new File(root_path+innerUploadPath+"/clinic");
+		if (!dirPath.exists()) {
+			dirPath.mkdirs();
+		}
+		String r = request.getContextPath();
+		String projectName = r.substring(r.lastIndexOf("/"),r.length());
 		ClinicVO v = service.read(vo.getClinic_no());
 		
 		String imgPath = "";
@@ -144,15 +152,17 @@ public class AdminClinicController {
 			}
 		}
 		if(fileList.size() > 0){
+			String filePath = projectName +innerUploadPath+"/clinic/";
 			for (int i = 0; i < fileList.size(); i++) {
-				String filePath = outUploadPath + "clinic";
+				UUID uid = UUID.randomUUID();
+				String savedName = uid.toString() + "_" + fileList.get(i).getOriginalFilename();
+				File target = new File(root_path+innerUploadPath+"/clinic", savedName);
 				try {
-					String savedName = UploadFileUtils.uploadFile(filePath, fileList.get(i).getOriginalFilename(),
-							fileList.get(i).getBytes());
+					FileCopyUtils.copy(fileList.get(i).getBytes(), target);
 					if ((i + 1) == fileList.size()) {
-						imgPath += savedName;
+						imgPath += filePath+savedName;
 					} else {
-						imgPath += savedName + ",";
+						imgPath += filePath+savedName + ",";
 					}
 				} catch (IOException e) {
 					e.printStackTrace();

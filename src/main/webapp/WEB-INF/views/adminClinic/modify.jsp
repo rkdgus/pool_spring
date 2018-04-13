@@ -223,7 +223,7 @@ table {
 							<div id="imgWrap">
 								<c:forEach var="img" items="${vo.clinic_path }">
 									<div class="imgBox">
-										<img src="displayFile?filename=${img}" class="imgs"
+										<img src="${img}" class="imgs"
 											data-src="${img }">
 										<button onclick="deleteImg1(this)" type="button">삭제</button>
 									</div>

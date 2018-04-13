@@ -70,7 +70,6 @@ public class EventController {
 		ResponseEntity<String> entity = null;
 		File dirPath = new File(root_path+"/"+innerUploadPath+"/문의");
 		String imgpath = null;
-		
 		if (!dirPath.exists()) {
 			dirPath.mkdirs();
 		}
@@ -135,15 +134,16 @@ public class EventController {
 		logger.info("=================delete Get====================");
 		logger.info("=================delete Get====================");
 
-		NoticeBoardVO vo=service.read(nno);	
-		
+		NoticeBoardVO vo=service.read(nno);
+
 		String root_path = request.getSession().getServletContext().getRealPath("/");
 		String[] delImg = vo.getImgpath().split(",");
 		for(int i=0; i <delImg.length; i++){
-		File file = new File(root_path+delImg[i].replace("/pool", ""));
+		File file = new File(delImg[i]);
 			file.delete();
 
 		}
+
 		service.remove(nno);
 		
 		return "redirect:/event/";
@@ -194,7 +194,7 @@ public class EventController {
 			}
 			
 			if(imgPath.indexOf(",") == 0){
-				imgPath = imgPath.replace(",","");
+				
 			}
 		}
 		

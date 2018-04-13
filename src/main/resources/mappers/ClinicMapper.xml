@@ -26,14 +26,20 @@
 		delete from clinic where clinic_no = #{clinic_no} 
 	</delete>
 	<sql id="search">
-		<if test="searchType =='titleandcontent'.toString()">
-			
+		<if test="searchType =='freestyle'.toString()">
+			where clinic_type = #{searchType}
 		</if>
-		<if test="searchType =='title'.toString()">
-			
+		<if test="searchType =='backstroke'.toString()">
+			where clinic_type = #{searchType}
 		</if>
-		<if test="searchType =='writer'.toString()">
-			
+		<if test="searchType =='breaststroke'.toString()">
+			where clinic_type = #{searchType}
+		</if>
+		<if test="searchType =='butterfly'.toString()">
+			where clinic_type = #{searchType}
+		</if>
+		<if test="searchType =='startAndTrun'.toString()">
+			where clinic_type = #{searchType}
 		</if>
 	</sql>
 </mapper>

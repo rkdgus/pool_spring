@@ -206,13 +206,13 @@ public class ClassBoardController {
 				file.delete();
 				imgPath = imgPath.replace(delImg[i], "");
 			}
-			imgPath.replaceAll(",,",",");
 			if(imgPath.indexOf(",") == 0){
 				imgPath = imgPath.replace(",","");
 			}
 		}
 		
-		
+		imgPath = imgPath.replaceAll(", ,",",");
+		imgPath = imgPath.replaceAll(",,",",");
 		logger.info(imgPath);
 		if(fileList.size() > 0){
 			if(imgPath.length() !=0){

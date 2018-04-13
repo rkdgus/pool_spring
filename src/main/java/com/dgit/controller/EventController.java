@@ -194,7 +194,7 @@ public class EventController {
 			}
 			
 			if(imgPath.indexOf(",") == 0){
-				imgPath = imgPath.replace(",","");
+				
 			}
 		}
 		

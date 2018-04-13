@@ -190,14 +190,11 @@ public class EventController {
 			for(int i=0; i <delImg.length; i++){
 			File file = new File(root_path+delImg[i].replace("/pool", ""));
 				file.delete();
-				imgPath = imgPath.replace(delImg[i], "");
+				imgPath = imgPath.replace(delImg[i]+",", "");
 			}
 			
-			if(imgPath.indexOf(",") == 0){
-				
-			}
 		}
-		imgPath = imgPath.replace(",,", "");
+		imgPath = imgPath.replace(",,", ",");
 		
 		logger.info(imgPath);
 		if(fileList.size() > 0){

@@ -37,6 +37,9 @@
 			})
 			
 			$(document).on("click",".list_tr",function(){
+				if($(this).find("#noqna").hasClass("no")){
+					return;
+				}
 				var bno = $(this).find(".bno").text();
 				location.href="mypageQnaRead${pageMaker.makeSearch(pageMaker.cri.page)}&id=${id}&bno="+bno;
 			})
@@ -61,7 +64,7 @@
 					</tr>
 					<c:if test="${list.size() == 0 }">
 						<tr class=list_tr>
-							<td colspan="4">문의 내역이 없습니다</td>
+							<td colspan="4" id="noqna" class="no">문의 내역이 없습니다</td>
 						</tr>
 					</c:if>
 					<c:if test="${list !=null }">

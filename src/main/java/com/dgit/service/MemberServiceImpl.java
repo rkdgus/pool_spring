@@ -67,4 +67,15 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+	@Override
+	public MemberVO findEmail(String email) {
+		return dao.findEmail(email);
+	}
+
+	@Override
+	public void updateEmailTell(MemberVO vo) {
+		dao.updateEmailTell(vo);
+		
+	}
+
 }

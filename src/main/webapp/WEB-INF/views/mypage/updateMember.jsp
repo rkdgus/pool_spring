@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,11 @@
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
+	<script>
+		$(function(){
+			
+		})
+	</script>
 	<div id="container">
 		<jsp:include page="side.jsp"/>
 		<div id="content">
@@ -57,6 +63,19 @@
 						</td>
 					</tr>
 				</table>
+				<c:if test="${login !=null }">
+					<script>
+						var tell = "${login.tell}";
+						$("#tell1").val(tell.substring(0, tell.indexOf("-")));
+						$("#tell2").val(tell.substr(tell.indexOf("-")+1, tell.lastIndexOf("-")));
+						$("#tell3").val(tell.substr(tell.lastIndexOf("-")+1));
+						
+						var email = "${login.email}";
+						
+						$("#email1").val(email.substr(0, email.indexOf("@")));
+						$("#email2").val(email.substr(email.indexOf("@")+1));
+					</script>
+				</c:if>
 			</div>
 		</div>
 	</div>

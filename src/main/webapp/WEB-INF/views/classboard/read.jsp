@@ -145,7 +145,7 @@ table{
 					</tr>
 					<tr>
 						<td colspan="4"><c:forEach var="img" items="${imgArr }">
-								<img src="displayFile?filename=${img}" class="imgs">
+								<img src="${img}" class="imgs">
 							</c:forEach>
 							<p class="read_content">${vo.content }</p></td>
 					</tr>

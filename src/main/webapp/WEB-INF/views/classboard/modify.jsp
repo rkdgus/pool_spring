@@ -207,7 +207,7 @@ table{
                      <div id="imgWrap">
                         <c:forEach var="img" items="${imgArr }">
                            <div class="imgBox">
-                              <img src="displayFile?filename=${img}" class="imgs" data-src="${img }">
+                              <img src="${img}" class="imgs" data-src="${img }">
                               <button onclick="deleteImg1(this)" type="button">삭제</button>
                            </div>
                         </c:forEach>

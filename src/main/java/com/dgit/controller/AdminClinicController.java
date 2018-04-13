@@ -107,7 +107,17 @@ public class AdminClinicController {
 		model.addAttribute("vo",vo);
 	}
 	@RequestMapping(value="/remove",method=RequestMethod.GET)
-	public String remove(int no){
+	public String remove(HttpServletRequest request,int no){
+		ClinicVO vo = service.read(no);
+		logger.info(vo.toString());
+		if(vo.getClinic_path() !=null){
+			String root_path = request.getSession().getServletContext().getRealPath("/");
+			String[] delImg = vo.getClinic_path().split(",");
+			for(int i=0; i <delImg.length; i++){
+				File file = new File(root_path+delImg[i].replace("/pool", ""));
+					file.delete();
+			}
+		}
 		logger.info("======= remove ==========");
 		service.remove(no);
 		return "redirect:adminClinic";

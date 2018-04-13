@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -41,10 +42,8 @@ import com.dgit.util.UploadFileUtils;
 public class ClassBoardController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ClassBoardController.class);
-	
-	@Resource(name = "uploadPath")
-	private String outUploadPath;
-	
+	private String innerUploadPath = "/resources/upload";
+
 	@Autowired
 	private ClassBoardService service;
 	
@@ -101,46 +100,17 @@ public class ClassBoardController {
 		return entity;
 		
 	}
-	@ResponseBody
-	@RequestMapping(value="/upload", method=RequestMethod.POST)	
-	public ResponseEntity<List<String>> getUpload(List<MultipartFile> fileList,Model model,String[] name){
-		logger.info("=================upload post====================");
-		ResponseEntity<List<String>> entity = null;
-		File dirPath = new File(outUploadPath);
-		for(MultipartFile m : fileList){
-			logger.info(m.getOriginalFilename()+"");
-		}
-		if (!dirPath.exists()) {
-			dirPath.mkdirs();
-		}
-		List<String> nameList = new ArrayList<>();
-		for(int i = 0; i<fileList.size();i++){
-			UUID uid = UUID.randomUUID();// 중복방지를 위하여 랜덤값 생성
-			String fileName = fileList.get(i).getOriginalFilename();
-			String type = "."+fileName.substring(fileName.lastIndexOf(".")+1,fileName.length()); 
-			String savedName = uid.toString() + "_" + name[i]+type;
-			File target = new File(outUploadPath, savedName);
-			try {
-				FileCopyUtils.copy(fileList.get(i).getBytes(), target);
-				nameList.add(outUploadPath+savedName);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		if(nameList.size() !=0){
-			entity = new ResponseEntity<List<String>>(nameList,HttpStatus.OK);
-		}else{
-			entity = new ResponseEntity<List<String>>(HttpStatus.OK);
-		}
-		return entity;
-	}
+	
 	@ResponseBody
 	@RequestMapping(value="/insert", method=RequestMethod.POST)	
-	public ResponseEntity<String> getInsert(List<MultipartFile> fileList,String[] name,ClassBoardVO vo) throws Exception{
-		logger.info(vo.toString());
+	public ResponseEntity<String> getInsert(HttpServletRequest request,List<MultipartFile> fileList,String[] name,ClassBoardVO vo) throws Exception{
+		
 		ResponseEntity<String> entity = null;
-		File dirPath = new File(outUploadPath);
+		String root_path = request.getSession().getServletContext().getRealPath("/");
+		File dirPath = new File(root_path+"/"+innerUploadPath+"/classboard");
 		String imgpath = null;
+		String r = request.getContextPath();
+		String projectName = r.substring(r.lastIndexOf("/"),r.length());
 		
 		for(MultipartFile m : fileList){
 			logger.info(m.getOriginalFilename()+"");
@@ -150,15 +120,17 @@ public class ClassBoardController {
 		}
 		if(fileList.size() !=0){
 			imgpath = "";
+			String filePath = projectName +innerUploadPath+"/classboard/";
 			for (int i = 0; i < fileList.size(); i++) {
-				String filePath = outUploadPath + "classboard/"+vo.getCno()+"반";
+				UUID uid = UUID.randomUUID();
+				String savedName = uid.toString() + "_" + fileList.get(i).getOriginalFilename();
+				File target = new File(root_path+innerUploadPath+"/classboard", savedName);
 				try {
-					String savedName = UploadFileUtils.uploadFile(filePath, fileList.get(i).getOriginalFilename(),
-							fileList.get(i).getBytes());
+					FileCopyUtils.copy(fileList.get(i).getBytes(), target);
 					if ((i + 1) == fileList.size()) {
-						imgpath += savedName;
+						imgpath += filePath+savedName;
 					} else {
-						imgpath += savedName + ",";
+						imgpath += filePath+savedName + ",";
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -187,11 +159,17 @@ public class ClassBoardController {
 	}
 	@ResponseBody
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public ResponseEntity<String> postModify(int bno,List<MultipartFile> fileList,String[] name,ClassBoardVO vo,String deleteImg) throws Exception{
+	public ResponseEntity<String> postModify(HttpServletRequest request,int bno,List<MultipartFile> fileList,String[] name,ClassBoardVO vo,String deleteImg) throws Exception{
 		logger.info("--post modify---");
 		ResponseEntity<String> entity = new ResponseEntity<String>("success",HttpStatus.OK);
 		ClassBoardVO v = service.read(vo.getBno());
-		
+		String root_path = request.getSession().getServletContext().getRealPath("/");
+		File dirPath = new File(root_path+innerUploadPath+"/classboard");
+		if (!dirPath.exists()) {
+			dirPath.mkdirs();
+		}
+		String r = request.getContextPath();
+		String projectName = r.substring(r.lastIndexOf("/"),r.length());
 		String imgPath = "";
 		if(v.getImgpath() !=null){
 			if(deleteImg !=null || fileList.size() >0){
@@ -206,25 +184,25 @@ public class ClassBoardController {
 		if(deleteImg !=null){
 			String[] delImg = deleteImg.split(",");
 			for(int i=0; i <delImg.length; i++){
-			File file = new File(delImg[i]);
+			File file = new File(root_path+delImg[i].replace("/pool", ""));
 				file.delete();
-				imgPath = imgPath.replace(delImg[i], "");
-			}
-			if(imgPath.indexOf(",") == 0){
-				
+				imgPath = imgPath.replace(delImg[i]+",", "");
 			}
 		}
 		logger.info(imgPath);
+		imgPath = imgPath.replace(",,", ",");
 		if(fileList.size() > 0){
+			String filePath = projectName +innerUploadPath+"/classboard/";
 			for (int i = 0; i < fileList.size(); i++) {
-				String filePath = outUploadPath + "classboard/"+vo.getCno()+"반";
+				UUID uid = UUID.randomUUID();
+				String savedName = uid.toString() + "_" + fileList.get(i).getOriginalFilename();
+				File target = new File(root_path+innerUploadPath+"/classboard", savedName);
 				try {
-					String savedName = UploadFileUtils.uploadFile(filePath, fileList.get(i).getOriginalFilename(),
-							fileList.get(i).getBytes());
+					FileCopyUtils.copy(fileList.get(i).getBytes(), target);
 					if ((i + 1) == fileList.size()) {
-						imgPath += savedName;
+						imgPath += filePath+savedName;
 					} else {
-						imgPath += savedName + ",";
+						imgPath += filePath+savedName + ",";
 					}
 				} catch (IOException e) {
 					e.printStackTrace();

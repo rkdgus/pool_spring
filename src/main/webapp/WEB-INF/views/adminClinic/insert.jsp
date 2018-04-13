@@ -262,7 +262,7 @@ table {
 			$("#cencelBtn").click(function() {
 				if (confirm("글 작성을 취소하시겠습니까?")) {
 					var cno = $("#cno").val();
-					location.href = "classboard?cno=" + cno;
+					location.href = "adminClinic";
 				}
 			})
 			$(document)

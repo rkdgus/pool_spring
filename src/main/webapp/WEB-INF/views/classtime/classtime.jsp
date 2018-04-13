@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>대구 아이티 수영장 - 수업시간</title>
 <style>
 	.h2{
 		font-size:16px !important;

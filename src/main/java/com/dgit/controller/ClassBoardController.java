@@ -214,6 +214,7 @@ public class ClassBoardController {
 				
 			}
 		}
+		
 		logger.info(imgPath);
 		if(fileList.size() > 0){
 			for (int i = 0; i < fileList.size(); i++) {

@@ -197,7 +197,7 @@ public class EventController {
 				
 			}
 		}
-		
+		imgPath = imgPath.replace(",,", "");
 		
 		logger.info(imgPath);
 		if(fileList.size() > 0){

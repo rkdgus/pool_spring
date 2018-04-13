@@ -71,7 +71,13 @@
 			$("#idf").submit(); 
 			return false;
 			
-		})                                                             
+		})  
+		
+		$("#pw_btn").click(function(){
+			$("#pwf").submit(); 
+			return false;
+			
+		}) 
 	}) 
 		
 </script>
@@ -101,7 +107,7 @@
 						src="${pageContext.request.contextPath }/resources/images/title_id.png"
 						class="timg">
 					<form id="idf"
-						action="${pageContext.request.contextPath }/login/search"
+						action="${pageContext.request.contextPath }/login/searchId"
 						method="post">
 						<p>
 							<label for="name1">NAME</label> <input type="text"
@@ -122,7 +128,7 @@
 						src="${pageContext.request.contextPath }/resources/images/title_pw.png"
 						class="timg">
 					<form id="pwf"
-						action="${pageContext.request.contextPath }/login/login"
+						action="${pageContext.request.contextPath }/login/searchPw"
 						method="post">
 						<p>
 							<label for="id2">ID</label> <input type="text"

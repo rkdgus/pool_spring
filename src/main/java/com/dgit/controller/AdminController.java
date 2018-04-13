@@ -49,10 +49,10 @@ public class AdminController {
 
 	private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 
-	@Resource(name = "uploadPath")
-	private String outUploadPath;
+	
+	private String innerUploadPath = "resources/upload";
 
-	@Autowired
+	@Autowired            
 	GalleryService galleryService;
 	
 	@Autowired
@@ -87,8 +87,8 @@ public class AdminController {
 	@RequestMapping(value = "/gallery", method = RequestMethod.POST)
 	public String galleryPost(List<MultipartFile> fileList, HttpServletRequest request,Model model,String type) {
 		logger.info("=================gallery post====================");
-
-		File dirPath = new File(outUploadPath+"갤러리");
+		String root_path = request.getSession().getServletContext().getRealPath("/");
+		File dirPath = new File(root_path+"/"+innerUploadPath+"/갤러리");
 		
 		if (!dirPath.exists()) {
 			dirPath.mkdirs();
@@ -104,13 +104,13 @@ public class AdminController {
 		for (MultipartFile file : fileList) {
 			UUID uid = UUID.randomUUID();// 중복방지를 위하여 랜덤값 생성
 			String savedName = uid.toString() + "_" + file.getOriginalFilename();
-			File target = new File(outUploadPath+"갤러리", savedName);
+			File target = new File(root_path+"/"+innerUploadPath+"/갤러리", savedName);
 			try {                
 				FileCopyUtils.copy(file.getBytes(), target);
-				arrFile.add(outUploadPath+"갤러리/"+savedName);
-			} catch (IOException e) {
+				arrFile.add("/pool/"+innerUploadPath+"/갤러리/"+savedName);
+			} catch (IOException e) {                    
 				e.printStackTrace();                                         
-			}       
+			}                                       
 		}                    
 		
 		for(int i = 0;i<arrFile.size();i++){
@@ -124,7 +124,7 @@ public class AdminController {
 			}else if(typeArr[i].equals("2")){
 				typeName="강습사진";
 			}else if(typeArr[i].equals("3")){
-				typeName="인접시설물";
+				typeName="인접시설물";                              
 			}
 			vo.setGallery_type(typeName);
 			galleryService.insert(vo);
@@ -194,10 +194,10 @@ public class AdminController {
 	public String teacherUpdate(Model model,TeacherVO vo,MultipartFile fileList, HttpServletRequest request) {
 		logger.info("=================teacherUpdate POST====================");
 		
-		
+		String root_path = request.getSession().getServletContext().getRealPath("/");
 		if(fileList.getSize()!=0){
 
-		File dirPath = new File(outUploadPath);
+		File dirPath = new File(root_path+"/"+innerUploadPath+"/강사사진");
 		                                                                         
 		if (!dirPath.exists()) {
 			dirPath.mkdirs();
@@ -206,10 +206,10 @@ public class AdminController {
 
 			UUID uid = UUID.randomUUID();// 중복방지를 위하여 랜덤값 생성
 			String savedName = uid.toString() + "_" + fileList.getOriginalFilename();
-			File target = new File(outUploadPath, savedName);
+			File target = new File(root_path+"/"+innerUploadPath+"/강사사진", savedName);
 			try {                
 				FileCopyUtils.copy(fileList.getBytes(), target);
-				savedName=outUploadPath+savedName;
+				savedName="/pool/"+innerUploadPath+"/강사사진/"+savedName;
 			} catch (IOException e) {
 				e.printStackTrace();                                         
 			}       

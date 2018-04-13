@@ -49,6 +49,7 @@ table{
 }
 
 .imgs {
+	display:block;
 	min-width: 200px;
 	min-height: 100px;
 	max-width: 100%;
@@ -114,6 +115,13 @@ table{
 	border: 1px solid #ccc;
     border-radius: 2px;
 }
+#title_header{
+	overflow:hidden;
+}
+#clinic_type{
+	padding-right:5px;
+	float:right;
+}
 </style>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/resources/common/reset.css">
@@ -125,22 +133,45 @@ table{
 		<jsp:include page="../admin/side.jsp" />
 		<div id="content">
 			<jsp:include page="contentTitle.jsp" />
-			<input type="hidden" id="bno" value="${vo.clinic_no }">
+		
 			<div id="read_table">
 				<table>
 					<tr>
-						<th colspan="4">${vo.clinic_title }</th>
+						<th colspan="4" id="title_header">${vo.clinic_title }<span id="clinic_type">타입 :
+						<c:if test="${vo.clinic_type =='freestyle' }">
+							자유형
+						</c:if>
+						<c:if test="${vo.clinic_type =='backstroke' }">
+							배형
+						</c:if>
+						<c:if test="${vo.clinic_type =='breaststroke' }">
+							평영
+						</c:if>
+						<c:if test="${vo.clinic_type =='butterfly' }">
+							접영
+						</c:if>
+						<c:if test="${vo.clinic_type =='startAndTrun' }">
+							스타트 & 턴
+						</c:if>
+						</span></th>
 					</tr>
-					<tr>
-						<td colspan="4"><c:forEach var="img" items="${imgArr }">
+					<c:if test="${imgArr !=null }">
+						<tr>
+						<td colspan="4">
+							<c:forEach var="img" items="${imgArr }">
 								<img src="displayFile?filename=${img}" class="imgs">
 							</c:forEach>
-							<p class="read_content">${vo.clinic_content }</p></td>
+						</tr>	
+					</c:if>
+					<tr>
+						<td colspan="4">
+							<p class="read_content">${vo.clinic_content }</p>
+						</td>
 					</tr>
 					<tr id="btn_tr">
 						<td colspan="4" class="align_right"><a
-							href="classboard${pageMaker.makeSearch(pageMaker.cri.page)}"><button>목록</button></a> <a
-							href="${pageContext.request.contextPath }/classboard/modify${pageMaker.makeSearch(pageMaker.cri.page)}" class="notauthority"><button>수정</button></a>
+							href="adminClinic${pageMaker.makeSearch(pageMaker.cri.page)}"><button>목록</button></a> <a
+							href="${pageContext.request.contextPath }/adminClinic/modify${pageMaker.makeSearch(pageMaker.cri.page)}&no=${vo.clinic_no}" class="notauthority"><button>수정</button></a>
 							<a href="#" class="notauthority"><button id="boardRemoveBtn">삭제</button></a></td>
 					</tr>	
 				</table>
@@ -159,7 +190,7 @@ table{
 					.click(
 							function() {
 								if (confirm("게시글을 삭제하시겠습니까?")) {
-									location.href = "${pageContext.request.contextPath }/classboard/remove";
+									location.href = "${pageContext.request.contextPath }/adminClinic/remove?no=${vo.clinic_no}";
 								}
 							})
 		})

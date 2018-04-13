@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,13 +68,33 @@
 				</p>
 			</div>
 			<div id="join_content">
-				<h1><span id="name">${vo.name }</span>님의 아이디는 <span id="id">${vo.id }</span> 입니다.</h1>
+				<c:if test="${idvo !=null }">
+					<h1><span id="name">${idvo.name }</span>님의 아이디는 <span id="id">${idvo.id }</span> 입니다.</h1>
+				</c:if>
 				
+				<c:if test="${pwvo !=null }">
+					<h1><span id="name">${pwvo.name }</span>님의 임시비밀번호를 본인 이메일로 발송 하였습니다.</h1>
+					<p>임시비밀번호로 로그인 후 마이페이지에서 변경해 주세요.</p>
+					<br>
+				</c:if>
+				<c:if test="${err ==1}">
+					<h1><span id="name"></span>일치하는 회원 정보가 없습니다.<br> 다시 확인해주세요.</h1>
+					
+				</c:if>
 			</div>
 			
 			<div id="wrap_btn">
-				<a href="${pageContext.request.contextPath }/login/login" class="btn">로그인</a>
-				<a href="${pageContext.request.contextPath }/login/search"  class="btn">비밀번호찾기</a>
+				<c:if test="${idvo !=null }">
+					<a href="${pageContext.request.contextPath }/login/login" class="btn">로그인</a>
+					<a href="${pageContext.request.contextPath }/login/search"  class="btn">비밀번호찾기</a>
+				</c:if>
+				<c:if test="${pwvo !=null }">
+					<a href="${pageContext.request.contextPath }/login/login" class="btn">로그인</a>
+				</c:if>
+				<c:if test="${err ==1}">
+					<a href="${pageContext.request.contextPath }/login/search" class="btn">돌아가기</a>
+					
+				</c:if>                        
 			</div>
 			
 		</div>

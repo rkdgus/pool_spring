@@ -117,7 +117,7 @@
 					<c:forEach items="${list }" var="item">
 						<tr>
 							<td>
-								<img src="${pageContext.request.contextPath}/admin/displayFile?filename=${item.img_path}" id="teacherImg">
+								<img src="${item.img_path}" id="teacherImg">
 							</td>
 							<td>
 								<h2>${item.name}</h2>

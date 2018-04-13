@@ -95,6 +95,10 @@
 #insert_btn:HOVER {
 	background: #ebebeb;
 }
+#noqna{
+		text-align: center;
+		font-size: 13px;
+}
 </style>
 <title>대구 아이티 수영장 - 수영클리닉 관리</title>
 </head>
@@ -114,11 +118,17 @@
 			</select>
 			<button id="insert_btn">클리닉 추가하기</button>
 			<table id="main_t">
+				
 				<tr id="main_tr">
 					<td class='bno_title'>번호</td>
 					<td class="title_title">제목</td>
 					<td class="writer_title">타입</td>
 				</tr>
+				<c:if test="${lists.size()==0 }">
+					<tr class="tr">
+						<td colspan="3" id="noqna" class="classNosearch">검색결과가 없습니다.</td>
+					</tr>
+				</c:if>
 				<c:if test="${lists.size() !=0 }">
 					<c:forEach var="item" items="${lists }">
 						<tr class="tr">
@@ -131,16 +141,16 @@
 			</table>
 			<div id="paging">
 				<c:if test="${pageMaker.prev}">
-					<a href="qna?page=${pageMaker.startPage-1 }"><span
+					<a href="adminClinic?page=${pageMaker.startPage-1 }"><span
 						class="paginBtn">&laquo;</span></a>
 				</c:if>
 				<c:forEach begin="${pageMaker.startPage }"
 					end="${pageMaker.endPage }" var="idx">
-					<a href="qna${pageMaker.makeQna(idx) }"><span class="pageNum"
+					<a href="adminClinic${pageMaker.makeQna(idx) }"><span class="pageNum"
 						${pageMaker.cri.page == idx? 'id=active' : ''}>${idx }</span></a>
 				</c:forEach>
 				<c:if test="${pageMaker.next}">
-					<a href="qna?page=${pageMaker.endPage+1}"><span
+					<a href="adminClinic?page=${pageMaker.endPage+1}"><span
 						class="paginBtn">&raquo;</span></a>
 				</c:if>
 			</div>
@@ -149,13 +159,21 @@
 	<script type="text/javascript">
 		$(function() {
 			$(document).on("click", ".tr", function() {
+				if($(this).find("td").hasClass("classNosearch")){
+					return false;
+				}
 				var no = $(this).find(".bno").text();
 				location.href = "read?no="+no;
 			})
 			$("#insert_btn").click(function() {
 				location.href = "insert";
 			})
+			$("#sel").val("${pageMaker.cri.searchType}");
+			$("#sel").change(function(){
+				location.href="adminClinic${pageMaker.makeQuery(1)}&searchType="+$(this).val();
+			})
 		})
+		
 	</script>
 	<jsp:include page="../include/footer.jsp" />
 </body>

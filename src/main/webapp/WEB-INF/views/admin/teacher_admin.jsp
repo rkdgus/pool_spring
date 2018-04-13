@@ -89,7 +89,7 @@ td img{
 						<td>${item.tell }</td>
 						<td>${item.title }</td>
 						<td>${item.id }</td>
-						<td><img src="${pageContext.request.contextPath}/admin/displayFile?filename=${item.img_path}"></td>
+						<td><img src="${item.img_path}"></td>
 					</tr>
 				</c:forEach>
 

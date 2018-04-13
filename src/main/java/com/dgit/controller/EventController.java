@@ -1,44 +1,36 @@
 package com.dgit.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
+import java.util.UUID;
 
-import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.dgit.domain.ClassBoardVO;
 import com.dgit.domain.NoticeBoardVO;
 import com.dgit.domain.PageMaker;
 import com.dgit.domain.SearchCriteria;
 import com.dgit.service.NoticeBoardService;
-import com.dgit.util.MediaUtils;
-import com.dgit.util.UploadFileUtils;
 
 @Controller
 @RequestMapping("/event")
 public class EventController {
 
 	private static final Logger logger = LoggerFactory.getLogger(EventController.class);
-
-	@Resource(name = "uploadPath")
-	private String outUploadPath;
+	private String innerUploadPath = "resources/upload";
 	
 	@Autowired
 	NoticeBoardService service;
@@ -71,35 +63,37 @@ public class EventController {
 
 	@ResponseBody
 	@RequestMapping(value = "/insert", method = RequestMethod.POST)
-	public ResponseEntity<String> getInsert(List<MultipartFile> fileList, NoticeBoardVO vo)
+	public ResponseEntity<String> getInsert(HttpServletRequest request,List<MultipartFile> fileList, NoticeBoardVO vo)
 			throws Exception {
 		logger.info(vo.toString());
+		String root_path = request.getSession().getServletContext().getRealPath("/");
 		ResponseEntity<String> entity = null;
-		File dirPath = new File(outUploadPath);
+		File dirPath = new File(root_path+"/"+innerUploadPath+"/문의");
 		String imgpath = null;
 
-		for (MultipartFile m : fileList) {
-			logger.info(m.getOriginalFilename() + "");
-		}
+	
 		if (!dirPath.exists()) {
 			dirPath.mkdirs();
 		}
 		if(fileList.size()!=0){
 			imgpath="";
-			
+			String filePath = "/pool/"+innerUploadPath+"/문의/";
 			for (int i = 0; i < fileList.size(); i++) {
-				String filePath = outUploadPath + "notice";
-				try {
-					String savedName = UploadFileUtils.uploadFile(filePath, fileList.get(i).getOriginalFilename(),
-							fileList.get(i).getBytes());
+					UUID uid = UUID.randomUUID();
+					String savedName = uid.toString() + "_" + fileList.get(i).getOriginalFilename();
+					File target = new File(root_path+"/"+innerUploadPath+"/문의", savedName);
+					try {                
+						FileCopyUtils.copy(fileList.get(i).getBytes(), target);
+						
+					} catch (IOException e) {                    
+						e.printStackTrace();                                         
+					}   
 					if ((i + 1) == fileList.size()) {
-						imgpath += savedName;
+						imgpath += filePath+savedName;
 					} else {
-						imgpath += savedName + ",";
+						imgpath += filePath+savedName + ",";
 					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				                   
 			}
 		}
 		vo.setImgpath(imgpath);
@@ -134,35 +128,31 @@ public class EventController {
 		return "event/read";
 	}
 	
-	@RequestMapping(value = "displayFile", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<byte[]> displayFile(String filename) {
-		ResponseEntity<byte[]> entity = null;
-		logger.info("displayFile : " + filename);
-		InputStream in = null;
-		try {
-			String formatName = filename.substring(filename.lastIndexOf(".") + 1);
-			MediaType type = MediaUtils.getMediaType(formatName);
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(type);
-             
-			in = new FileInputStream(filename);                
-
-			entity = new ResponseEntity<>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return entity;         
-	}
+	
 	
 	
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public String delete(int nno) {
+	public String delete(int nno,HttpServletRequest request) {
 		logger.info("=================delete Get====================");
 		logger.info("=================delete Get====================");
 
-		service.remove(nno);
+
 		
+		NoticeBoardVO vo=service.read(nno);
+	
+		
+		String root_path = request.getSession().getServletContext().getRealPath("/");
+		String[] delImg = vo.getImgpath().split(",");
+		for(int i=0; i <delImg.length; i++){
+		File file = new File(delImg[i]);
+			file.delete();
+
+		}
+		
+		
+		
+		
+		service.remove(nno);
 		
 		return "redirect:/event/";
 	}
@@ -185,11 +175,11 @@ public class EventController {
 	
 	@ResponseBody
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
-	public ResponseEntity<String> postModify(int nno,List<MultipartFile> fileList,String[] name,NoticeBoardVO vo,String deleteImg) throws Exception{
+	public ResponseEntity<String> postModify(HttpServletRequest request,int nno,List<MultipartFile> fileList,String[] name,NoticeBoardVO vo,String deleteImg) throws Exception{
 		logger.info("--post modify---");
 		ResponseEntity<String> entity = new ResponseEntity<String>("success",HttpStatus.OK);
 		NoticeBoardVO v = service.read(vo.getNno());
-		
+		String root_path = request.getSession().getServletContext().getRealPath("/");
 		String imgPath = "";
 		if(v.getImgpath() !=null){
 			imgPath = v.getImgpath();
@@ -217,19 +207,24 @@ public class EventController {
 				imgPath += ",";
 			}
 			for (int i = 0; i < fileList.size(); i++) {
-				String filePath = outUploadPath + "notice";
-				try {
-					String savedName = UploadFileUtils.uploadFile(filePath, fileList.get(i).getOriginalFilename(),
-							fileList.get(i).getBytes());
+				String filePath = "/pool/"+innerUploadPath+"/문의/";
+				
+					UUID uid = UUID.randomUUID();
+					String savedName = uid.toString() + "_" + fileList.get(i).getOriginalFilename();
+					File target = new File(root_path+"/"+innerUploadPath+"/문의", savedName);
+					try {                
+						FileCopyUtils.copy(fileList.get(i).getBytes(), target);
+						
+					} catch (IOException e) {                    
+						e.printStackTrace();                                         
+					}   
 					if ((i + 1) == fileList.size()) {
-						imgPath += savedName;
+						imgPath += filePath+savedName;
 					} else {
-						imgPath += savedName + ",";
+						imgPath += filePath+savedName + ",";
 					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 			}
+			
 		}
 		if(imgPath.length() ==0){
 			imgPath = null;

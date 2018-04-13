@@ -201,7 +201,7 @@
 					<tr>
 						<td><input type="checkbox" class="check"></td>
 						<td>${imgs.gallery_num}<input type="hidden" class="num" name="no" value="${imgs.gallery_num}"></td>
-						<td><img src="displayFile?filename=${imgs.gallery_path}"></td>
+						<td><img src="${imgs.gallery_path}"></td>
 						<td>${imgs.gallery_type}</td>
 					</tr>
 				</c:forEach>

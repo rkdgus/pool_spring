@@ -7,12 +7,14 @@ import java.io.InputStream;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -56,12 +58,13 @@ public class AdminClinicController {
 	}
 	@ResponseBody
 	@RequestMapping(value="/insert",method=RequestMethod.POST)
-	public ResponseEntity<String> postinsert(List<MultipartFile> fileList,ClinicVO vo) throws Exception{
+	public ResponseEntity<String> postinsert(HttpServletRequest request,List<MultipartFile> fileList,ClinicVO vo) throws Exception{
 		logger.info("======= insert post ==========");
 		ResponseEntity<String> entity = null;
 		File dirPath = new File(outUploadPath);
 		String imgpath = null;
-		
+		String r = request.getContextPath();
+		logger.info(request.getContextPath().substring(r.lastIndexOf("/"),r.length()));
 		for(MultipartFile m : fileList){
 			logger.info(m.getOriginalFilename()+"");
 		}

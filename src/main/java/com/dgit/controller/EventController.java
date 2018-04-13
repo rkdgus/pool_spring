@@ -181,13 +181,14 @@ public class EventController {
 				imgPath = v.getImgpath();
 			}
 		}
-		
+	
+	
 		logger.info(imgPath);
 		System.gc();
 		if(deleteImg !=null){
 			String[] delImg = deleteImg.split(",");
 			for(int i=0; i <delImg.length; i++){
-			File file = new File(delImg[i]);
+			File file = new File(root_path+delImg[i].replace("/pool", ""));
 				file.delete();
 				imgPath = imgPath.replace(delImg[i], "");
 			}

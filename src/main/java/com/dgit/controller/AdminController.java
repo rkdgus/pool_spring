@@ -132,45 +132,25 @@ public class AdminController {
 		return "redirect:/admin/gallery";
 	}
 
-	
-	@RequestMapping(value = "displayFile", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<byte[]> displayFile(String filename) {
-		ResponseEntity<byte[]> entity = null;
-		logger.info("displayFile : " + filename);
-		InputStream in = null;
-		try {
-			String formatName = filename.substring(filename.lastIndexOf(".") + 1);
-			MediaType type = MediaUtils.getMediaType(formatName);
-			HttpHeaders headers = new HttpHeaders();
-			headers.setContentType(type);
-             
-			in = new FileInputStream(filename);                
 
-			entity = new ResponseEntity<>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
-		} catch (Exception e) {
-			// TODO: handle exception               
-			e.printStackTrace();
-			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		return entity;
-	}
 	
 	@RequestMapping(value = "/gallery/delete/{no}", method = RequestMethod.GET)
-	public String galleryDelete(@PathVariable("no")int[] no) {
+	public String galleryDelete(@PathVariable("no")int[] no,HttpServletRequest request) {
 		logger.info("=================galleryDelete Get====================");
 		logger.info("=================galleryDelete Get====================");
-                                            
+		String root_path = request.getSession().getServletContext().getRealPath("/");
+		
 		for(int i=0;i<no.length;i++){
 			System.gc();
 			GalleryVO vo = galleryService.selectNum(no[i]);
-			System.out.println(vo.toString());
-			File file = new File(vo.getGallery_path());
+
+			File file = new File(root_path+vo.getGallery_path().replace("/pool", ""));
 			file.delete();
 			galleryService.delete(no[i]);
 		}  
 		return "redirect:/admin/gallery";
 	}
-	
+	                     
 	//강사관리
 	@RequestMapping(value = "/teacher", method = RequestMethod.GET)
 	public String teacher(Model model) {
@@ -196,14 +176,18 @@ public class AdminController {
 		
 		String root_path = request.getSession().getServletContext().getRealPath("/");
 		if(fileList.getSize()!=0){
-
-		File dirPath = new File(root_path+"/"+innerUploadPath+"/강사사진");
+			
+			File dirPath = new File(root_path+"/"+innerUploadPath+"/강사사진");
 		                                                                         
-		if (!dirPath.exists()) {
-			dirPath.mkdirs();
-		}
-		
-
+			if (!dirPath.exists()) {
+				dirPath.mkdirs();
+			}
+			vo=teacherService.selectNo(vo.getTno());    
+			       System.out.println(vo.toString());      
+			System.gc();
+			File file = new File(root_path+vo.getImg_path().replace("/pool", ""));
+			file.delete();
+			
 			UUID uid = UUID.randomUUID();// 중복방지를 위하여 랜덤값 생성
 			String savedName = uid.toString() + "_" + fileList.getOriginalFilename();
 			File target = new File(root_path+"/"+innerUploadPath+"/강사사진", savedName);

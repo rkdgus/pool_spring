@@ -63,4 +63,16 @@ public class MemberDAOImpl implements MemberDAO {
 		return session.selectOne(namespace+".findMember",vo);
 	}
 
+	@Override
+	public MemberVO findPw(MemberVO vo) {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+".findPw",vo);
+	}
+
+	@Override
+	public void updatePw(MemberVO vo) {
+		// TODO Auto-generated method stub
+		session.update(namespace+".updatePw", vo);                
+	}
+
 }

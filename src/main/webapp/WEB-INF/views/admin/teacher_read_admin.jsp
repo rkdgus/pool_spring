@@ -242,7 +242,7 @@ float: left;
 				<tr>
 					<th width="100">사진</th>
 					<td class="wrap_img">
-						<img src="${pageContext.request.contextPath}/admin/displayFile?filename=${vo.img_path}" id="teacherImg">
+						<img src="${vo.img_path}" id="teacherImg">
 						<input type="file" name="fileList"
 							id="fileList" style="display: none;">           
 					</td> 

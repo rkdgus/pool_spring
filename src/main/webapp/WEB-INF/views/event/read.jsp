@@ -116,7 +116,7 @@
 						<td colspan="4" class="wrap_content">
 
 								<c:forEach var="img" items="${imgArr }">
-									<img src="displayFile?filename=${img}" class="imgs">	
+									<img src="${img}" class="imgs">	
 								</c:forEach>
 
 							<p class="read_content">

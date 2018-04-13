@@ -13,7 +13,6 @@
 	href="${pageContext.request.contextPath}/resources/common/common.css?v=1">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 <style>
 div#header {
 	height: 800px;
@@ -298,7 +297,7 @@ div#header {
 			<c:forEach items="${list }" var="item">
 				<div>
 					<img
-						src="displayFile?filename=${item.gallery_path}">
+						src="${item.gallery_path}">
 				</div>
 			</c:forEach>
 		

@@ -13,5 +13,7 @@ public interface MemberDAO {
 	public List<MemberVO> selectMemberPage(SearchCriteria cri);
 	public int countByAll(SearchCriteria cri); 
 	public MemberVO findMember(MemberVO vo);
+	public MemberVO findPw(MemberVO vo);
+	public void updatePw(MemberVO vo);
 }
  

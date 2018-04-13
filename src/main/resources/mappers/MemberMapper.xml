@@ -12,6 +12,10 @@
 		select * from member where name=#{name} and email=#{email}
 	</select>
 	
+	<select id="findPw" resultType="MemberVO">
+		select * from member where name=#{name} and email=#{email} and id=#{id}
+	</select>
+	
 	
 	<select id="selectMemberPage" resultType="MemberVO">
 		select * from member
@@ -35,6 +39,11 @@
 	<update id="updateIdPw">
 		update member set id=#{id},pw=password(#{pw}) where mno=#{mno}
 	</update>
+	
+	<update id="updatePw">
+		update member set pw=password(#{pw}) where name=#{name} and email=#{email} and id=#{id}
+	</update>
+	
 	<sql id="search">
 		<if test="cri.searchType =='name'.toString()">
 		 where name like CONCAT('%',#{cri.keyword},'%')

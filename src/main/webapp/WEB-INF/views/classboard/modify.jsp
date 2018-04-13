@@ -278,6 +278,9 @@ table{
       
       $(function() {
          window.scrollBy(0,80);
+         var regex = /<br\s*[\/]?>/gi;
+         var content1=$("#update_content").val().replace(regex,"\n");
+ 		 $("#update_content").val(content1);
          $(document).on("click","#close",function(){
             $("#count").text(" " + Object.keys(filesArr).length + "개가 선택 되었습니다.");
          })

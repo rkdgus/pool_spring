@@ -124,29 +124,24 @@ public class AdminClinicController {
 		
 		String imgPath = "";
 		if(v.getClinic_path() !=null){
-			imgPath = v.getClinic_path();
+			if(deleteImg !=null || fileList.size() >0){
+				imgPath = v.getClinic_path()+",";
+			}else{
+				imgPath = v.getClinic_path();
+			}
+			
 		}
-		
-		logger.info(imgPath);
 		System.gc();
 		if(deleteImg !=null){
 			String[] delImg = deleteImg.split(",");
 			for(int i=0; i <delImg.length; i++){
 			File file = new File(delImg[i]);
 				file.delete();
-				imgPath = imgPath.replace(delImg[i], "");
-			}
-			
-			if(imgPath.indexOf(",") == 0){
-				imgPath = imgPath.replace(",","");
+				imgPath = imgPath.replace(delImg[i]+",", "");
 			}
 		}
-		imgPath = imgPath.replaceAll(", ,",",");
-		imgPath = imgPath.replaceAll(",,",",");
+		
 		if(fileList.size() > 0){
-			if(imgPath.length() !=0){
-				imgPath += ",";
-			}
 			for (int i = 0; i < fileList.size(); i++) {
 				String filePath = outUploadPath + "clinic";
 				try {
@@ -165,6 +160,7 @@ public class AdminClinicController {
 		if(imgPath.length() ==0){
 			imgPath = null;
 		}
+		logger.info("db셋팅"+imgPath);
 		vo.setClinic_path(imgPath);
 		service.modify(vo);
 		return entity;

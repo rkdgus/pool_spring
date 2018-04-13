@@ -126,7 +126,7 @@
 				</tr>
 				<c:if test="${lists.size()==0 }">
 					<tr class="tr">
-						<td colspan="3" id="noqna">검색결과가 없습니다.</td>
+						<td colspan="3" id="noqna" class="classNosearch">검색결과가 없습니다.</td>
 					</tr>
 				</c:if>
 				<c:if test="${lists.size() !=0 }">
@@ -159,6 +159,9 @@
 	<script type="text/javascript">
 		$(function() {
 			$(document).on("click", ".tr", function() {
+				if($(this).find("td").hasClass("classNosearch")){
+					return false;
+				}
 				var no = $(this).find(".bno").text();
 				location.href = "read?no="+no;
 			})

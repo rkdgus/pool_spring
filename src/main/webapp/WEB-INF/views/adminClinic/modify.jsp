@@ -293,7 +293,8 @@ table {
 
 	$(function() {
 		window.scrollBy(0, 80);
-		var content1=$("#update_content").val().replace('<br />',"\n");
+		var regex = /<br\s*[\/]?>/gi;
+		var content1=$("#update_content").val().replace(regex,"\n");
 		$("#update_content").val(content1);
 		alert($("#bno").val())
 		$(document).on(

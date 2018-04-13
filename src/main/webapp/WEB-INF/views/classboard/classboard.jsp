@@ -140,12 +140,12 @@
 			<jsp:include page="contentTitle.jsp" />
 			<div id="insert_wrap">
 				<a href="insert?cno=${cno }" id="insert_btn"><button class="btn">글쓰기</button></a>
-				<button class="btn" id="allBtn">전체보기</button>
+				<c:if test="${cno > 0}"><button class="btn" id="allBtn">전체보기</button></c:if>
 			</div>
-			<c:if test="${lists.size()==0}">
+			<c:if test="${cno == 0}">
 				<img src="${pageContext.request.contextPath }/resources/img/goodgood.jpg">
 			</c:if>
-			<c:if test="${lists.size()!=0 }">
+			<c:if test="${cno >0}">
 				<div id="classboard_table">
 				<table>
 					<tr>
@@ -155,6 +155,11 @@
 						<th width="60">조회수</th>
 						<th width="80">작성일</th>
 					</tr>
+					<c:if test="${lists.size()==0 }">
+						<tr class="tr">
+							<td colspan="5" id="noqna" class="classNosearch">검색결과가 없습니다.</td>
+						</tr>
+					</c:if>
 					<c:if test="${lists !=null }">
 						<c:forEach var="item" items="${lists }">
 							<tr class="list">

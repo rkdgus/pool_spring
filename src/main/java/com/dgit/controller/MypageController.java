@@ -156,6 +156,39 @@ public class MypageController {
 	}
 	
 
+	@ResponseBody
+	@RequestMapping(value="/checkEmail",method=RequestMethod.POST)
+	public ResponseEntity<String> checkEmail(String email){
+		ResponseEntity<String> entity = null;
+		try{
+			MemberVO  m= service2.findEmail(email);
+			if(m ==null){
+				entity = new ResponseEntity<String>("use",HttpStatus.OK);
+			}else{
+				
+				
+					entity = new ResponseEntity<String>("not use",HttpStatus.OK);
+				
+				
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 	
+	@ResponseBody
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	public ResponseEntity<String> update(String email,String tell,String id){
+		ResponseEntity<String> entity = null;
+		try{
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 	
 }

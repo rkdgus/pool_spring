@@ -151,6 +151,7 @@ public class AdminClinicController {
 				imgPath = imgPath.replace(delImg[i]+",", "");
 			}
 		}
+		imgPath = imgPath.replace(",,", ",");
 		if(fileList.size() > 0){
 			String filePath = projectName +innerUploadPath+"/clinic/";
 			for (int i = 0; i < fileList.size(); i++) {

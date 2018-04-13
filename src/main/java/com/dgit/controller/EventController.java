@@ -181,8 +181,13 @@ public class EventController {
 		NoticeBoardVO v = service.read(vo.getNno());
 		String root_path = request.getSession().getServletContext().getRealPath("/");
 		String imgPath = "";
+		
 		if(v.getImgpath() !=null){
-			imgPath = v.getImgpath();
+			if(deleteImg !=null || fileList.size() >0){
+				imgPath = v.getImgpath()+",";
+			}else{
+				imgPath = v.getImgpath();
+			}
 		}
 		
 		logger.info(imgPath);
@@ -194,7 +199,7 @@ public class EventController {
 				file.delete();
 				imgPath = imgPath.replace(delImg[i], "");
 			}
-			imgPath.replaceAll(",,",",");
+			
 			if(imgPath.indexOf(",") == 0){
 				imgPath = imgPath.replace(",","");
 			}
@@ -203,9 +208,6 @@ public class EventController {
 		
 		logger.info(imgPath);
 		if(fileList.size() > 0){
-			if(imgPath.length() !=0){
-				imgPath += ",";
-			}
 			for (int i = 0; i < fileList.size(); i++) {
 				String filePath = "/pool/"+innerUploadPath+"/문의/";
 				

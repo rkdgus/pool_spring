@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dgit.domain.MemberVO;
 import com.dgit.domain.PageMaker;
 import com.dgit.domain.QnaBoardVO;
 import com.dgit.domain.SearchCriteria;
@@ -84,6 +87,17 @@ public class MypageController {
 	public void readMember(){
 		logger.info("================member mypage member info ==============");
 	}
+	
+	@RequestMapping(value="/updateMember",method=RequestMethod.GET)
+	public void updateMember(){
+		logger.info("================member mypage member info ==============");
+	}
+	
+	@RequestMapping(value="/updateMemberStep1",method=RequestMethod.GET)
+	public void updateStep1(){
+		logger.info("================member updateStep1 get ==============");
+	}
+	
 	@RequestMapping(value="displayFile",method=RequestMethod.GET)
 	public ResponseEntity<byte[]> displayFile(String filename){
 		//filename에 년월일이 다 붙은 이름이 돌아온다

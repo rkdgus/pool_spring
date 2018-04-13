@@ -19,7 +19,11 @@
 	<jsp:include page="../include/header.jsp" />
 	<script>
 		$(function(){
+			
 			$(document).on("click",".tr",function(){
+				if($(this).find("#noqna").hasClass("no")){
+					return;
+				}
 				var bno = $(this).find(".bno").text();
 				location.href="qnaRead${pageMaker.makeQna(pageMaker.cri.page)}&bno="+bno;
 			})
@@ -35,6 +39,7 @@
 			})
 			
 			$("#sel").val("${pageMaker.cri.searchType}");
+			
 			
 		})
 	</script>
@@ -73,7 +78,7 @@
 				</c:forEach>
 				<c:if test="${qna.size()==0 }">
 					<tr class="tr">
-						<td colspan="5" id="noqna">문의 내역이 없습니다.</td>
+						<td colspan="5" id="noqna" class="no">문의 내역이 없습니다.</td>
 					</tr>
 				</c:if>
 			</table>

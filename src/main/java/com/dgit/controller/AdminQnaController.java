@@ -114,7 +114,9 @@ public class AdminQnaController {
 	public ResponseEntity<String> removeQna(int bno,SearchCriteria cri){
 		ResponseEntity<String> entity = null;
 		try{
+
 			service.remove(bno);
+			
 			entity = new ResponseEntity<String>("success",HttpStatus.OK);
 		}catch(Exception e){
 			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);

@@ -8,39 +8,6 @@
 <meta charset="UTF-8">
 <title>문의하기 : 질문 및 답변 : 대구 아이티 수영장</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/qna/qnaReadSuccess.css">
-<style>
-	#answer_div{
-		margin-top: 20px;
-	}
-	#answer_div table{
-		width:100%;
-		border-bottom: 2px solid #333333;
-		border-top: 2px solid #333333;
-	}
-	#answer_div table #answertr{
-		background: #ebebeb;
-		font-size: 13px;
-		font-weight: bold;
-	}
-	#answer_div table #answertr #answerdate{
-		width:140px;
-	}
-	#answercontent{
-		font-size: 13px;
-	}
-	#answerBtn{
-		text-align: right;
-		margin-top: 10px;
-	}
-	#answerBtn button{
-		border:1px solid #5c5c5c;
-		background: #fff;
-		font-size: 12px;
-		outline: none;
-		padding:5px 10px;
-		border-radius:2px;
-	}
-</style>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />

@@ -8,6 +8,11 @@
 <meta charset="UTF-8">
 <title>회원 : 마이페이지 : 문의내역 : 대구 아이티 수영장</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/mypage/mypageQna.css">
+<style>
+	#list_title{
+		text-align: left !important;
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
@@ -32,6 +37,9 @@
 			})
 			
 			$(document).on("click",".list_tr",function(){
+				if($(this).find("#noqna").hasClass("no")){
+					return;
+				}
 				var bno = $(this).find(".bno").text();
 				location.href="mypageQnaRead${pageMaker.makeSearch(pageMaker.cri.page)}&id=${id}&bno="+bno;
 			})
@@ -56,14 +64,14 @@
 					</tr>
 					<c:if test="${list.size() == 0 }">
 						<tr class=list_tr>
-							<td colspan="4">문의 내역이 없습니다</td>
+							<td colspan="4" id="noqna" class="no">문의 내역이 없습니다</td>
 						</tr>
 					</c:if>
 					<c:if test="${list !=null }">
 						<c:forEach items="${list }" var="list">
 							<tr class="list_tr">
 								<td class="bno">${list.bno }</td>
-								<td>${list.title }</td>
+								<td id="list_title">${list.title }</td>
 								<c:if test="${list.replycheck==false }">
 									<td>X</td>
 								</c:if>

@@ -1,0 +1,57 @@
+@CHARSET "UTF-8";
+
+	#table_div table,#answer_div table{
+		width:100%;
+		border-top: 2px solid #333333;
+	}
+	#table_div table tr,#answer_div table tr{
+		border-bottom: 1px solid #d7d7d7;
+	}
+	#table_div table tr td,#answer_div table tr td{
+		font-size: 13px;
+		padding-left: 10px;
+		padding-right:10px;
+	}
+	#answer_div{
+		margin-top: 20px;
+	}
+	.main_tr{
+		height:30px;
+		line-height: 30px;
+		background: #ebebeb;
+		font-weight: bold;
+	}
+	#qnadate,#answerdate{
+		width:120px;
+		text-align: right;
+	}
+	#qnaContent,#answerContet{
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+	#qnaContent img{
+		max-width:700px;
+	}
+	.btnGroup{
+		margin-top: 10px;
+		text-align: right;
+	}
+	.btnGroup a{
+		display: inline-block;
+	}
+	.btnGroup a button{
+		border:1px solid #5c5c5c;
+		background: #fff;
+		font-size: 12px;
+		outline: none;
+		padding:5px 10px;
+		border-radius:2px;
+	}
+	.btnGroup a button:HOVER {
+	background: #ebebeb;
+}
+#main_answer_title{
+	height:25px;
+	line-height: 25px;
+	color:gray;
+}

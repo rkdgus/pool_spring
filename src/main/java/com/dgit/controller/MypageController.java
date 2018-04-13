@@ -24,6 +24,7 @@ import com.dgit.domain.MemberVO;
 import com.dgit.domain.PageMaker;
 import com.dgit.domain.QnaBoardVO;
 import com.dgit.domain.SearchCriteria;
+import com.dgit.service.MemberService;
 import com.dgit.service.QnaBoardService;
 import com.dgit.util.MediaUtils;
 
@@ -35,6 +36,9 @@ public class MypageController {
 	
 	@Autowired
 	QnaBoardService service;
+	
+	@Autowired
+	MemberService service2;
 	
 	@RequestMapping(value="/teacherMypage",method=RequestMethod.GET)
 	public void tMypage(){
@@ -79,6 +83,25 @@ public class MypageController {
 		}catch(Exception e){
 			e.printStackTrace();
 			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/checkPw",method=RequestMethod.POST)
+	public ResponseEntity<String> checkPw(String id,String pw){
+		ResponseEntity<String> entity = null;
+		try{
+			MemberVO m = service2.selectMember(new MemberVO(pw, id));
+			if(m!=null){
+				entity  = new ResponseEntity<String>("match",HttpStatus.OK);
+			}else{
+				entity  = new ResponseEntity<String>("notMatch",HttpStatus.OK);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			entity  = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}
@@ -133,6 +156,39 @@ public class MypageController {
 	}
 	
 
+	@ResponseBody
+	@RequestMapping(value="/checkEmail",method=RequestMethod.POST)
+	public ResponseEntity<String> checkEmail(String email){
+		ResponseEntity<String> entity = null;
+		try{
+			MemberVO  m= service2.findEmail(email);
+			if(m ==null){
+				entity = new ResponseEntity<String>("use",HttpStatus.OK);
+			}else{
+				
+				
+					entity = new ResponseEntity<String>("not use",HttpStatus.OK);
+				
+				
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 	
+	@ResponseBody
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	public ResponseEntity<String> update(String email,String tell,String id){
+		ResponseEntity<String> entity = null;
+		try{
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 	
 }

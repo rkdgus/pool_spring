@@ -189,6 +189,7 @@ public class ClassBoardController {
 				imgPath = imgPath.replace(delImg[i]+",", "");
 			}
 		}
+		
 		logger.info(imgPath);
 		imgPath = imgPath.replace(",,", ",");
 		if(fileList.size() > 0){

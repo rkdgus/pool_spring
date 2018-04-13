@@ -97,6 +97,13 @@ public class MemberVO {
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	
+
+	public MemberVO(String pw, String id) {
+		this.pw = pw;
+		this.id = id;
+	}
 
 	@Override
 	public String toString() {

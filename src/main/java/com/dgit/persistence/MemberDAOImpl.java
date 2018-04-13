@@ -75,4 +75,15 @@ public class MemberDAOImpl implements MemberDAO {
 		session.update(namespace+".updatePw", vo);                
 	}
 
+	@Override
+	public MemberVO findEmail(String email) {
+		return session.selectOne(namespace+".findEmail",email);
+	}
+
+	@Override
+	public void updateEmailTell(MemberVO vo) {
+		session.update(namespace+".updateEmailTell",vo);
+		
+	}
+
 }

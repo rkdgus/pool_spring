@@ -15,5 +15,7 @@ public interface MemberService {
 	public MemberVO findMember(MemberVO vo);
 	public MemberVO findPW(MemberVO vo);
 	public void updatePw(MemberVO vo);
+	public MemberVO findEmail(String email);
+	public void updateEmailTell(MemberVO vo);
 }
  

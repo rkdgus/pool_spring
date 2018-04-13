@@ -40,9 +40,12 @@ table {
 		width:140px;
 		padding:6px 0px 6px 20px;
 		font-size: 13px;
+		color:black;
 }
 #join_content table td{
 		padding-left: 10px;
+		font-size:13px;
+		color:gray;
 }
 
 #join_content table input{

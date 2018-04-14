@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 : 마이페이지 : 회원정보 : 비밀번호 변경 :개인정보 수정:대구 아이티</title>
+<title>회원 : 마이페이지 : 회원정보 : 비밀번호 변경 :개인정보 수정 : 대구 아이티 수영장</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/mypage/updatePw.css">
 </head>
 <body>

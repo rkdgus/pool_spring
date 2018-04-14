@@ -83,4 +83,9 @@ public class MemberServiceImpl implements MemberService {
 		dao.chagePw(pw, id);
 	}
 
+	@Override
+	public void updateIsleave(String id) {
+		dao.updateIsleave(id);
+	}
+
 }

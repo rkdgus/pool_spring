@@ -215,4 +215,30 @@ public class MypageController {
 		return "redirect:/mypage/updatePwStep1";
 	}
 	
+	@RequestMapping(value="/cancelRegisterStep1",method=RequestMethod.GET)
+	public void cancelRegisterStep1(){
+		logger.info("============ cancelRegisterStep1 get =======");
+		
+	}
+	
+	@RequestMapping(value="/cancelRegister",method=RequestMethod.GET)
+	public void cancelRegister(){
+		logger.info("============ cancelRegister get =======");
+	}
+	
+	@RequestMapping(value="/cancelRegister",method=RequestMethod.POST)
+	public ResponseEntity<String> cancel(String id,HttpSession session){
+		logger.info("============ cancelRegister Post =======");
+		ResponseEntity<String> entity =null;
+		try{
+			service2.updateIsleave(id);
+			session.invalidate();
+			entity = new ResponseEntity<String>("success",HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
 }

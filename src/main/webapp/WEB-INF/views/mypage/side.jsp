@@ -15,7 +15,7 @@
 				<ul>
 					<li><a href="${pageContext.request.contextPath }/mypage/updateMemberStep1" class="myinfo">개인정보 수정</a></li>
 					<li><a href="${pageContext.request.contextPath }/mypage/updatePwStep1" class="myinfo">비밀번호 변경</a></li>
-					<li><a href="" class="myinfo">탈퇴신청</a></li>
+					<li><a href="${pageContext.request.contextPath }/mypage/cancelRegisterStep1"" class="myinfo">탈퇴신청</a></li>
 				</ul>
 			</li>
 			<li><a href="${pageContext.request.contextPath }/mypage/myPageQna?id=${login.id}">문의내역</a></li>

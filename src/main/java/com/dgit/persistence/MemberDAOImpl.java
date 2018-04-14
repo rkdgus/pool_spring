@@ -95,4 +95,10 @@ public class MemberDAOImpl implements MemberDAO {
 		
 	}
 
+	@Override
+	public void updateIsleave(String id) {
+		session.update(namespace+".updateIsleave",id);
+		
+	}
+
 }

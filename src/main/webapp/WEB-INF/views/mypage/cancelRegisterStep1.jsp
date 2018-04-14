@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 : 마이페이지 : 회원정보 : 비밀번호 변경  :개인정보 수정 : 대구 아이티 수영장</title>
+<title>회원 : 마이페이지 : 탈퇴 신청 : 대구 아이티 수영장</title>
 <style>
-		#check_div{
+			#check_div{
 		border:1px solid #ccc;
 		padding:30px;
 		margin-bottom: 20px;
@@ -70,7 +70,7 @@
 						}
 						
 						if(result =="match"){
-							location.href="updatePw?id=${login.id}";
+							location.href="cancelRegister";
 							return;
 						}
 					}
@@ -82,7 +82,7 @@
 		<div id="container">
 			<jsp:include page="side.jsp"/>
 			<div id="content">
-				<jsp:include page="updatePwTitle.jsp"/>
+			<jsp:include page="cancelRegisterTitle.jsp"/>
 				<div id="check_div">
 				<p>개인정보 보호를 위해 비밀번호를 입력해 주세요</p>
 					<table>
@@ -99,6 +99,7 @@
 				
 			</div>
 			</div>
+	
 	<jsp:include page="../include/footer.jsp" />
 </body>
 </html>

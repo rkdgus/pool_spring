@@ -88,7 +88,7 @@ button:HOVER {
 		var orignalE = "${login.email}";
 		$(function() {
 
-			var email = $("#email1").val() + "@" + $("#email2").val();
+			
 
 			$("#sel").change(function() {
 				$("#email2").val($(this).val());
@@ -107,8 +107,10 @@ button:HOVER {
 			})
 
 			$("#updateBtn").click(
+					
 					function() {
-
+						var email = $("#email1").val() + "@" + $("#email2").val();
+						
 						if (email == orignalE) {
 							check = 1;
 						}
@@ -149,7 +151,11 @@ button:HOVER {
 								},
 								success : function(result) {
 									console.log(result);
-
+									if(result=="success"){
+										alert("개인정보가 수정되었습니다");
+										location.href="updateMemberStep1";
+										return;
+									}
 								}
 							})
 						}
@@ -157,7 +163,7 @@ button:HOVER {
 					})
 
 			$("#eCheck").click(function() {
-
+				var email = $("#email1").val() + "@" + $("#email2").val();
 				$.ajax({
 					url : "checkEmail",
 					type : "post",

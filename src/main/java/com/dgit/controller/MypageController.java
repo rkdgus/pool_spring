@@ -159,18 +159,20 @@ public class MypageController {
 	@ResponseBody
 	@RequestMapping(value="/checkEmail",method=RequestMethod.POST)
 	public ResponseEntity<String> checkEmail(String email){
+		logger.info("============email check=======");
 		ResponseEntity<String> entity = null;
+		MemberVO  m= service2.findEmail(email);
+
 		try{
-			MemberVO  m= service2.findEmail(email);
 			if(m ==null){
 				entity = new ResponseEntity<String>("use",HttpStatus.OK);
+			
 			}else{
-				
-				
-					entity = new ResponseEntity<String>("not use",HttpStatus.OK);
-				
-				
+				entity = new ResponseEntity<String>("not use",HttpStatus.OK);
 			}
+					
+		
+			
 		}catch(Exception e){
 			e.printStackTrace();
 			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
@@ -183,7 +185,12 @@ public class MypageController {
 	public ResponseEntity<String> update(String email,String tell,String id){
 		ResponseEntity<String> entity = null;
 		try{
-			
+			MemberVO vo = new MemberVO();
+			vo.setEmail(email);
+			vo.setTell(tell);
+			vo.setId(id);
+			service2.updateEmailTell(vo);
+			entity = new ResponseEntity<String>("success",HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
 			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);

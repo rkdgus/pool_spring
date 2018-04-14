@@ -44,6 +44,10 @@
 	<update id="updatePw">
 		update member set pw=password(#{pw}) where name=#{name} and email=#{email} and id=#{id}
 	</update>
+	<update id="chagePw">
+		update member set pw=password(#{pw}) where id=#{id}
+	</update>
+	
 	<update id="updateEmailTell">
 		update member set email=#{email},tell=#{tell} where id=#{id}
 	</update>

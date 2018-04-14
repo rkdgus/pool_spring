@@ -86,4 +86,13 @@ public class MemberDAOImpl implements MemberDAO {
 		
 	}
 
+	@Override
+	public void chagePw(String pw, String id) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("pw", pw);
+		map.put("id", id);
+		session.update(namespace+".chagePw",map);
+		
+	}
+
 }

@@ -183,6 +183,7 @@ public class MypageController {
 	@ResponseBody
 	@RequestMapping(value="/update",method=RequestMethod.POST)
 	public ResponseEntity<String> update(String email,String tell,String id){
+		logger.info("============update member info=======");
 		ResponseEntity<String> entity = null;
 		try{
 			MemberVO vo = new MemberVO();
@@ -196,6 +197,22 @@ public class MypageController {
 			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
 		}
 		return entity;
+	}
+	
+	@RequestMapping(value="/updatePwStep1",method=RequestMethod.GET)
+	public void updatePwStep1(){
+		logger.info("============update Pw step1 get =======");
+	}
+	
+	@RequestMapping(value="/updatePw",method=RequestMethod.GET)
+	public void updatePw(String id){
+		logger.info("============update Pw get =======");
+	}
+	@RequestMapping(value="/updatePw",method=RequestMethod.POST)
+	public String updatePwPost(String pw,String id){
+		logger.info("============update Pw Post =======");
+		service2.chagePw(id, pw);
+		return "redirect:/mypage/updatePwStep1";
 	}
 	
 }

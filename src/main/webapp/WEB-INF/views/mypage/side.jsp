@@ -14,7 +14,7 @@
 			<li><a href="${pageContext.request.contextPath }/mypage/memberInfo">회원정보</a>
 				<ul>
 					<li><a href="${pageContext.request.contextPath }/mypage/updateMemberStep1" class="myinfo">개인정보 수정</a></li>
-					<li><a href="" class="myinfo">비밀번호 변경</a></li>
+					<li><a href="${pageContext.request.contextPath }/mypage/updatePwStep1" class="myinfo">비밀번호 변경</a></li>
 					<li><a href="" class="myinfo">탈퇴신청</a></li>
 				</ul>
 			</li>

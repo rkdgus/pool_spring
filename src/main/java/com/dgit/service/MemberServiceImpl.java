@@ -78,4 +78,14 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+	@Override
+	public void chagePw(String id, String pw) {
+		dao.chagePw(pw, id);
+	}
+
+	@Override
+	public void updateIsleave(String id) {
+		dao.updateIsleave(id);
+	}
+
 }

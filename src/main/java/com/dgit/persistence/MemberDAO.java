@@ -17,5 +17,7 @@ public interface MemberDAO {
 	public void updatePw(MemberVO vo);
 	public MemberVO findEmail(String email);
 	public void updateEmailTell(MemberVO vo);
+	public void chagePw(String pw,String id);
+	public void updateIsleave(String id);
 }
  

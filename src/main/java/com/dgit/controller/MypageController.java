@@ -183,6 +183,7 @@ public class MypageController {
 	@ResponseBody
 	@RequestMapping(value="/update",method=RequestMethod.POST)
 	public ResponseEntity<String> update(String email,String tell,String id){
+		logger.info("============update member info=======");
 		ResponseEntity<String> entity = null;
 		try{
 			MemberVO vo = new MemberVO();
@@ -190,6 +191,48 @@ public class MypageController {
 			vo.setTell(tell);
 			vo.setId(id);
 			service2.updateEmailTell(vo);
+			entity = new ResponseEntity<String>("success",HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="/updatePwStep1",method=RequestMethod.GET)
+	public void updatePwStep1(){
+		logger.info("============update Pw step1 get =======");
+	}
+	
+	@RequestMapping(value="/updatePw",method=RequestMethod.GET)
+	public void updatePw(String id){
+		logger.info("============update Pw get =======");
+	}
+	@RequestMapping(value="/updatePw",method=RequestMethod.POST)
+	public String updatePwPost(String pw,String id){
+		logger.info("============update Pw Post =======");
+		service2.chagePw(id, pw);
+		return "redirect:/mypage/updatePwStep1";
+	}
+	
+	@RequestMapping(value="/cancelRegisterStep1",method=RequestMethod.GET)
+	public void cancelRegisterStep1(){
+		logger.info("============ cancelRegisterStep1 get =======");
+		
+	}
+	
+	@RequestMapping(value="/cancelRegister",method=RequestMethod.GET)
+	public void cancelRegister(){
+		logger.info("============ cancelRegister get =======");
+	}
+	
+	@RequestMapping(value="/cancelRegister",method=RequestMethod.POST)
+	public ResponseEntity<String> cancel(String id,HttpSession session){
+		logger.info("============ cancelRegister Post =======");
+		ResponseEntity<String> entity =null;
+		try{
+			service2.updateIsleave(id);
+			session.invalidate();
 			entity = new ResponseEntity<String>("success",HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();

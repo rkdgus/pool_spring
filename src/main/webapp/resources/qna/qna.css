@@ -152,3 +152,7 @@ input,textarea{
 	font-style: italic;
 	margin-right: 10px;
 }
+
+.hiddenSpan{
+	display: none;
+}

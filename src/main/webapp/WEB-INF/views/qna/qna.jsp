@@ -14,17 +14,18 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath }/resources/qna/qna.css">
-	<style>
-		#leftArea{
-			width:178px !important;
-		}
-	</style>
+	href="${pageContext.request.contextPath }/resources/qna/qna.css?v=11">
+<style>
+#leftArea {
+	width: 178px !important;
+}
+</style>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
 
-	<script src="${pageContext.request.contextPath }/resources/qna/qna.js"></script>
+	<script
+		src="${pageContext.request.contextPath }/resources/qna/qna.js?v=11"></script>
 
 	<div id="container">
 		<jsp:include page="qnaside.jsp" />
@@ -97,12 +98,11 @@
 
 						<table>
 							<tr>
-									<td class="td"><img
+								<td class="td"><img
 									src="${pageContext.request.contextPath }/resources/images/arrow.gif">
 									비밀번호 설정</td>
-									<td><input type="password" id="pw" name="pw">
-										<input type="hidden" id="id" name="id">
-									</td>
+								<td><input type="password" id="pw" name="pw"> <input
+									type="hidden" id="id" name="id"></td>
 							</tr>
 							<tr>
 								<td class="td"><img
@@ -114,18 +114,23 @@
 
 						</table>
 					</div>
-					
+
 					<c:if test="${login.title=='회원' &&login !=null }">
-							<script>
-								$("#name").val("${login.name}").attr("readonly","readonly");
-								var email = "${login.email}";
-								
-								$("#email1").val(email.substring(0, email.indexOf("@"))).attr("readonly","readonly");
-								$("#email2").val(email.substr(email.indexOf("@")+1)).attr("readonly","readonly");
-								$("#id").val("${login.id}");
-							</script>
-						</c:if>
-					
+						<script>
+							$("#name").val("${login.name}").attr("readonly",
+									"readonly");
+							var email = "${login.email}";
+
+							$("#email1").val(
+									email.substring(0, email.indexOf("@")))
+									.attr("readonly", "readonly");
+							$("#email2").val(
+									email.substr(email.indexOf("@") + 1)).attr(
+									"readonly", "readonly");
+							$("#id").val("${login.id}");
+						</script>
+					</c:if>
+
 					<div id="check_info">
 						<h2>
 							<span class="mark22">■</span> 개인정보 수집 및 이용에 대한 안내
@@ -156,9 +161,8 @@
 					</div>
 
 				</div>
-				<input type="hidden" name="imgpath" id="imgpath"> <input
-					type="hidden" name="email" id="email"> <input type="hidden"
-					name="content" id="c1">
+				 <input
+					type="hidden" name="email" id="email"> 
 			</form>
 			<input type="file" name="fileList" multiple="multiple" id="fileList"
 				style="display: none;">
@@ -209,5 +213,8 @@
 
 		</div>
 	</div>
+	<script type="text/javascript">
+		
+	</script>
 </body>
 </html>

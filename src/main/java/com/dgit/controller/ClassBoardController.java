@@ -85,8 +85,17 @@ public class ClassBoardController {
 		logger.info("=================insert Get====================");
 	}
 	@RequestMapping(value="/remove")
-	public String removeBoard(int bno,int cno){
+	public String removeBoard(HttpServletRequest request,int bno,int cno){
 		logger.info("=================remove Get====================");
+		ClassBoardVO vo = service.read(bno);
+		if(vo.getImgpath() !=null){
+			String root_path = request.getSession().getServletContext().getRealPath("/");
+			String[] delImg = vo.getImgpath().split(",");
+			for(int i=0; i <delImg.length; i++){
+				File file = new File(root_path+delImg[i].replace("/pool", ""));
+					file.delete();
+			}
+		}
 		service.remove(bno);
 		
 		return "redirect:/classboard/classboard?cno="+cno;

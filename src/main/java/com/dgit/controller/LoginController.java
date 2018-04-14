@@ -101,7 +101,14 @@ public class LoginController {
 		
 		try {
 			MemberVO vo  = service.findMemberId(id);
-			entity = new ResponseEntity<MemberVO>(vo,HttpStatus.OK);
+			if(vo==null){
+				MemberVO m = new MemberVO();
+				m.setMno(-1);
+				entity = new ResponseEntity<MemberVO>(m,HttpStatus.OK);
+			}else{
+				entity = new ResponseEntity<MemberVO>(vo,HttpStatus.OK);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<MemberVO>(HttpStatus.BAD_REQUEST);

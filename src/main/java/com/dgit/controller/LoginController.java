@@ -123,7 +123,14 @@ public class LoginController {
 		
 		try {
 			TeacherVO vo  = serviceT.findTeacherId(id);
-			entity = new ResponseEntity<TeacherVO>(vo,HttpStatus.OK);
+			if(vo == null){
+				TeacherVO t = new TeacherVO();
+				t.setTno(-1);
+				entity = new ResponseEntity<TeacherVO>(t,HttpStatus.OK);
+			}else{
+				entity = new ResponseEntity<TeacherVO>(vo,HttpStatus.OK);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			entity = new ResponseEntity<TeacherVO>(HttpStatus.BAD_REQUEST);

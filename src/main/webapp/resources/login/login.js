@@ -9,8 +9,12 @@ $(function(){
 				data:{"id":$("#id").val()},
 				success:function(result){
 					console.log(result);
-					if(result.length==0){
+					if(result.tno==-1){
 						alert("관리자가 아닙니다. 아이디를 확인해주세요.");
+						$("#id").focus();
+						$("#pw").val("");
+					}else if(result.title=="퇴사"){
+						alert("퇴사 강사입니다. 로그인 하실 수 없습니다.");
 						$("#id").focus();
 						$("#pw").val("");
 					}else{

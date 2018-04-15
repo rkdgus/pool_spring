@@ -31,4 +31,14 @@ public class ClassServiceImpl implements ClassService{
 		return dao.selectAllClass(tno,cri);
 	}
 
+	@Override
+	public int countBymno(int mno, SearchCriteria cri) {
+		return dao.countBymno(mno, cri);
+	}
+
+	@Override
+	public List<ClassVO> selectClassBymno(int mno, SearchCriteria cri) {
+		return dao.selectClassBymno(mno, cri);
+	}
+
 }

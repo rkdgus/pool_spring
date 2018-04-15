@@ -9,4 +9,6 @@ public interface ClassService {
 	public ClassVO selectAll(int cno);
 	public int countBytno(int tno,SearchCriteria cri);
 	public List<ClassVO> selectAllClass(int tno,SearchCriteria cri);
+	public int countBymno(int mno,SearchCriteria cri);
+	public List<ClassVO> selectClassBymno(int mno,SearchCriteria cri);
 }

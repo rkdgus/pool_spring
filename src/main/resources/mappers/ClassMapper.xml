@@ -16,4 +16,13 @@
 		select * from class where tno = #{tno}
 		order by s_day desc limit #{cri.pageStart},15
 	</select>
+	
+	<select id="countBymno" resultType="int">
+		select count(*) from class where cno in(select cno from register where mno=#{mno})
+	</select>
+	
+	<select id="selectClassBymno" resultType="ClassVO">
+		select * from class where cno in(select cno from register where mno=#{mno})
+		order by s_day desc limit #{cri.pageStart},15
+	</select>
 </mapper>

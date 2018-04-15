@@ -20,12 +20,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dgit.domain.ClassVO;
 import com.dgit.domain.MemberVO;
 import com.dgit.domain.PageMaker;
 import com.dgit.domain.QnaBoardVO;
 import com.dgit.domain.SearchCriteria;
+import com.dgit.domain.TeacherVO;
+import com.dgit.service.ClassService;
 import com.dgit.service.MemberService;
 import com.dgit.service.QnaBoardService;
+import com.dgit.service.RegisterService;
+import com.dgit.service.TeacherService;
 import com.dgit.util.MediaUtils;
 
 @Controller
@@ -39,6 +44,13 @@ public class MypageController {
 	
 	@Autowired
 	MemberService service2;
+	
+	@Autowired
+	ClassService service3;
+	
+	@Autowired
+	TeacherService service4;
+	
 	
 	@RequestMapping(value="/teacherMypage",method=RequestMethod.GET)
 	public void tMypage(){
@@ -237,6 +249,37 @@ public class MypageController {
 		}catch(Exception e){
 			e.printStackTrace();
 			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="/classList",method=RequestMethod.GET)
+	public void classList(HttpSession session,Model model,SearchCriteria cri){
+		MemberVO vo = (MemberVO)session.getAttribute("login");
+		List<ClassVO> list = service3.selectClassBymno(vo.getMno(), cri);
+		model.addAttribute("list", list);
+		makePage2(model,cri,vo.getMno());
+		
+	}
+	
+	private void makePage2(Model model,SearchCriteria cri,int mno){
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		int totalcount = service3.countBymno(mno, cri);
+		pageMaker.setTotalCount(totalcount);
+		model.addAttribute("pageMaker",pageMaker);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/teacherInfo",method=RequestMethod.POST)
+	public ResponseEntity<TeacherVO> teacherInfo(int tno){
+		ResponseEntity<TeacherVO> entity = null;
+		try{
+			TeacherVO vo = service4.selectNo(tno);
+			entity = new ResponseEntity<TeacherVO>(vo,HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<TeacherVO>(HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}

@@ -52,7 +52,4 @@ public class TeacherServiceImpl implements TeacherService {
 	public void updatePw(TeacherVO vo) {
 		dao.updatePw(vo);
 	}
-
-
-
 }

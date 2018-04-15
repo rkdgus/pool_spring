@@ -42,4 +42,22 @@ public class ClassDAOImpl implements ClassDAO{
 		return session.selectList(namespace+".selectAllClass",map);
 	}
 
+
+	@Override
+	public int countBymno(int mno, SearchCriteria cri) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("mno", mno);
+		map.put("cri", cri);
+		return session.selectOne(namespace+".countBymno",map);
+	}
+
+
+	@Override
+	public List<ClassVO> selectClassBymno(int mno, SearchCriteria cri) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("mno", mno);
+		map.put("cri", cri);
+		return session.selectList(namespace+".selectClassBymno",map);
+	}
+
 }

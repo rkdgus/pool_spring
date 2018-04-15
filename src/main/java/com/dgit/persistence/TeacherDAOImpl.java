@@ -56,5 +56,4 @@ public class TeacherDAOImpl implements TeacherDAO {
 	public void updatePw(TeacherVO vo) {
 		session.update(namespace+".updatePw",vo);
 	}
-
 }

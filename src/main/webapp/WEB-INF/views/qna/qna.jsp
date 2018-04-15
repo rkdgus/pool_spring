@@ -19,13 +19,17 @@
 #leftArea {
 	width: 178px !important;
 }
+#test_info{
+	font-size: 12px;
+	color:gray;
+}
 </style>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
 
 	<script
-		src="${pageContext.request.contextPath }/resources/qna/qna.js?v=11"></script>
+		src="${pageContext.request.contextPath }/resources/qna/qna.js"></script>
 
 	<div id="container">
 		<jsp:include page="qnaside.jsp" />
@@ -109,7 +113,7 @@
 									src="${pageContext.request.contextPath }/resources/images/arrow.gif">
 									자동입력 방지</td>
 								<td><i><span id="test"></span></i> <input type="text"
-									id="test2"></td>
+									id="test2"><span id="test_info">코드 식별이 어려우실 때는 코드를 클릭해 주시기 바랍니다</span></td>
 							</tr>
 
 						</table>

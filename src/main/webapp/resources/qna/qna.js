@@ -9,7 +9,9 @@ var index = 1;
 			$("#eselect").change(function() {
 				$("#email2").val($(this).val());
 			})
-
+			$(document).on("click","#test",function(){
+					$("#test").text(randomRequire());
+			})
 			$("#test").text(randomRequire());
 
 			$("#fileUpload").click(function() {

@@ -1,16 +1,27 @@
 package com.dgit.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dgit.domain.ClassVO;
+import com.dgit.domain.MemberVO;
+import com.dgit.domain.PageMaker;
+import com.dgit.domain.SearchCriteria;
 import com.dgit.domain.TeacherVO;
+import com.dgit.service.ClassService;
+import com.dgit.service.MemberService;
 import com.dgit.service.TeacherService;
 
 @Controller
@@ -21,6 +32,12 @@ public class TeacherpageController {
 	
 	@Autowired
 	TeacherService service;
+	
+	@Autowired
+	ClassService service2;
+	
+	@Autowired
+	MemberService service3;
 	
 	@RequestMapping(value="/teacherMypage",method=RequestMethod.GET)
 	public void teacherpage(){
@@ -81,6 +98,38 @@ public class TeacherpageController {
 		}catch(Exception e){
 			e.printStackTrace();
 			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="/teacherClass",method=RequestMethod.GET)
+	public void teacherClass(SearchCriteria cri,HttpSession session,Model model){
+		logger.info("============== teacher mypage class Info get ========");
+		TeacherVO vo = (TeacherVO)session.getAttribute("login");
+		List<ClassVO> list = service2.selectAllClass(vo.getTno(), cri);
+		model.addAttribute("list", list);
+		makePage(model,cri,vo.getTno());
+	}
+	
+	private void makePage(Model model,SearchCriteria cri,int tno){
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		int totalcount = service2.countBytno(tno, cri);
+		pageMaker.setTotalCount(totalcount);
+		model.addAttribute("pageMaker",pageMaker);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/registerStudent",method=RequestMethod.POST)
+	public ResponseEntity<List<MemberVO>> registerMember(int cno){
+		logger.info("============== registerMember post ========");
+		ResponseEntity<List<MemberVO>> entity = null;
+		try{
+			List<MemberVO> list = service3.selectRegisterMember(cno);
+			entity = new ResponseEntity<List<MemberVO>>(list,HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<List<MemberVO>>(HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}

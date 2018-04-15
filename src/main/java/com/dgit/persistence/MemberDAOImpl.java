@@ -101,4 +101,9 @@ public class MemberDAOImpl implements MemberDAO {
 		
 	}
 
+	@Override
+	public List<MemberVO> selectRegisterMember(int cno) {
+		return session.selectList(namespace+".selectRegisterMember",cno);
+	}
+
 }

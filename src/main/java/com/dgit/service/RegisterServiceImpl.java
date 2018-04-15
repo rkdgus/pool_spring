@@ -19,7 +19,4 @@ public class RegisterServiceImpl implements RegisterService{
 		// TODO Auto-generated method stub
 		return dao.selectAll(mno);
 	}
-	
-	
-
 }

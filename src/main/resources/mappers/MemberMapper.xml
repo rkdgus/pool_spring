@@ -36,7 +36,9 @@
 	<select id="selectMemberByMno" resultType="MemberVO">
 		select * from member where mno=#{mno}
 	</select>
-	
+	<select id="selectRegisterMember" resultType="MemberVO">
+		select * from member where mno in (select mno from register where cno=#{cno})
+	</select>
 	<update id="updateIdPw">
 		update member set id=#{id},pw=password(#{pw}) where mno=#{mno}
 	</update>

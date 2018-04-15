@@ -88,4 +88,9 @@ public class MemberServiceImpl implements MemberService {
 		dao.updateIsleave(id);
 	}
 
+	@Override
+	public List<MemberVO> selectRegisterMember(int cno) {
+		return dao.selectRegisterMember(cno);
+	}
+
 }

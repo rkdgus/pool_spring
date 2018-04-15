@@ -51,6 +51,8 @@ public class TeacherServiceImpl implements TeacherService {
 	@Override
 	public void updatePw(TeacherVO vo) {
 		dao.updatePw(vo);
-	} 
+	}
+
+
 
 }

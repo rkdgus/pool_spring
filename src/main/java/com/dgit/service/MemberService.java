@@ -19,5 +19,6 @@ public interface MemberService {
 	public void updateEmailTell(MemberVO vo);
 	public void chagePw(String id,String pw);
 	public void updateIsleave(String id);
+	public List<MemberVO> selectRegisterMember(int cno);
 }
  

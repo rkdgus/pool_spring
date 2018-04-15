@@ -27,4 +27,8 @@
 	<update id="update">
 		update teacher set img_path = #{img_path},tell = #{tell},info = #{info},title = #{title} where tno=#{tno}
 	</update>
+	
+	<update id="updatePw">
+		update teacher set pw=password(#{pw}) where id=#{id}
+	</update>
 </mapper>

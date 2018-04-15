@@ -46,6 +46,11 @@ public class TeacherServiceImpl implements TeacherService {
 	public List<TeacherVO> select(String title) {
 		// TODO Auto-generated method stub
 		return dao.select(title);
+	}
+
+	@Override
+	public void updatePw(TeacherVO vo) {
+		dao.updatePw(vo);
 	} 
 
 }

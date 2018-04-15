@@ -4,10 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 : 마이페이지 : 회원정보 : 대구 아이티 수영장</title>
+<title>강사 : 마이페이지  : 대구 아이티 수영장</title>
 <style>
+#info{
+	overflow: hidden;
+}
 	#t{
-	 	width:100%;
+		float:left;
+	 	width:75%;
 	 	border-top: 2px solid #333333;
 	 	font-size: 13px;
 	}	
@@ -40,6 +44,12 @@
 		padding:5px 10px;
 		border-radius:2px;
 	}
+	#t_img{
+		float:right;
+		width:20%;
+		min-height:146px;
+		border: 2px solid #333333;
+	}
 </style>
 </head>
 <body>
@@ -47,36 +57,33 @@
 	<div id="container">
 		<jsp:include page="side.jsp"/>
 		<div id="content">
-			<jsp:include page="memberInfoTitle.jsp"/>
-			<table id="t">
+			<jsp:include page="teacherInfoTitle.jsp"/>
+			<div id="info">
+				<table id="t">
 				<tr>
-					<td class="t_title">회원번호</td>
-					<td>${login.mno}</td>
+					<td class="t_title">강사번호</td>
+					<td>${login.tno}</td>
 				</tr>
 				<tr>
 					<td class="t_title">이름</td>
 					<td>${login.name }</td>
 				</tr>
 				<tr>
-					<td class="t_title">성별</td>
-					<td>${login.gender }</td>
-				</tr>
-				<tr>
-					<td class="t_title">생년월일</td>
-					<td>${login.age }</td>
+					<td class="t_title">직급</td>
+					<td>${login.title }</td>
 				</tr>
 				<tr>
 					<td class="t_title">연락처</td>
 					<td>${login.tell }</td>
 				</tr>
-				<tr>
-					<td class="t_title">이메일</td>
-					<td>${login.email }</td>
-				</tr>
 			</table>
+			<div id="t_img">
+				<img src="${login.img_path }">
+			</div>
+			</div>
+			
 			<div id="btnGroup">
-				<a href="${pageContext.request.contextPath }/mypage/updateMemberStep1"><button>수정</button></a>
-				<a href="${pageContext.request.contextPath }/mypage/cancelRegisterStep1"><button>탈퇴신청</button></a>
+				<a href="${pageContext.request.contextPath }/teacherpage/updateteacherStep1"><button>수정</button></a>
 			</div>
 		</div>
 	</div>

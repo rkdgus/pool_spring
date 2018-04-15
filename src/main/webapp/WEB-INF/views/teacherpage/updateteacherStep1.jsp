@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 : 마이페이지 : 회원정보 : 비밀번호 변경  :개인정보 수정 : 대구 아이티 수영장</title>
+<title>강사 : 마이페이지 : 개인정보 수정 : 대구 아이티 수영장</title>
 <style>
-		#check_div{
+	#check_div{
 		border:1px solid #ccc;
 		padding:30px;
 		margin-bottom: 20px;
@@ -51,7 +51,7 @@
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
-	<script>
+		<script>
 		$(function(){
 			$("#next").click(function(e){
 				
@@ -70,7 +70,7 @@
 						}
 						
 						if(result =="match"){
-							location.href="updatePw";
+							location.href="updateTeacher?id=${login.id}";
 							return;
 						}
 					}
@@ -79,11 +79,11 @@
 			})
 		})
 	</script>
-		<div id="container">
-			<jsp:include page="side.jsp"/>
-			<div id="content">
-				<jsp:include page="updatePwTitle.jsp"/>
-				<div id="check_div">
+	<div id="container">
+		<jsp:include page="side.jsp"/>
+		<div id="content">
+		<jsp:include page="updateTitle.jsp"/>
+			<div id="check_div">
 				<p>개인정보 보호를 위해 비밀번호를 입력해 주세요</p>
 					<table>
 						<tr>
@@ -96,9 +96,8 @@
 				<div id="btn">
 					<a href="#" id="next"><img src="${pageContext.request.contextPath }/resources/images/btn_ok.gif"></a>
 				</div>
-				
-			</div>
-			</div>
+		</div>
+	</div>
 	<jsp:include page="../include/footer.jsp" />
 </body>
 </html>

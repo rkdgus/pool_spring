@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 : 마이페이지 : 회원정보 : 비밀번호 변경  :개인정보 수정 : 대구 아이티 수영장</title>
+<title>강사 : 마이페이지 : 비밀번호 변경  : 대구 아이티 수영장</title>
 <style>
 		#check_div{
 		border:1px solid #ccc;
@@ -50,7 +50,7 @@
 </style>
 </head>
 <body>
-	<jsp:include page="../include/header.jsp" />
+		<jsp:include page="../include/header.jsp" />
 	<script>
 		$(function(){
 			$("#next").click(function(e){

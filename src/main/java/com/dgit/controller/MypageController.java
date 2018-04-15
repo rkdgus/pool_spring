@@ -205,7 +205,7 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/updatePw",method=RequestMethod.GET)
-	public void updatePw(String id){
+	public void updatePw(){
 		logger.info("============update Pw get =======");
 	}
 	@RequestMapping(value="/updatePw",method=RequestMethod.POST)

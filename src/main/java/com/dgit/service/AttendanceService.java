@@ -8,5 +8,5 @@ import com.dgit.domain.AttendanceVO;
 public interface AttendanceService {
 	
 	public AttendanceVO selectByMno(int mno,String Date);
-
+	public List<AttendanceVO> selectByMnoAndDate(int mno,String date);
 }

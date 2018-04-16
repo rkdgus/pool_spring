@@ -20,12 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dgit.domain.AttendanceVO;
 import com.dgit.domain.ClassVO;
 import com.dgit.domain.MemberVO;
 import com.dgit.domain.PageMaker;
 import com.dgit.domain.QnaBoardVO;
 import com.dgit.domain.SearchCriteria;
 import com.dgit.domain.TeacherVO;
+import com.dgit.service.AttendanceService;
 import com.dgit.service.ClassService;
 import com.dgit.service.MemberService;
 import com.dgit.service.QnaBoardService;
@@ -51,6 +53,8 @@ public class MypageController {
 	@Autowired
 	TeacherService service4;
 	
+	@Autowired
+	AttendanceService attendanceService;
 	
 	@RequestMapping(value="/teacherMypage",method=RequestMethod.GET)
 	public void tMypage(){
@@ -287,4 +291,17 @@ public class MypageController {
 		return entity;
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="/checkAttendance",method=RequestMethod.POST)
+	public ResponseEntity<List<AttendanceVO>> listAttendance(int mno,String date){
+		ResponseEntity<List<AttendanceVO>> entity = null;
+		try{
+			List<AttendanceVO> list = attendanceService.selectByMnoAndDate(mno, date);
+			entity = new ResponseEntity<List<AttendanceVO>>(list,HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<List<AttendanceVO>>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 }

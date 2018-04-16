@@ -6,4 +6,7 @@
 	<select id="selectByMno" resultType="AttendanceVO">
 		select * from attendance  where mno=#{mno} and date = #{date}
 	</select>
+	<select id="selectByMnoAndDate" resultType="AttendanceVO">
+		select * from attendance where mno=#{mno} and date like CONCAT('%',#{date},'%')
+	</select>
 </mapper>

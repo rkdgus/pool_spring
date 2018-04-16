@@ -24,4 +24,9 @@ public class AttendanceServiceImpl implements AttendanceService {
 		return dao.selectByMno(mno,Date);
 	}
 
+	@Override
+	public List<AttendanceVO> selectByMnoAndDate(int mno, String date) {
+		return dao.selectByMnoAndDate(mno, date);
+	}
+
 }

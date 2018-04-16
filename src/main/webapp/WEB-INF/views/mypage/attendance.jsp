@@ -46,15 +46,11 @@
 #wrap_calender table td {
 	border-bottom: 1px solid #ddd;
 	padding: 0;
+	height:99px;
+	font-size:13px;
 	text-align: center;
 	vertical-align: middle;
 }
-
-#wrap_calender table th {
-	border-bottom: 1px solid #ddd;
-	height: 23px;
-}
-
 .week {
 	color: #4c4c4c;
 }
@@ -88,23 +84,16 @@
 	text-align: center;
 	background: white;
 }
-
-.show_tr {
-	height: 20px;
-}
-
-.show_tr td {
-	height: 20px;
-}
-
-.show_num {
-	color: black !important;
-}
 #title_tr{
-	height:25px;
-	line-height: 25px;
+	height:30px;
+	line-height: 30px;
 	font-size: 14px;
 	font-weight: bold;
+	border-top:2px solid #333333; 
+	border-bottom:1px solid #333333;
+}
+.enter{
+	background: #ebebeb;
 }
 </style>
 </head>
@@ -124,28 +113,49 @@
 				calendarUpload();
 
 				btnControll();
+				jsonDate(year,month);
 			})
 			$("#add_month").click(function() {
 				month++;
 				calendarUpload();
 				btnControll();
+				jsonDate(year,month);
 			
 			})
 			
-			
+			jsonDate(year,month);
 			
 			btnControll();
 		})
 	
-		function jsonGet(){
+		function jsonDate(year,month){
+			var date = "";
+			
+			if(month<10){
+				date = year+"-0"+month;
+			}else{
+				date = year+"-"+month;
+			}
+			
 			$.ajax({
 				url:"checkAttendance",
 				type:"post",
-				dataType:"text",
-				data:{"mno":"${login.mno}"},
+				dataType:"json",
+				data:{"mno":"${login.mno}",
+					"date":date},
 				success:function(result){
 					console.log(result);
-				
+					
+					for(var i=0;i<result.length;i++){
+						var d = new Date(result[i].date);
+						
+						$(".show_num").each(function(i, obj) {
+							if($(this).text()==d.getDate()){
+								$(this).addClass("enter");
+							}
+						})
+					}
+					
 				}
 			}) 
 	

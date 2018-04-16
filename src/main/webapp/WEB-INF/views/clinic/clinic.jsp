@@ -67,6 +67,7 @@
 }
 
 .clinic_list_div p {
+	padding-top:20px;
 	float: left;
 	width: 50%;
 	font-size:15px;
@@ -74,6 +75,7 @@
 .list_title{
 	line-height: 36px;
 }
+.list_title
 </style>
 <title>대구 아이티 수영장 - 수영클리닉</title>
 </head>
@@ -101,9 +103,9 @@
 			</ul>
 			<ul id="view_list">
 				<li class="clinic_list">
+					<img src="${pageContext.request.contextPath }/resources/img/clinic_ask.png">
 					<p class="list_title">
-						<img
-							src="${pageContext.request.contextPath }/resources/img/clinic_ask.png">자유형
+						자유형
 						할 떄 호흡이 너무 힘드네요, 사람도 몸으로 호흡할 수 있나요?
 					</p>
 					<div class="clinic_list_div">

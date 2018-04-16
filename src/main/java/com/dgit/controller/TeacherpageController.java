@@ -176,7 +176,7 @@ public class TeacherpageController {
 			TeacherVO vo1 = service.selectNo(no);
 			
 			vo.setImg_path(vo1.getImg_path());
-			
+		
 		}
 		
 		logger.info(vo.toString());

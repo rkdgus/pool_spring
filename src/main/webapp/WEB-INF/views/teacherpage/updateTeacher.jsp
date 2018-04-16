@@ -310,6 +310,7 @@
 							id="fileList" style="display: none;">   
 				<input type="hidden" name="tell" id="tell">
 				<input type="hidden" name="tno" value="${teacher.tno }">
+				<input type="hidden" name="title" value="${teacher.title }">
 				</form>
 				
 			</div>

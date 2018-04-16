@@ -254,11 +254,10 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/classList",method=RequestMethod.GET)
-	public void classList(HttpSession session,Model model,SearchCriteria cri){
-		MemberVO vo = (MemberVO)session.getAttribute("login");
-		List<ClassVO> list = service3.selectClassBymno(vo.getMno(), cri);
+	public void classList(int mno,Model model,SearchCriteria cri){
+		List<ClassVO> list = service3.selectClassBymno(mno, cri);
 		model.addAttribute("list", list);
-		makePage2(model,cri,vo.getMno());
+		makePage2(model,cri,mno);
 		
 	}
 	

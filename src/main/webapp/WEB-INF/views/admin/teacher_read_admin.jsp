@@ -263,8 +263,7 @@ float: left;
 			<div id="wrap_submit">
 				<input type="submit" value="수정" class="btn_admin">
 			</div>
-			
-			
+		
 		</form>	
 
 		</div>

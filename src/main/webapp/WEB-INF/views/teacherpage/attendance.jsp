@@ -6,7 +6,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <style>
+#leftArea {
+	width: 178px !important;
+}
 #main_t table, #preview_t {
 	width: 100%;
 	border-top: 2px solid #333333;
@@ -154,8 +164,63 @@
 						class="paginBtn">&raquo;</span></a>
 				</c:if>
 			</div>
+			<a href="#" data-target="#modal" data-toggle="modal" style='display: none;'><button id="stdList">클릭</button></a>
 		</div>
 	</div>
 	<jsp:include page="../include/footer.jsp" />
+	<div class="modal fade" id="modal" role="dialog">
+		<div class="modal-dialog">
+
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">수강학생 리스트</h4>
+					<h3 id="class_info"></h3>
+				</div>
+				<div class="modal-body">
+					<div id="preview">
+						<table id="preview_t">
+							<tr id="basic">
+								<td>학생번호</td>
+								<td>이름</td>
+								<td>성별</td>
+								<td>생년월일</td>
+								<td>연락처</td>
+							</tr>
+							
+						</table>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<input type="submit" class="btn btn-success" data-dismiss="modal"
+						value="확인" id="close">
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(function(){
+			$(".list_tr").click(function(){
+				
+				
+				var cno = $(this).find(".cno").text();
+			
+				alert(cno);
+				$.ajax({
+					url:"read",
+					type:"get",
+					data:{"cno":cno},
+					dataType:"json",
+					success:function(json){
+						$("#stdList").trigger("click");
+						console.log(Object.keys(json).length);
+					}
+				})
+			})
+		})
+	</script>
 </body>
 </html>

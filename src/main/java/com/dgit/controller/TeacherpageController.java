@@ -26,10 +26,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.dgit.domain.ClassVO;
 import com.dgit.domain.MemberVO;
 import com.dgit.domain.PageMaker;
+import com.dgit.domain.RegisterVO;
 import com.dgit.domain.SearchCriteria;
 import com.dgit.domain.TeacherVO;
+import com.dgit.service.AttendanceService;
 import com.dgit.service.ClassService;
 import com.dgit.service.MemberService;
+import com.dgit.service.RegisterService;
 import com.dgit.service.TeacherService;
 
 @Controller
@@ -46,6 +49,12 @@ public class TeacherpageController {
 	
 	@Autowired
 	MemberService service3;
+	
+	@Autowired
+	RegisterService service4;
+	
+	@Autowired
+	AttendanceService service5;
 	
 	@RequestMapping(value="/teacherMypage",method=RequestMethod.GET)
 	public void teacherpage(){
@@ -219,15 +228,12 @@ public class TeacherpageController {
 		return entity;
 	}
 	@RequestMapping(value="/read",method=RequestMethod.GET)
-	public void attendread(int tno, Model model,SearchCriteria cri){
-		logger.info("============== attend post ========");
-		Date date = new Date();
-		date.setDate(1);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		String s_day = sdf.format(date);
-		List<ClassVO> lists = service2.selectClassTno(tno,"to", s_day, cri);
-		model.addAttribute("lists",lists);
-		makePage(model, cri, tno);
+	public void attendread(int cno, Model model,SearchCriteria cri){
+		List<RegisterVO> list = service4.selectByCno(cno);
+		
+		for(RegisterVO vo : list){
+			
+		}
 	}
 	
 }

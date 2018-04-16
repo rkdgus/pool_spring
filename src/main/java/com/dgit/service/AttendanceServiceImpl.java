@@ -1,5 +1,6 @@
 package com.dgit.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class AttendanceServiceImpl implements AttendanceService {
 	private AttendanceServiceImpl() {}
 
 	@Override
-	public List<AttendanceVO> selectByMno(int mno) {
-		return dao.selectByMno(mno);
+	public List<AttendanceVO> selectByMno(int mno,Date Date) {
+		return dao.selectByMno(mno,Date);
 	}
 
 }

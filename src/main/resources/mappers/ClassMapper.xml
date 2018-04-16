@@ -25,4 +25,17 @@
 		select * from class where cno in(select cno from register where mno=#{mno})
 		order by s_day desc limit #{cri.pageStart},15
 	</select>
+	<select id="selectClassTno" resultType="ClassVO">
+		select * from class where tno = #{tno}
+		<include refid="search" />
+		order by s_day desc limit #{cri.pageStart},15
+	</select>
+	<sql id="search">
+		<if test="search == 'to'.toString()">
+			and s_day = #{s_day} 
+		</if>
+		<if test="search =='not'.toString()">
+			and s_day != #{s_day}
+		</if>
+	</sql>
 </mapper>

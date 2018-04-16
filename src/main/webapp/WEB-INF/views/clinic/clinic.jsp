@@ -153,6 +153,7 @@
 				type:"get",
 				dataType:"json",
 				success:function(json){
+					$("#view_list").empty();
 					if(json.length !=0){
 						$("#view_list").empty();
 						var img_q = "<img src='${pageContext.request.contextPath }/resources/img/clinic_ask.png'>";
@@ -165,7 +166,7 @@
 							div_title.append(img_q).append(p_title);
 							
 							var div_content = $("<div>").addClass("clinic_list_div");
-							var p_content = $("<p>").text(json[i].clinic_content);
+							var p_content = $("<p>").html(json[i].clinic_content);
 							div_content.append(img_a).append(p_content);
 							if(json[i].clinic_path !="" && json[i].clinic_path !=null ){
 								var imgArr = json[i].clinic_path.split(",");
@@ -178,7 +179,6 @@
 							$("#view_list").append(li);
 						}	
 					}
-					
 				}
 			})
 		}

@@ -20,5 +20,6 @@ public interface ClassBoardDAO {
 	public void deleteReply(int rno);
 	public List<ClassreplyVO> replySelectByBno(int bno);
 	public void readCnt(ClassBoardVO vo);
+	
 }
  

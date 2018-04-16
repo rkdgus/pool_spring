@@ -18,7 +18,7 @@
 		<ul>
 		<li><a href="#" id="class">강의정보</a>
 			<ul>
-				<li><a href="${pageContext.request.contextPath }/teacherpage/attendance" id="attendance" class="myinfo">출석현황</a></li>
+				<li><a href="${pageContext.request.contextPath }/teacherpage/attendance?tno=${login.tno}" id="attendance" class="myinfo">출석현황</a></li>
 				<li><a href="${pageContext.request.contextPath }/teacherpage/teacherClass?tno=${login.tno}" class="myinfo">강의내역</a></li>
 			</ul>
 		</li>

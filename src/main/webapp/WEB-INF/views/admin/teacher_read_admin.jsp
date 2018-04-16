@@ -162,10 +162,7 @@ float: left;
 			var file = document.getElementById("fileList");
 			var reader = new FileReader();
 			reader.onload = function(e) {
-
 				$("#teacherImg").attr("src",e.target.result);
-				
-
 			}
 			reader.readAsDataURL(file.files[0]);
 

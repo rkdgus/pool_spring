@@ -80,8 +80,9 @@ public class TeacherVO {
 
 	@Override
 	public String toString() {
-		return String.format("TeacherVO [tno=%s, name=%s, tell=%s, title=%s, pw=%s, id=%s]", tno, name, tell, title, pw,
-				id);
+		return "TeacherVO [tno=" + tno + ", name=" + name + ", tell=" + tell + ", title=" + title + ", pw=" + pw
+				+ ", id=" + id + ", img_path=" + img_path + ", info=" + info + "]";
 	}
 
+	
 }

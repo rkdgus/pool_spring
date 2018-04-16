@@ -183,11 +183,12 @@ public class AdminController {
 				dirPath.mkdirs();
 			}
 			vo=teacherService.selectNo(vo.getTno());    
-			       System.out.println(vo.toString());      
-			System.gc();
-			File file = new File(root_path+vo.getImg_path().replace("/pool", ""));
-			file.delete();
-			
+			System.out.println(vo.toString()); 
+			if(vo.getImg_path() !=null){
+				System.gc();
+				File file = new File(root_path+vo.getImg_path().replace("/pool", ""));
+				file.delete();
+			}
 			UUID uid = UUID.randomUUID();// 중복방지를 위하여 랜덤값 생성
 			String savedName = uid.toString() + "_" + fileList.getOriginalFilename();
 			File target = new File(root_path+"/"+innerUploadPath+"/강사사진", savedName);

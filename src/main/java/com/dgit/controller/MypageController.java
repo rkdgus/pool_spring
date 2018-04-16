@@ -124,8 +124,10 @@ public class MypageController {
 	}
 	
 	@RequestMapping(value="/updateMember",method=RequestMethod.GET)
-	public void updateMember(){
+	public void updateMember(int mno,Model model){
 		logger.info("================member mypage member info ==============");
+		MemberVO vo = service2.selectMemberByMno(mno);
+		model.addAttribute("member", vo);
 	}
 	
 	@RequestMapping(value="/updateMemberStep1",method=RequestMethod.GET)

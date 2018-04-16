@@ -42,7 +42,6 @@
 	<update id="updateIdPw">
 		update member set id=#{id},pw=password(#{pw}) where mno=#{mno}
 	</update>
-	
 	<update id="updatePw">
 		update member set pw=password(#{pw}) where name=#{name} and email=#{email} and id=#{id}
 	</update>

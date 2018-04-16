@@ -3,7 +3,10 @@ package com.dgit.controller;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.dgit.domain.AttendanceVO;
 import com.dgit.domain.ClassVO;
 import com.dgit.domain.MemberVO;
 import com.dgit.domain.PageMaker;
@@ -227,13 +231,51 @@ public class TeacherpageController {
 		entity = new ResponseEntity<List<ClassVO>>(lists,HttpStatus.OK);
 		return entity;
 	}
+	@ResponseBody
 	@RequestMapping(value="/read",method=RequestMethod.GET)
-	public void attendread(int cno, Model model,SearchCriteria cri){
-		List<RegisterVO> list = service4.selectByCno(cno);
+	public ResponseEntity<HashMap<String,Object>> attendread(String cno, Model model,SearchCriteria cri){
+		logger.info("============== read post ========");
+		ResponseEntity<HashMap<String, Object>> entity = null;
+		List<RegisterVO> list = service4.selectByCno(Integer.parseInt(cno));
 		
+		HashMap<String,Object> map = new HashMap<>();
+		int index = 1;
 		for(RegisterVO vo : list){
+			logger.info(index+"");
+			List<AttendanceVO> lists = new ArrayList<>();
+			for(int i=1; i<31; i++){
+				Date date = new Date();
+				date.setDate(i);
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				String s_day = sdf.format(date);
+				AttendanceVO vo2 = service5.selectByMno(vo.getMno(),s_day);
+				lists.add(vo2);
+				
+			}
 			
+			String name = "list"+ index+"";
+			map.put(name,lists);
+			index++;
 		}
+		entity = new ResponseEntity<>(map,HttpStatus.OK);
+		return entity;
 	}
 	
+	private List<Integer> monthOfLasyDay(int month) {
+		
+		Calendar cal = Calendar.getInstance();
+		Date d = new Date();
+		d.setMonth(month-1);
+		cal.setTime(d);
+		int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		
+		List<Integer> lists = new ArrayList<>();
+		for(int i=1; i <= lastDay; i++) {
+			d.setDate(i);
+			if(d.getDay() != 0 && d.getDay() !=6) {
+				lists.add(i);
+			}
+		}
+		return lists;
+	}
 }

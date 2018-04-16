@@ -20,7 +20,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 	private AttendanceServiceImpl() {}
 
 	@Override
-	public List<AttendanceVO> selectByMno(int mno,Date Date) {
+	public AttendanceVO selectByMno(int mno,String Date) {
 		return dao.selectByMno(mno,Date);
 	}
 

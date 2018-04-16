@@ -4,6 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dgit.mapper.AttendanceMapper">
 	<select id="selectByMno" resultType="AttendanceVO">
-		select * from attendance  where mno=#{mno} and date like #{date}
+		select * from attendance  where mno=#{mno} and date = #{date}
 	</select>
 </mapper>

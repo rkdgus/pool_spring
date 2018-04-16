@@ -19,9 +19,11 @@ public class AttendanceDAOImpl implements AttendanceDAO{
 	private SqlSession session;
 
 	@Override
-	public List<AttendanceVO> selectByMno(int mno,Date Date) {
+	public AttendanceVO selectByMno(int mno,String date) {
 		HashMap<String,Object> map = new HashMap<>();
-		return session.selectList(namespace+".selectByMno",mno);
+		map.put("mno",mno);
+		map.put("date",date);
+		return session.selectOne(namespace+".selectByMno",map);
 	}
 
 	

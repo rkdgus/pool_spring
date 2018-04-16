@@ -21,6 +21,7 @@
 	width: 100%;
 	height: 11%;
 	text-align: center;
+	margin-bottom: 40px;
 }
 #wrap_year_btn img{
 	cursor: pointer;
@@ -99,6 +100,12 @@
 .show_num {
 	color: black !important;
 }
+#title_tr{
+	height:25px;
+	line-height: 25px;
+	font-size: 14px;
+	font-weight: bold;
+}
 </style>
 </head>
 <body>
@@ -116,9 +123,35 @@
 				month--;
 				calendarUpload();
 
+				btnControll();
 			})
+			$("#add_month").click(function() {
+				month++;
+				calendarUpload();
+				btnControll();
+			
+			})
+			
+			
+			
+			btnControll();
 		})
-
+	
+		function jsonGet(){
+			$.ajax({
+				url:"checkAttendance",
+				type:"post",
+				dataType:"text",
+				data:{"mno":"${login.mno}"},
+				success:function(result){
+					console.log(result);
+				
+				}
+			}) 
+	
+	
+			
+		}
 		function calendarUpload() {
 
 			$("#wrap_calender").empty();
@@ -148,7 +181,7 @@
 			var row = Math.ceil((lastDate + theDay) / 7);
 
 			var calendar = "<table>";
-			calendar += "<tr>";
+			calendar += "<tr id='title_tr'>";
 			calendar += "<th class='sunName'>일</th>";
 			calendar += "<th>월</th>";
 			calendar += "<th>화</th>";
@@ -198,13 +231,15 @@
 
 			$("#event_day").text(n2Y + "년" + Number(n2M + 1) + "월" + n2D + "일");
 
-			$(".week").parent().parent()
-					.css("border-left", "1px solid #FBF5FF");
-			$(".week").parent().parent().css("border-right",
-					"1px solid #FBF5FF");
 
 		}
-
+		function btnControll(){
+			if($("#calender h2").text()==newDay.getFullYear()+"년 "+Number(newDay.getMonth() + 1)+"월"){
+				$("#add_month").css("display","none");
+			}else{
+				$("#add_month").css("display","inline");
+			}
+		}
 		function resetToDay() {
 			newDay = new Date();
 			year = newDay.getFullYear();

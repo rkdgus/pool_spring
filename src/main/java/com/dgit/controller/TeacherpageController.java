@@ -202,7 +202,7 @@ public class TeacherpageController {
 		makePage(model, cri, tno);
 	}
 	@ResponseBody
-	@RequestMapping(value="/attendance",method=RequestMethod.GET)
+	@RequestMapping(value="/list",method=RequestMethod.GET)
 	public ResponseEntity<List<ClassVO>> list(String search,int tno, Model model,SearchCriteria cri){
 		logger.info("============== attend post ========");
 		

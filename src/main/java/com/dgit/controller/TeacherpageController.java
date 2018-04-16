@@ -236,23 +236,31 @@ public class TeacherpageController {
 	public ResponseEntity<HashMap<String,Object>> attendread(String cno, Model model,SearchCriteria cri){
 		logger.info("============== read post ========");
 		ResponseEntity<HashMap<String, Object>> entity = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		ClassVO cls = service2.selectAll(Integer.parseInt(cno));
+		String month = sdf.format(cls.getS_day());
+		logger.info(month);
+		int monthLast = Integer.parseInt(month.substring(5, 7));
+		List<Integer> days = monthOfLasyDay(monthLast);
 		List<RegisterVO> list = service4.selectByCno(Integer.parseInt(cno));
-		
+		logger.info(monthLast+"");
 		HashMap<String,Object> map = new HashMap<>();
+		map.put("days",days);
 		int index = 1;
 		for(RegisterVO vo : list){
-			logger.info(index+"");
-			List<AttendanceVO> lists = new ArrayList<>();
-			for(int i=1; i<31; i++){
+			
+			List<Object> lists = new ArrayList<>();
+			MemberVO member = service3.selectMemberByMno(vo.getMno());
+			lists.add(member.getName());
+			for(int i=0; i<days.size(); i++){
 				Date date = new Date();
-				date.setDate(i);
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				date.setMonth(monthLast-1);
+				date.setDate(days.get(i));
 				String s_day = sdf.format(date);
 				AttendanceVO vo2 = service5.selectByMno(vo.getMno(),s_day);
 				lists.add(vo2);
 				
 			}
-			
 			String name = "list"+ index+"";
 			map.put(name,lists);
 			index++;

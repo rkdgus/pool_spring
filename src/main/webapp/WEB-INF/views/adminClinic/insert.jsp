@@ -227,10 +227,8 @@ table {
 					</table>
 				</div>
 				<div class="modal-footer">
-					<input type="button" class="btn btn-success" value="업로드"
-						onclick="modalset()">
-					<button type="button" class="btn btn-default" data-dismiss="modal"
-						id="close">Close</button>
+					<input type="button" class="btn btn-success" value="확인"  data-dismiss="modal"
+						id="close">
 				</div>
 
 			</div>

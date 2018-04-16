@@ -21,4 +21,9 @@ public class RegisterDAOImpl implements RegisterDAO {
 		return session.selectList(namespace+".selectAll",mno);
 	}
 
+	@Override
+	public List<RegisterVO> selectByCno(int cno) {
+		return session.selectList(namespace+".selectByCno",cno);
+	}
+
 }

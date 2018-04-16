@@ -51,27 +51,27 @@
 			<table id="t">
 				<tr>
 					<td class="t_title">회원번호</td>
-					<td>${login.mno}</td>
+					<td>${member.mno}</td>
 				</tr>
 				<tr>
 					<td class="t_title">이름</td>
-					<td>${login.name }</td>
+					<td>${member.name }</td>
 				</tr>
 				<tr>
 					<td class="t_title">성별</td>
-					<td>${login.gender }</td>
+					<td>${member.gender }</td>
 				</tr>
 				<tr>
 					<td class="t_title">생년월일</td>
-					<td>${login.age }</td>
+					<td>${member.age }</td>
 				</tr>
 				<tr>
 					<td class="t_title">연락처</td>
-					<td>${login.tell }</td>
+					<td>${member.tell }</td>
 				</tr>
 				<tr>
 					<td class="t_title">이메일</td>
-					<td>${login.email }</td>
+					<td>${member.email }</td>
 				</tr>
 			</table>
 			<div id="btnGroup">

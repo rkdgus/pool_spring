@@ -7,5 +7,9 @@
 	<select id="selectAll" resultType="RegisterVO">
 		select * from register where mno = #{mno}
 	</select>
+	
+	<select id="selectByCno" resultType="RegisterVO">
+		select * from register where cno =#{cno}
+	</select>
 
 </mapper>

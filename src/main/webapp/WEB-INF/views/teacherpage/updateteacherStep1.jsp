@@ -70,7 +70,7 @@
 						}
 						
 						if(result =="match"){
-							location.href="updateTeacher?id=${login.id}";
+							location.href="updateTeacher?tno=${login.tno}";
 							return;
 						}
 					}

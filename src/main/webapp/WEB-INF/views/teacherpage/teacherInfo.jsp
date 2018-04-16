@@ -47,8 +47,12 @@
 	#t_img{
 		float:right;
 		width:20%;
-		min-height:146px;
+		min-height:142px;
 		border: 2px solid #333333;
+	}
+	#t_img img{
+		width:100%;
+		height:142px;
 	}
 </style>
 </head>

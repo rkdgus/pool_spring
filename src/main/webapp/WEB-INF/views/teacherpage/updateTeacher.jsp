@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -299,8 +300,16 @@
 					</tr>
 					<tr>
 						<td class="title_td">이미지</td>
-						<td id="img_td"><img src="${teacher.img_path }" id=teacherImg>
-							<button id="img_btn" data-toggle="modal" data-target="#modal">이미지 변경</button></td>
+						<td id="img_td">
+							<c:if test="${teacher.img_path ==null }">
+								이미지 준비중
+							</c:if>
+							<c:if test="${teacher.img_path !=null }">
+								<img src="${teacher.img_path }" id=teacherImg>
+							</c:if>
+							
+							<button id="img_btn" data-toggle="modal" data-target="#modal">이미지 변경</button>
+						</td>
 					</tr>
 					
 					

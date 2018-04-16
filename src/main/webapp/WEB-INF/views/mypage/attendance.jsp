@@ -208,23 +208,20 @@
 	         calendar += "</table>";
 	         $("#wrap_calender").append(calendar);
 	         
-	         selectEvent();
+	        /// selectEvent();
 	         
 	         if($("#calender h2").text()==n2Y+"년"+Number(n2M+1)+"월"){      
 	            $(".show_num").eq(Number(n2D-1)).addClass("to_day");
 	            $(".show_num").eq(Number(n2D-1)).addClass("click_day");
 	         }
-	         
-	         
+	             
 	         
 	         $("#event_day").text(n2Y+"년"+Number(n2M+1)+"월"+n2D+"일");
 	         
 	         $(".week").parent().parent().css("border-left","1px solid #FBF5FF");
 	         $(".week").parent().parent().css("border-right","1px solid #FBF5FF");
 	         
-	         
-	         
-	         
+	     
 	   }
 	   
 

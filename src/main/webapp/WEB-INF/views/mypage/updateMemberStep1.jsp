@@ -70,7 +70,7 @@
 						}
 						
 						if(result =="match"){
-							location.href="updateMember?id=${login.id}";
+							location.href="updateMember?mno=${login.mno}";
 							return;
 						}
 					}

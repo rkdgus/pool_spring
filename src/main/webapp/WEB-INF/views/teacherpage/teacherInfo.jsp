@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -54,6 +55,12 @@
 		width:100%;
 		height:142px;
 	}
+	#no_img{
+		font-size: 13px;
+		color:gray;
+		text-align: center;
+		margin-top: 40%;
+	}
 </style>
 </head>
 <body>
@@ -66,23 +73,29 @@
 				<table id="t">
 				<tr>
 					<td class="t_title">강사번호</td>
-					<td>${login.tno}</td>
+					<td>${teacher.tno}</td>
 				</tr>
 				<tr>
 					<td class="t_title">이름</td>
-					<td>${login.name }</td>
+					<td>${teacher.name }</td>
 				</tr>
 				<tr>
 					<td class="t_title">직급</td>
-					<td>${login.title }</td>
+					<td>${teacher.title }</td>
 				</tr>
 				<tr>
 					<td class="t_title">연락처</td>
-					<td>${login.tell }</td>
+					<td>${teacher.tell }</td>
 				</tr>
 			</table>
 			<div id="t_img">
-				<img src="${login.img_path }">
+				<c:if test="${teacher.img_path ==null }">
+					<p id="no_img">이미지 준비중</p>
+				</c:if>
+				<c:if test="${teacher.img_path !=null }">
+					<img src="${teacher.img_path }">
+				</c:if>
+				
 			</div>
 			</div>
 			

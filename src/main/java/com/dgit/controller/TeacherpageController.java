@@ -50,8 +50,10 @@ public class TeacherpageController {
 	}
 	
 	@RequestMapping(value="/teacherInfo",method=RequestMethod.GET)
-	public void teacherInfo(){
+	public void teacherInfo(int tno,Model model){
 		logger.info("============== teacher mypage teacherInfo get ========");
+		TeacherVO vo = service.selectNo(tno);
+		model.addAttribute("teacher", vo);
 	}
 	
 	@RequestMapping(value="/updateteacherStep1",method=RequestMethod.GET)

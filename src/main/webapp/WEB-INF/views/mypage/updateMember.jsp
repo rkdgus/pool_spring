@@ -12,7 +12,7 @@
 	<jsp:include page="../include/header.jsp" />
 	<script>
 		var check = 1;
-		var orignalE = "${login.email}";
+		var orignalE = "${member.email}";
 		$(function() {
 
 			
@@ -74,7 +74,7 @@
 								data : {
 									"email" : email,
 									"tell" : tell,
-									"id":"${login.id}"
+									"id":"${member.id}"
 								},
 								success : function(result) {
 									console.log(result);
@@ -129,15 +129,15 @@
 				<table>
 					<tr>
 						<td class="t_title">회원번호</td>
-						<td>${login.mno }</td>
+						<td>${member.mno }</td>
 					</tr>
 					<tr>
 						<td class="t_title">이름</td>
-						<td>${login.name }</td>
+						<td>${member.name }</td>
 					</tr>
 					<tr>
 						<td class="t_title">성별</td>
-						<td>${login.gender }</td>
+						<td>${member.gender }</td>
 					</tr>
 				</table>
 			</div>
@@ -166,16 +166,16 @@
 							<button id="eCheck">중복확인</button></td>
 					</tr>
 				</table>
-				<c:if test="${login !=null }">
+				<c:if test="${member !=null }">
 					<script>
-						var tell = "${login.tell}";
+						var tell = "${member.tell}";
 						$("#tell1").val(tell.substring(0, tell.indexOf("-")));
 						$("#tell2").val(
 								tell.substring(tell.indexOf("-") + 1, tell
 										.lastIndexOf("-")));
 						$("#tell3").val(tell.substr(tell.lastIndexOf("-") + 1));
 
-						var email = "${login.email}";
+						var email = "${member.email}";
 
 						$("#email1").val(email.substr(0, email.indexOf("@")));
 						$("#email2").val(email.substr(email.indexOf("@") + 1));

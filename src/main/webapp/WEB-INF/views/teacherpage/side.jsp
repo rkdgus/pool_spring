@@ -23,7 +23,7 @@
 			</ul>
 		</li>
 			
-			<li><a href="${pageContext.request.contextPath }/teacherpage/teacherInfo">강사정보</a>
+			<li><a href="${pageContext.request.contextPath }/teacherpage/teacherInfo?tno=${login.tno}">강사정보</a>
 				<ul>
 					<li><a href="${pageContext.request.contextPath }/teacherpage/updateteacherStep1" class="myinfo">개인정보 수정</a></li>
 					<li><a href="${pageContext.request.contextPath }/teacherpage/updatePwStep1" class="myinfo">비밀번호 변경</a></li>

@@ -315,7 +315,6 @@ table{
                               $("#modal_table")
                                     .append(
                                           "<tr><td><input type='checkbox' class='delcheck'></td>"
-                                                + "<td><input type='text' name='name'></td>"
                                                 + "<td><img src='"+e.target.result+"' class='imgs'><span class='hiddenSpan'>"+imgNum+"</span></td>"
                                                 + "</tr>");
                                  
@@ -335,6 +334,8 @@ table{
       })
       function fileUpload() {
          console.log("fileUpload");   
+         deleteIndex = 0;
+		 previewIndex = 0;
          filesArr = {};
          $("#fileList").trigger('click');
       }
@@ -365,7 +366,6 @@ table{
             alert("내용을 입력해주세요");
             return false;
          }
-         alert($("#bno").val());
          formData.append("cno",cno);
          formData.append("id",id);
          formData.append("title",title);
@@ -396,6 +396,7 @@ table{
                deleteIndex++;
                $(obj).closest("tr").remove();           
             }
+            $("#allCheck").removeAttr("checked");
          })
       }
       function modalset(){
@@ -405,7 +406,7 @@ table{
          $(obj).parent().remove();
          var del = $("#deleteImg").val() + $(obj).parent().find("img").attr("data-src")+",";
          $("#deleteImg").val(del);
-         alert($("#deleteImg").val());
+         
        }
 </script>
 </html>

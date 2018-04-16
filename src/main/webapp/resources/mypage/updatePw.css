@@ -1,0 +1,62 @@
+@CHARSET "UTF-8";
+
+#pw_div {
+	border: 1px solid #ccc;
+	padding: 30px;
+	margin-bottom: 20px;
+}
+
+#pw_div table {
+	width: 100%;
+	border-top: 2px solid #333333;
+}
+
+#pw_div table tr {
+	border-bottom: 1px solid #d7d7d7;
+	height: 25px;
+	line-height: 25px;
+}
+#pw_div table tr td{
+	padding:6px 0px 6px 10px;
+	font-size: 13px;
+	position: relative;
+}
+#pw_div table tr td input{
+	width:200px;
+	height:22px;
+}
+#pw_div table tr .title_td{
+	width: 140px;
+	background: #ebebeb;
+}
+#info{
+	font-weight: bold;
+	font-size: 13px;
+	margin-bottom: 10px;
+}
+#btnGroup{
+	margin-top:10px;
+	text-align: center;
+}
+#btnGroup a{
+	display: inline-block;
+}
+#pwImg{
+		width: 25px;
+		height:25px;
+		cursor: pointer;
+		margin-left: 5px;
+		position: absolute;
+		top:0px;
+		left:215px;
+	}
+#pwInfo{
+	background:white;
+		border:1px solid #333333;
+		padding:5px;
+		font-size:13px;
+		display: none;
+		position: absolute;
+		top:10px;
+		left:245px;
+}

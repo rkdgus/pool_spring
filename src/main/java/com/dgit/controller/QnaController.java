@@ -1,11 +1,14 @@
 package com.dgit.controller;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -17,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,8 +39,7 @@ import com.dgit.util.UploadFileUtils;
 public class QnaController {
 	private static final Logger logger = LoggerFactory.getLogger(QnaController.class);
 
-	@Resource(name = "uploadPath")
-	private String outUploadPath;
+	private String innerUploadPath = "/resources/upload";
 
 	@Autowired
 	QnaBoardService service;
@@ -46,33 +49,48 @@ public class QnaController {
 		logger.info("==========qna get========");
 	}
 	
-		@ResponseBody
-	   @RequestMapping(value="/upload", method=RequestMethod.POST)   
-	   public ResponseEntity<String> getUpload(List<MultipartFile> fileList) throws Exception{
+	   @ResponseBody
+	   @RequestMapping(value="/insert", method=RequestMethod.POST)   
+	   public ResponseEntity<String> getUpload(HttpServletRequest request,List<MultipartFile> fileList,QnaBoardVO vo) throws Exception{
 	      logger.info("=================upload post====================");
-	      ResponseEntity<String> entity = null;
-	     
-	      String imgPath = "";
-	      for(int i = 0; i<fileList.size();i++){
-	         
-	         String filePath = outUploadPath+"qna";
-	         
-	         try {
-	        	String savedName =  UploadFileUtils.uploadFile(filePath, fileList.get(i).getOriginalFilename(),fileList.get(i).getBytes());
-	           if((i+1) ==fileList.size()){
-	        	   imgPath += savedName;
-	           }else{
-	        	   imgPath += savedName+",";
-	           }
-	         } catch (IOException e) {
-	            e.printStackTrace();
-	         }
-	      }
-	      if(!imgPath.equals("")){
-	         entity = new ResponseEntity<String>(imgPath,HttpStatus.OK);
-	      }else{
-	         entity = new ResponseEntity<String>(imgPath,HttpStatus.OK);
-	      }
+	    logger.info(vo.toString());
+	    ResponseEntity<String> entity = null;
+	    
+	    String root_path = request.getSession().getServletContext().getRealPath("/");
+	      File dirPath = new File(root_path+"/"+innerUploadPath+"/qna");
+	      if (!dirPath.exists()) {
+				dirPath.mkdirs();
+			}
+	    String imgPath = null;
+	    String r = request.getContextPath();
+		String projectName = r.substring(r.lastIndexOf("/"),r.length());
+		if(fileList.size()>0){
+			imgPath = "";
+			for(int i = 0; i<fileList.size();i++){
+		         
+		         String filePath = projectName +innerUploadPath+"/qna/";
+		         logger.info(fileList.get(i).getOriginalFilename()+"");
+		         try {
+		        	 UUID uid = UUID.randomUUID();
+		        	String savedName =  uid.toString() + "_" + fileList.get(i).getOriginalFilename();
+		        	File target = new File(root_path+innerUploadPath+"/qna", savedName);
+		        	FileCopyUtils.copy(fileList.get(i).getBytes(), target);
+		        	if((i+1) ==fileList.size()){
+		        	   imgPath += filePath+savedName;
+		           }else{
+		        	   imgPath += filePath+savedName+",";
+		           }
+		         } catch (IOException e) {
+		            e.printStackTrace();
+		            entity = new ResponseEntity<String>("fail",HttpStatus.OK);
+		            return entity;
+		         }
+		      }
+		}
+	      
+	      vo.setImgpath(imgPath);
+	      service.create(vo);
+	      entity = new ResponseEntity<String>("success",HttpStatus.OK);
 	      return entity;
 	   }
 		
@@ -136,9 +154,8 @@ public class QnaController {
 			
 			QnaBoardVO vo = service.selectByBno(bno);
 		
-			String path = vo.getImgpath();
-			if(!path.equals("null")){
-				String[] img = path.split(",");
+			if(vo.getImgpath() !=null){
+				String[] img = vo.getImgpath().split(",");
 				model.addAttribute("img",img);
 			}
 			
@@ -178,11 +195,21 @@ public class QnaController {
 		
 	@ResponseBody
 	@RequestMapping(value="/qnaRemove",method=RequestMethod.POST)
-	public ResponseEntity<String> qnaRemove(String bno){
+	public ResponseEntity<String> qnaRemove(HttpServletRequest request,int bno){
 		ResponseEntity<String> entity = null;
 		
+		
 		try{
-			service.remove(Integer.parseInt(bno));
+			QnaBoardVO vo = service.selectByBno(bno);
+			if(vo.getImgpath() !=null){
+				String root_path = request.getSession().getServletContext().getRealPath("/");
+				String[] delImg = vo.getImgpath().split(",");
+				for(int i=0; i <delImg.length; i++){
+					File file = new File(root_path+delImg[i].replace("/pool", ""));
+						file.delete();
+				}
+			}
+			service.remove(bno);
 			entity = new ResponseEntity<String>("success",HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();

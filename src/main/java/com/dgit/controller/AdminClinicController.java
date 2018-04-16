@@ -35,7 +35,7 @@ import com.dgit.domain.SearchCriteria;
 import com.dgit.service.ClinicService;
 import com.dgit.util.MediaUtils;
 import com.dgit.util.UploadFileUtils;
-
+ 
 @Controller
 @RequestMapping("/adminClinic/*")
 public class AdminClinicController {

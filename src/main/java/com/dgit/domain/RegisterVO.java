@@ -28,5 +28,7 @@ public class RegisterVO {
 	public void setReentrance(boolean reentrance) {
 		this.reentrance = reentrance;
 	}
+	
+	
 
 }

@@ -305,6 +305,8 @@
 		function fileUpload() {
 			console.log("fileUpload");	
 			filesArr = {};
+			previewIndex = 0;
+			deleteIndex = 0;
 			$("#fileList").trigger('click');
 		}
 		

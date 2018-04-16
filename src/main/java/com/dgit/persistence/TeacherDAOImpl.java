@@ -52,4 +52,8 @@ public class TeacherDAOImpl implements TeacherDAO {
 		return session.selectList(namespace+".select",title);
 	}
 
+	@Override
+	public void updatePw(TeacherVO vo) {
+		session.update(namespace+".updatePw",vo);
+	}
 }

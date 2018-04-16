@@ -36,13 +36,21 @@
 	<select id="selectMemberByMno" resultType="MemberVO">
 		select * from member where mno=#{mno}
 	</select>
-	
+	<select id="selectRegisterMember" resultType="MemberVO">
+		select * from member where mno in (select mno from register where cno=#{cno})
+	</select>
 	<update id="updateIdPw">
 		update member set id=#{id},pw=password(#{pw}) where mno=#{mno}
 	</update>
 	
 	<update id="updatePw">
 		update member set pw=password(#{pw}) where name=#{name} and email=#{email} and id=#{id}
+	</update>
+	<update id="chagePw">
+		update member set pw=password(#{pw}) where id=#{id}
+	</update>
+	<update id="updateIsleave">
+		update member set isleave = true where id=#{id}
 	</update>
 	<update id="updateEmailTell">
 		update member set email=#{email},tell=#{tell} where id=#{id}

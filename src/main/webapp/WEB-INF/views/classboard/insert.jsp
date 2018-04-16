@@ -274,7 +274,6 @@ table{
 									$("#modal_table")
 											.append(
 													"<tr><td><input type='checkbox' class='delcheck'></td>"
-															+ "<td><input type='text' name='name'></td>"
 															+ "<td><img src='"+e.target.result+"' class='imgs'><span class='hiddenSpan'>"
 															+ imgNum
 															+ "</span></td>"
@@ -296,6 +295,8 @@ table{
 		})
 		function fileUpload() {
 			console.log("fileUpload");
+			deleteIndex = 0;
+			previewIndex = 0;
 			filesArr = {};
 			$("#fileList").trigger('click');
 		}
@@ -305,7 +306,6 @@ table{
 
 			for (var i = 0; i < Object.keys(filesArr).length + deleteIndex; i++) {
 				formData.append("fileList", filesArr[i]);
-				formData.append("name", $("input[name='name']").eq(i).val());
 			}
 			var id = $("input[name='id']").val();
 			var cno = $("#insert_select").val();
@@ -355,6 +355,7 @@ table{
 							deleteIndex++;
 							$(obj).closest("tr").remove();
 						}
+						$("#allCheck").removeAttr("checked");
 					})
 		}
 		function modalset() {

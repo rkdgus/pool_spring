@@ -14,8 +14,17 @@ public class MemberVO {
 	private String pw; 
 	private String id;
 	private String title;
+	private boolean isleave;
 	
-	
+
+	public boolean isIsleave() {
+		return isleave;
+	}
+
+	public void setIsleave(boolean isleave) {
+		this.isleave = isleave;
+	}
+
 	public String getTitle() {
 		return title;
 	}
@@ -107,8 +116,10 @@ public class MemberVO {
 
 	@Override
 	public String toString() {
-		return String.format("MemberVO [mno=%s, name=%s, age=%s, tell=%s, date=%s, email=%s, gender=%s, pw=%s, id=%s]",
-				mno, name, age, tell, date, email, gender, pw, id);
+		return "MemberVO [mno=" + mno + ", name=" + name + ", age=" + age + ", tell=" + tell + ", date=" + date
+				+ ", email=" + email + ", gender=" + gender + ", pw=" + pw + ", id=" + id + ", title=" + title
+				+ ", isleave=" + isleave + "]";
 	}
+
 	
 }

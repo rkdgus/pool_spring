@@ -74,7 +74,7 @@
 						
 								<td class="text" colspan="2">
 								<c:forEach items="${img }" var="img" >
-									<img src="displayFile?filename=${img }"><br>
+									<img src="${img }"><br>
 								</c:forEach>
 								${qnaBoard.content }</td>
 						

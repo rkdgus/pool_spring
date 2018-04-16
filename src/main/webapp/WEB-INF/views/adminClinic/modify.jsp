@@ -296,7 +296,7 @@ table {
 		var regex = /<br\s*[\/]?>/gi;
 		var content1=$("#update_content").val().replace(regex,"\n");
 		$("#update_content").val(content1);
-		alert($("#bno").val())
+		
 		$(document).on(
 				"click",
 				"#close",
@@ -339,7 +339,6 @@ table {
 								$("#modal_table")
 										.append(
 												"<tr><td><input type='checkbox' class='delcheck'></td>"
-														+ "<td><input type='text' name='name'></td>"
 														+ "<td><img src='"+e.target.result+"' class='imgs'><span class='hiddenSpan'>"
 														+ imgNum
 														+ "</span></td>"
@@ -361,6 +360,8 @@ table {
 	})
 	function fileUpload() {
 		console.log("fileUpload");
+		deleteIndex = 0;
+		previewIndex = 0;
 		filesArr = {};
 		$("#fileList").trigger('click');
 	}
@@ -416,6 +417,7 @@ table {
 				deleteIndex++;
 				$(obj).closest("tr").remove();
 			}
+			$("#allCheck").removeAttr("checked");
 		})
 	}
 	function modalset() {
@@ -426,7 +428,6 @@ table {
 		var del = $("#deleteImg").val()
 				+ $(obj).parent().find("img").attr("data-src") + ",";
 		$("#deleteImg").val(del);
-		alert($("#deleteImg").val());
 	}
 </script>
 </html>

@@ -76,7 +76,7 @@
 			</table>
 			<div id="btnGroup">
 				<a href="${pageContext.request.contextPath }/mypage/updateMemberStep1"><button>수정</button></a>
-				<a href="#"><button>탈퇴신청</button></a>
+				<a href="${pageContext.request.contextPath }/mypage/cancelRegisterStep1"><button>탈퇴신청</button></a>
 			</div>
 		</div>
 	</div>

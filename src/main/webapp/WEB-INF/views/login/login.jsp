@@ -9,7 +9,7 @@
 </head>
 <body>
 	<jsp:include page="../include/header.jsp"/>
-	<script src="${pageContext.request.contextPath }/resources/login/login.js"></script>
+<script src="${pageContext.request.contextPath }/resources/login/login.js"></script> 
 	<div id="container">
 		<div id="loginForm">
 			<jsp:include page="contentTitle.jsp"/>

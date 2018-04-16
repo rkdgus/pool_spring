@@ -6,80 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 : 마이페이지 : 회원정보 :개인정보 수정:대구 아이티 수영장</title>
-<style>
-.info_title {
-	font-size: 14px;
-	font-weight: bold;
-	margin-bottom: 10px;
-}
-
-.info_title .mark {
-	font-size: 12px;
-}
-
-.t_title {
-	width: 140px;
-	background: #ebebeb;
-	color: black !important;
-}
-
-#update_t {
-	margin-top: 20px;
-}
-
-#basic_t table, #update_t table {
-	width: 100%;
-	border-top: 2px solid #333333;
-	font-size: 13px;
-}
-
-#basic_t table tr, #update_t table tr {
-	border-bottom: 1px solid #d7d7d7;
-	height: 25px;
-	line-height: 25px;
-}
-
-#basic_t table tr td, #update_t table tr td {
-	color: gray;
-	padding: 6px 0px 6px 10px;
-}
-
-#update_t table tr td #tell1, #tell2, #tell3 {
-	width: 100px;
-	height: 23px;
-	line-height: 23px;
-}
-
-#update_t table tr td #email1, #email2 {
-	width: 150px;
-	height: 23px;
-	line-height: 23px;
-}
-
-#sel {
-	width: 100px;
-	height: 29px;
-}
-
-#btnGroup {
-	margin-top: 20px;
-	text-align: center;
-}
-
-button {
-	border: 1px solid #5c5c5c;
-	border-radius: 2px;
-	background: #fff;
-	font-size: 12px;
-	outline: none;
-	padding: 5px 10px;
-	height: 30px;
-}
-
-button:HOVER {
-	background: #ebebeb;
-}
-</style>
+<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/mypage/updateMember.css">
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
@@ -88,7 +15,7 @@ button:HOVER {
 		var orignalE = "${login.email}";
 		$(function() {
 
-			var email = $("#email1").val() + "@" + $("#email2").val();
+			
 
 			$("#sel").change(function() {
 				$("#email2").val($(this).val());
@@ -107,8 +34,10 @@ button:HOVER {
 			})
 
 			$("#updateBtn").click(
+					
 					function() {
-
+						var email = $("#email1").val() + "@" + $("#email2").val();
+						
 						if (email == orignalE) {
 							check = 1;
 						}
@@ -149,7 +78,11 @@ button:HOVER {
 								},
 								success : function(result) {
 									console.log(result);
-
+									if(result=="success"){
+										alert("개인정보가 수정되었습니다");
+										location.href="updateMemberStep1";
+										return;
+									}
 								}
 							})
 						}
@@ -157,7 +90,7 @@ button:HOVER {
 					})
 
 			$("#eCheck").click(function() {
-
+				var email = $("#email1").val() + "@" + $("#email2").val();
 				$.ajax({
 					url : "checkEmail",
 					type : "post",

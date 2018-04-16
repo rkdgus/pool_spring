@@ -20,12 +20,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dgit.domain.ClassVO;
 import com.dgit.domain.MemberVO;
 import com.dgit.domain.PageMaker;
 import com.dgit.domain.QnaBoardVO;
 import com.dgit.domain.SearchCriteria;
+import com.dgit.domain.TeacherVO;
+import com.dgit.service.ClassService;
 import com.dgit.service.MemberService;
 import com.dgit.service.QnaBoardService;
+import com.dgit.service.RegisterService;
+import com.dgit.service.TeacherService;
 import com.dgit.util.MediaUtils;
 
 @Controller
@@ -39,6 +44,13 @@ public class MypageController {
 	
 	@Autowired
 	MemberService service2;
+	
+	@Autowired
+	ClassService service3;
+	
+	@Autowired
+	TeacherService service4;
+	
 	
 	@RequestMapping(value="/teacherMypage",method=RequestMethod.GET)
 	public void tMypage(){
@@ -159,18 +171,20 @@ public class MypageController {
 	@ResponseBody
 	@RequestMapping(value="/checkEmail",method=RequestMethod.POST)
 	public ResponseEntity<String> checkEmail(String email){
+		logger.info("============email check=======");
 		ResponseEntity<String> entity = null;
+		MemberVO  m= service2.findEmail(email);
+
 		try{
-			MemberVO  m= service2.findEmail(email);
 			if(m ==null){
 				entity = new ResponseEntity<String>("use",HttpStatus.OK);
+			
 			}else{
-				
-				
-					entity = new ResponseEntity<String>("not use",HttpStatus.OK);
-				
-				
+				entity = new ResponseEntity<String>("not use",HttpStatus.OK);
 			}
+					
+		
+			
 		}catch(Exception e){
 			e.printStackTrace();
 			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
@@ -181,12 +195,91 @@ public class MypageController {
 	@ResponseBody
 	@RequestMapping(value="/update",method=RequestMethod.POST)
 	public ResponseEntity<String> update(String email,String tell,String id){
+		logger.info("============update member info=======");
 		ResponseEntity<String> entity = null;
 		try{
-			
+			MemberVO vo = new MemberVO();
+			vo.setEmail(email);
+			vo.setTell(tell);
+			vo.setId(id);
+			service2.updateEmailTell(vo);
+			entity = new ResponseEntity<String>("success",HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
 			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="/updatePwStep1",method=RequestMethod.GET)
+	public void updatePwStep1(){
+		logger.info("============update Pw step1 get =======");
+	}
+	
+	@RequestMapping(value="/updatePw",method=RequestMethod.GET)
+	public void updatePw(){
+		logger.info("============update Pw get =======");
+	}
+	@RequestMapping(value="/updatePw",method=RequestMethod.POST)
+	public String updatePwPost(String pw,String id){
+		logger.info("============update Pw Post =======");
+		service2.chagePw(id, pw);
+		return "redirect:/mypage/updatePwStep1";
+	}
+	
+	@RequestMapping(value="/cancelRegisterStep1",method=RequestMethod.GET)
+	public void cancelRegisterStep1(){
+		logger.info("============ cancelRegisterStep1 get =======");
+		
+	}
+	
+	@RequestMapping(value="/cancelRegister",method=RequestMethod.GET)
+	public void cancelRegister(){
+		logger.info("============ cancelRegister get =======");
+	}
+	
+	@RequestMapping(value="/cancelRegister",method=RequestMethod.POST)
+	public ResponseEntity<String> cancel(String id,HttpSession session){
+		logger.info("============ cancelRegister Post =======");
+		ResponseEntity<String> entity =null;
+		try{
+			service2.updateIsleave(id);
+			session.invalidate();
+			entity = new ResponseEntity<String>("success",HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="/classList",method=RequestMethod.GET)
+	public void classList(HttpSession session,Model model,SearchCriteria cri){
+		MemberVO vo = (MemberVO)session.getAttribute("login");
+		List<ClassVO> list = service3.selectClassBymno(vo.getMno(), cri);
+		model.addAttribute("list", list);
+		makePage2(model,cri,vo.getMno());
+		
+	}
+	
+	private void makePage2(Model model,SearchCriteria cri,int mno){
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		int totalcount = service3.countBymno(mno, cri);
+		pageMaker.setTotalCount(totalcount);
+		model.addAttribute("pageMaker",pageMaker);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/teacherInfo",method=RequestMethod.POST)
+	public ResponseEntity<TeacherVO> teacherInfo(int tno){
+		ResponseEntity<TeacherVO> entity = null;
+		try{
+			TeacherVO vo = service4.selectNo(tno);
+			entity = new ResponseEntity<TeacherVO>(vo,HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<TeacherVO>(HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}

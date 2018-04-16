@@ -11,5 +11,6 @@ public interface TeacherDAO {
 	public void update(TeacherVO vo);
 	public TeacherVO selectNo(int tno);
 	public List<TeacherVO> select(String title);
+	public void updatePw(TeacherVO vo);
 }
  

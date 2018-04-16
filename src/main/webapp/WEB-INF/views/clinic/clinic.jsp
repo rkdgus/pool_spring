@@ -59,7 +59,10 @@
 }
 
 .clinic_list_div {
+	display: none;
 	overflow: hidden;
+	background: #f5f8fb;
+	padding: 15px 0px;
 }
 
 .clinic_list_div img {
@@ -69,10 +72,31 @@
 .clinic_list_div p {
 	padding-top:20px;
 	float: left;
-	width: 50%;
-	font-size:15px;
+	font-size: 15px;
+	width: 90%;
+	padding-top: 10px;
+	text-align: justify;
+	line-height: 24px;
 }
-.list_title{
+
+.clinic_list {
+	padding: 10px;
+}
+
+.list_title {
+	width: 100%;
+	padding: 10px 0px;
+	overflow: hidden;
+	border-bottom: 1px solid #e2e2e2;
+}
+
+.list_title img {
+	float: left;
+}
+
+.list_title p {
+	float: left;
+	padding-left: 10px;
 	line-height: 36px;
 }
 .list_title
@@ -95,41 +119,69 @@
 				src="${pageContext.request.contextPath }/resources/img/good2.png"
 				id="imgbox">
 			<ul id="menu_tpye">
-				<li class="active_li"><a href="">자유형</a></li>
-				<li><a href="">배영</a></li>
-				<li><a href="">평영</a></li>
-				<li><a href="">접영</a></li>
-				<li><a href="">스타트 & 턴</a></li>
+				<li class="active_li"><a href="" data-type="freestyle">자유형</a></li>
+				<li><a href="" data-type="backstroke">배영</a></li>
+				<li><a href="" data-type="breaststroke">평영</a></li>
+				<li><a href="" data-type="butterfly">접영</a></li>
+				<li><a href="" data-type="startAndTrun">스타트 & 턴</a></li>
 			</ul>
 			<ul id="view_list">
-				<li class="clinic_list">
-					<img src="${pageContext.request.contextPath }/resources/img/clinic_ask.png">
-					<p class="list_title">
-						자유형
-						할 떄 호흡이 너무 힘드네요, 사람도 몸으로 호흡할 수 있나요?
-					</p>
-					<div class="clinic_list_div">
-						<img
-							src="${pageContext.request.contextPath }/resources/img/clinic_answer.png">
-						<p>
-							수영을 처음 배우면서 가장 힘들고 어려워하는 부분이 바로 발차기입니다. 발차기 연습은 아무리해도 지나치지 않을 정도로
-							중요하지만 올바른 느낌을 갖지 않으면 상-고급반에 올라가서도 저항을 많이 받는, 즉
-							<불필요한> 발차기를 계속 하게 됩니다. 초급 수영자들의 발차기를 유심히 살펴보면, 대부분 허벅지에 힘을
-							잔뜩 주어 무릎을 45도 이상 구부려서 힙겹고 가라앉는 발차기를 하고 있습니다. 무릎관절은 앞뒤로 90도 이상 접히게
-							되어있지만, 수영을 할 때 무릎을 심하게 접으면 허벅지가 내려가고 종아리에 심한 저항을 받게 되어 발차기는 힘들
-							수밖에 없습니다. 축구로 예를들면, 공을 찰 때 왼발은 공 옆에 디디고 오른발을 뒤로 젖혀 발등으로 슛을 하게
-							됩니다. 이때 회전축은 골반이 되며 골반부터 발끝까지 점차적으로 공을 향해 앞으로 뻗어주게 됩니다. 골반을 축으로
-							하여 힙과 허벅지를 뒤로 움직여 무릎을 살짝 구부려 공을 차게 되는 것입니다. 수영의 발차기도 같은 원리입니다.
-							대부분의 초급 수영자들은 발차기를 할 때 양쪽 허벅지가 거의 붙어 있을 정도이며 종아리와 발목까지 힘이 들어가 있으니
-							부드러운 발차기를 할 수 없게 됩니다. 힙과 허벅지로 리드를 해야만 발목에 힘이 빠지게 되고, 그로인해 부드러운
-							발차기를 할 수 있습니다. 힙과 허벅지를 움직여, 발바닥, 발등으로 물을 밀어주는 느낌을 갖고 발차기를 하면 힘을
-							들이지 않아도 가라앉지 않고 추진력을 얻을 수 있는겁니다. 
-						</p>
-					</div>
-				</li>
 			</ul>
 		</div>
 	</div>
 	<jsp:include page="../include/footer.jsp" />
+	<script type="text/javascript">
+		$(function(){
+			typelist("freestyle");
+			$(document).on("click",".list_title",function(){
+				$("#view_list").find(".clinic_list_div").stop().not($(this).next()).slideUp();
+				$(this).next().slideToggle();
+			})
+			$("#menu_tpye li a").click(function(e){
+				e.preventDefault(); 
+				var type = $(this).attr("data-type");
+				$("#menu_tpye").find("li").removeClass("active_li");
+				$(this).parent().addClass("active_li");
+				typelist(type);
+			})
+		})
+		
+		function typelist(type){
+			$.ajax({
+				url:"list",
+				data:{"type":type},
+				type:"get",
+				dataType:"json",
+				success:function(json){
+					if(json.length !=0){
+						$("#view_list").empty();
+						var img_q = "<img src='${pageContext.request.contextPath }/resources/img/clinic_ask.png'>";
+						var img_a = "<img src='${pageContext.request.contextPath }/resources/img/clinic_answer.png'>";
+						
+						for(var i=0; i<json.length; i++){
+							var li = $("<li>").addClass("clinic_list");
+							var div_title = $("<div>").addClass("list_title");
+							var p_title = $("<p>").text(json[i].clinic_title);
+							div_title.append(img_q).append(p_title);
+							
+							var div_content = $("<div>").addClass("clinic_list_div");
+							var p_content = $("<p>").text(json[i].clinic_content);
+							div_content.append(img_a).append(p_content);
+							if(json[i].clinic_path !="" && json[i].clinic_path !=null ){
+								var imgArr = json[i].clinic_path.split(",");
+								for(var j=0; j<imgArr.length; j++){
+									var imgpath = "<img src='"+imgArr[j]+"'>";
+									div_content.append(imgpath);
+								}
+							}
+							li.append(div_title).append(div_content);
+							$("#view_list").append(li);
+						}	
+					}
+					
+				}
+			})
+		}
+	</script>
 </body>
 </html>

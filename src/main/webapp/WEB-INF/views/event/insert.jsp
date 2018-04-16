@@ -276,6 +276,8 @@
 		})
 		function fileUpload() {
 			console.log("fileUpload");
+			previewIndex = 0;
+			deleteIndex = 0;
 			filesArr = {};
 			$("#fileList").trigger('click');
 		}

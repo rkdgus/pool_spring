@@ -277,7 +277,7 @@ table {
 								reader.onload = function(e) {
 									var imgNum = previewIndex++;
 									var f = file.files[index - 1];
-
+									console.log("index : " + index);
 									$("#modal_table")
 											.append(
 													"<tr><td><input type='checkbox' class='delcheck'></td>"
@@ -297,13 +297,17 @@ table {
 									}
 									reader.readAsDataURL(file.files[index]);
 									index += 1;
+									
 								}
 							});
 		})
 		function fileUpload() {
+			deleteIndex = 0;
+			previewIndex = 0;
 			console.log("fileUpload");
 			filesArr = {};
 			$("#fileList").trigger('click');
+			console.log("index : " + index);
 		}
 
 		function submitBtn() {
@@ -357,6 +361,7 @@ table {
 							deleteIndex++;
 							$(obj).closest("tr").remove();
 						}
+						$("#allCheck").removeAttr("checked");
 					})
 		}
 		function modalset() {

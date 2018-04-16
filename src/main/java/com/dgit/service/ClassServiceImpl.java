@@ -41,4 +41,9 @@ public class ClassServiceImpl implements ClassService{
 		return dao.selectClassBymno(mno, cri);
 	}
 
+	@Override
+	public List<ClassVO> selectClassTno(int tno,String search, String s_day, SearchCriteria cri) {
+		return dao.selectClassTno(tno,search, s_day, cri);
+	}
+
 }

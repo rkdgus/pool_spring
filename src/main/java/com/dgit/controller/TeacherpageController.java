@@ -2,9 +2,12 @@ package com.dgit.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -185,4 +188,44 @@ public class TeacherpageController {
 		return "redirect:/teacherpage/updateteacherStep1";
 		
 	}
+	@RequestMapping(value="/attendance",method=RequestMethod.GET)
+	public void attend(int tno, Model model,SearchCriteria cri){
+		logger.info("============== attend post ========");
+		Date date = new Date();
+		date.setDate(1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String s_day = sdf.format(date);
+		List<ClassVO> lists = service2.selectClassTno(tno,"to", s_day, cri);
+		model.addAttribute("lists",lists);
+		makePage(model, cri, tno);
+	}
+	@ResponseBody
+	@RequestMapping(value="/attendance",method=RequestMethod.GET)
+	public ResponseEntity<List<ClassVO>> list(String search,int tno, Model model,SearchCriteria cri){
+		logger.info("============== attend post ========");
+		
+		ResponseEntity<List<ClassVO>> entity = null;
+		Date date = new Date();
+		date.setDate(1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String s_day = sdf.format(date);
+		List<ClassVO> lists = service2.selectClassTno(tno,search, s_day, cri);
+		model.addAttribute("lists",lists);
+		
+		makePage(model, cri, tno);
+		entity = new ResponseEntity<List<ClassVO>>(lists,HttpStatus.OK);
+		return entity;
+	}
+	@RequestMapping(value="/read",method=RequestMethod.GET)
+	public void attendread(int tno, Model model,SearchCriteria cri){
+		logger.info("============== attend post ========");
+		Date date = new Date();
+		date.setDate(1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String s_day = sdf.format(date);
+		List<ClassVO> lists = service2.selectClassTno(tno,"to", s_day, cri);
+		model.addAttribute("lists",lists);
+		makePage(model, cri, tno);
+	}
+	
 }

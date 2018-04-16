@@ -60,4 +60,15 @@ public class ClassDAOImpl implements ClassDAO{
 		return session.selectList(namespace+".selectClassBymno",map);
 	}
 
+
+	@Override
+	public List<ClassVO> selectClassTno(int tno,String search, String s_day, SearchCriteria cri) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("tno", tno);
+		map.put("s_day", s_day);
+		map.put("cri", cri);
+		map.put("search", search);
+		return session.selectList(namespace+".selectClassTno",map);
+	}
+
 }

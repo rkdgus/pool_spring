@@ -106,7 +106,7 @@
 	<jsp:include page="../include/header.jsp" />
 	<div id="container">
 		<jsp:include page="../admin/side.jsp" />
-		<div id="content">
+		<div id="content"> 
 			<jsp:include page="contentTitle.jsp" />
 			<select id="sel">
 				<option value="">전체보기</option>

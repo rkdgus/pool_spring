@@ -106,6 +106,9 @@
 	max-height: 200px;
 	overflow: auto;
 }
+#sel{
+	width:90px;
+	margin-bottom: 10px;
 }
 </style>
 <title>Insert title here</title>

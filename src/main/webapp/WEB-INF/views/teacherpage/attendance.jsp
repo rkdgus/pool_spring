@@ -79,12 +79,6 @@
 	background-color: #d7d7d7;
 }
 
-
-
-td.checktd{
-	text-align: center;
-	font-size:14px;
-}
 #paging {
 	margin-top: 20px;
 	text-align: center;
@@ -113,38 +107,12 @@ td.checktd{
 	max-height: 200px;
 	overflow: auto;
 }
-
-#main_t table .list, .m_list {
-	height: 25px;
-	line-height: 25px;
-	text-align: center;
-	font-size: 13px;
-}
-#basic td{   
-	width:30px;
-	border-right:1px solid #fff;
-}
-
-#main_t table .list_tr, #no_list, .m_list {
-	border-bottom: #d7d7d7 1px solid;
-	height: 25px;
-	line-height: 25px;
-	cursor: pointer;
-}
-
-#main_t table .list_tr:HOVER, #main_t table #no_list:HOVER, .m_list:HOVER
-	{
-	background-color: #d7d7d7;
-}
-#trname{
-	width:100px !important;
-}
-.trname{
-	font-weight: bold;
-	text-align: center;
+#sel{
+	width:90px;
+	margin-bottom: 10px;
 }
 </style>
-<title>Insert title here</title>
+<title>대구 아이티 수영장 - 강사 - 출석현황</title>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
@@ -153,8 +121,8 @@ td.checktd{
 		<div id="content">
 			<jsp:include page="attendanceTitle.jsp" />
 			<select id="sel">
-				<option value="to">현재현황</option>
-				<option value="not">이전정보</option>
+				<option>현재현황</option>
+				<option>이전정보</option>
 			</select>
 			<div id="main_t">
 				<table id="t">
@@ -187,26 +155,25 @@ td.checktd{
 			</div>
 			<div id="paging">
 				<c:if test="${pageMaker.prev}">
-					<a href="adminClinics?page=${pageMaker.startPage-1 }"><span
+					<a href="teacherClass?page=${pageMaker.startPage-1 }"><span
 						class="paginBtn">&laquo;</span></a>
 				</c:if>
 				<c:forEach begin="${pageMaker.startPage }"
 					end="${pageMaker.endPage }" var="idx">
-					<a href="adminClinic${pageMaker.makeQuery(idx) }"><span
+					<a href="teacherClass${pageMaker.makeQuery(idx) }"><span
 						class="pageNum" ${pageMaker.cri.page == idx? 'id=active' : ''}>${idx }</span></a>
 				</c:forEach>
 				<c:if test="${pageMaker.next}">
-					<a href="adminClinic?page=${pageMaker.endPage+1}"><span
+					<a href="teacherClass?page=${pageMaker.endPage+1}"><span
 						class="paginBtn">&raquo;</span></a>
 				</c:if>
 			</div>
-			<a href="#" data-target="#modal" data-toggle="modal" 
-				style='display: none;'><button id="stdList" class="btn btn-info btn-lg">클릭</button></a>
+			<a href="#" data-target="#modal" data-toggle="modal" style='display: none;'><button id="stdList">클릭</button></a>
 		</div>
 	</div>
 	<jsp:include page="../include/footer.jsp" />
 	<div class="modal fade" id="modal" role="dialog">
-		<div class="modal-dialog modal-lg">
+		<div class="modal-dialog">
 
 			<div class="modal-content">
 				<div class="modal-header">
@@ -217,6 +184,14 @@ td.checktd{
 				<div class="modal-body">
 					<div id="preview">
 						<table id="preview_t">
+							<tr id="basic">
+								<td>학생번호</td>
+								<td>이름</td>
+								<td>성별</td>
+								<td>생년월일</td>
+								<td>연락처</td>
+							</tr>
+							
 						</table>
 					</div>
 
@@ -231,85 +206,25 @@ td.checktd{
 		</div>
 	</div>
 	<script type="text/javascript">
-		$(function() {
-			$("#sel").change(function(){
-
-				$.ajax({
-					url:"list",
-					type:"get",
-					data:{"search":$(this).val(),"tno":"${login.tno}"},
-					dataType : "json",
-					success : function(json) {
-						console.log(json);
-						$("#t").find("tr").not("#title_tr").remove();
-						if(json.length ==0){
-							var tr = "<tr id='no_list'><td colspan='6' id='noClass' class='list'>강의내역이 없습니다</td></tr>"
-						}else{
-							for(var i=0; i< json.length; i++){
-								var tr = "<tr class='list_tr'>";
-								var td_cno = "<td class='list cno'>"+json[i].cno+"</td>";
-								var td_time ="<td class='list time'>"+json[i].time +"</td>"; 
-								var td_level = "<td class='list level'>"+json[i].level+"</td>";
-								var td_classmate = "<td class='list classmate'>"+json[i].classmate +"</td>"; 
-								var date = new Date(json[i].s_day);
-		                        var dateStr = date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
-								var td_date ="<td class='list date'>"+dateStr+"</td>";
-								tr += td_cno +td_time +td_level +td_classmate +td_date + "</tr>";
-								$("#t").append(tr);
-							}
-						}
-					}
-				})
-			})
-			$(document).on("click",".list_tr",function(){
+		$(function(){
+			$(".list_tr").click(function(){
+				
+				
 				var cno = $(this).find(".cno").text();
-
+			
+				alert(cno);
 				$.ajax({
-					url : "read",
-					type : "get",
-					data : {
-						"cno" : cno
-					},
-					dataType : "json",
-					success : function(json) {
-						
-						console.log(json);
-						$("#preview_t").find("tr").remove(); 
-						
-						if(Object.keys(json).length >1){
-							$("#stdList").trigger("click");
-							var data = "<tr id='basic'>";
-							data +="<td id='trname'>이름</td>"
-							for(var i=0; i<json.days.length; i++){
-								data += "<td>"+json.days[i]+"</td>";
-							}
-							data +="<tr>";
-							for(var i=1; i<Object.keys(json).length; i++){
-								var key = "list"+i;
-								data +="<tr>";
-								data +="<td class='trname'>"+json[key][0]+"</td>";
-								for(var j = 1; j < json[key].length; j++){
-									if(json[key][j] ==null){
-										data += "<td class='checktd'>X</td>";
-											
-									}else{
-										
-										data += "<td class='checktd'>O</td>";
-									}
-
-								}
-								data +="</tr>";
-								
-							}
-							$("#preview_t").append(data);
-						}else{
-							alert("수강된 학생이 없습니다.");
-						}
-
+					url:"read",
+					type:"get",
+					data:{"cno":cno},
+					dataType:"json",
+					success:function(json){
+						$("#stdList").trigger("click");
+						console.log(Object.keys(json).length);
 					}
 				})
 			})
-		})		
+		})
 	</script>
 </body>
 </html>

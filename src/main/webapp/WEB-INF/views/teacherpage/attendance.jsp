@@ -111,7 +111,7 @@
 	margin-bottom: 10px;
 }
 </style>
-<title>Insert title here</title>
+<title>대구 아이티 수영장 - 강사 - 출석현황</title>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />

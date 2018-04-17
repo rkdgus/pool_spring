@@ -67,6 +67,7 @@
 
 .clinic_list_div img {
 	float: left;
+	padding:0px 34px;
 }
 
 .clinic_list_div p {

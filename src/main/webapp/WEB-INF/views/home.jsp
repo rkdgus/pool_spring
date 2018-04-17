@@ -322,7 +322,7 @@ div#header {
 			</div>
 
 			<div id="click3">
-				<a href="">
+				<a href="${pageContext.request.contextPath}/clinic/clinic">
 					<h2>수영 클리닉</h2>
 					<p>수영의 모든것! 온라인으로 수영레슨을 받아보세요.</p>
 

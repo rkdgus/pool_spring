@@ -253,16 +253,13 @@ table{
                <table class="galleyTable" id="modal_table">
                   <tr>
                      <th width="20"><input type="checkbox" id="allCheck"></th>
-                     <th width="">이름</th>
                      <th width="360">이미지</th>
                   </tr>
                </table>
             </div>
             <div class="modal-footer">
-               <input type="button" class="btn btn-success" value="업로드"
-                  onclick="modalset()">
-               <button type="button" class="btn btn-default" data-dismiss="modal"
-                  id="close">Close</button>
+               <input type="button" class="btn btn-success" value="확인"  data-dismiss="modal" 
+                    id="close">
             </div>
 
          </div>
@@ -290,7 +287,7 @@ table{
                location.href="read${pageMaker.makeSearch(pageMaker.cri.page)}&cno=${cno }&bno="+$("#bno").val();
             }
          })
-         alert("${vo.cno}");
+         
          $("#update_select").val("${vo.cno}")
          $("#allCheck").change(function(){
                 if($("#allCheck").is(":checked")){

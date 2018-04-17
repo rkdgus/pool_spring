@@ -17,6 +17,7 @@
 #leftArea {
 	width: 178px !important;
 }
+
 #main_t table, #preview_t {
 	width: 100%;
 	border-top: 2px solid #333333;

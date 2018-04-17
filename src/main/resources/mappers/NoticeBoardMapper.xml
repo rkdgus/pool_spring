@@ -26,9 +26,6 @@
 	<update id="updatecnt">
 		update notice set readcnt = #{readcnt} where nno = #{nno}
 	</update>
-	
-	
-	
 	<delete id="delete">
 		delete from notice where nno = #{nno}
 	</delete>

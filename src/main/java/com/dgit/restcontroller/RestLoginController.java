@@ -1,5 +1,7 @@
 package com.dgit.restcontroller;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,30 +23,46 @@ public class RestLoginController {
 	@Autowired
 	MemberService mservice;
 	
-	@RequestMapping(value="loginId",method=RequestMethod.POST)
-	public ResponseEntity<String> loginId(String id){
-		ResponseEntity<String> entity = null;
+	@RequestMapping(value="login",method=RequestMethod.POST)
+	public ResponseEntity<MemberVO> loginId(String id,String pw,HttpSession session){
+		ResponseEntity<MemberVO> entity = null;
 		logger.info("=================idCheck post====================");
 	
 		try {
 			MemberVO vo  = mservice.findMemberId(id);
 			if(vo==null){
-			
-				entity = new ResponseEntity<String>("no member",HttpStatus.OK);
+				MemberVO no = new MemberVO();
+				no.setMno(-1);
+				entity = new ResponseEntity<MemberVO>(no,HttpStatus.OK);
 			}else{
-				entity = new ResponseEntity<String>("member",HttpStatus.OK);
+				
+				MemberVO m =new MemberVO();
+				m.setId(id);
+				m.setPw(pw);
+				MemberVO find = mservice.selectMember(m);
+				if(find == null){
+					MemberVO noPw = new MemberVO();
+					noPw.setMno(-2);
+					entity = new ResponseEntity<MemberVO>(noPw,HttpStatus.OK);
+				}else{
+					find.setTitle("회원");
+					find.setPw("");
+					entity = new ResponseEntity<MemberVO>(find,HttpStatus.OK);
+					session.setAttribute("androidLogin", find);
+				}
+				
 			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<MemberVO>(HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}
 	
 	
 	@RequestMapping(value="loginId",method=RequestMethod.GET)
-	public ResponseEntity<String> loginIdGET(String id){
+	public ResponseEntity<String> loginIdGET(String id,String pw){
 		ResponseEntity<String> entity = null;
 		logger.info("=================idCheck GET====================");
 	

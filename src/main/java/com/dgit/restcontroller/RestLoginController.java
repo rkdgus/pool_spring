@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dgit.domain.MemberVO;
+import com.dgit.domain.TeacherVO;
 import com.dgit.service.MemberService;
+import com.dgit.service.TeacherService;
 
 @RestController
 @RequestMapping("/restLogin/*")
@@ -22,6 +24,9 @@ public class RestLoginController {
 	
 	@Autowired
 	MemberService mservice;
+	
+	@Autowired
+	TeacherService tservice;
 	
 	@RequestMapping(value="login",method=RequestMethod.POST)
 	public ResponseEntity<MemberVO> loginId(String id,String pw,HttpSession session){
@@ -60,24 +65,34 @@ public class RestLoginController {
 		return entity;
 	}
 	
-	
-	@RequestMapping(value="loginId",method=RequestMethod.GET)
-	public ResponseEntity<String> loginIdGET(String id,String pw){
-		ResponseEntity<String> entity = null;
-		logger.info("=================idCheck GET====================");
-	
-		try {
-			MemberVO vo  = mservice.findMemberId(id);
-			if(vo==null){
-			
-				entity = new ResponseEntity<String>("no member",HttpStatus.OK);
+	@RequestMapping(value = "/tLogin",method=RequestMethod.POST)
+	public ResponseEntity<TeacherVO> loginTeacher(String id, String pw,HttpSession session){
+		ResponseEntity<TeacherVO> entity = null;
+		TeacherVO tId =tservice.findTeacherId(id);
+		try{
+			if(tId==null){
+				TeacherVO noId = new TeacherVO();
+				noId.setTno(-1);
+				entity = new ResponseEntity<TeacherVO>(noId,HttpStatus.OK);
 			}else{
-				entity = new ResponseEntity<String>("member",HttpStatus.OK);
+				TeacherVO vo = new TeacherVO();
+				vo.setId(id);
+				vo.setPw(pw);
+				TeacherVO t = tservice.selectTeacher(vo);
+				if(t ==null){
+					TeacherVO noPw = new TeacherVO();
+					noPw.setTno(-2);
+					entity = new ResponseEntity<TeacherVO>(noPw,HttpStatus.OK);
+				}else{
+					t.setPw("");
+					entity = new ResponseEntity<TeacherVO>(t,HttpStatus.OK);
+					session.setAttribute("androidLogin", t);
+				}
 			}
-			
-		} catch (Exception e) {
+		
+		}catch(Exception e){
 			e.printStackTrace();
-			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+			entity = new ResponseEntity<TeacherVO>(HttpStatus.BAD_REQUEST);
 		}
 		return entity;
 	}

@@ -40,21 +40,27 @@ public class RestLoginController {
 				no.setMno(-1);
 				entity = new ResponseEntity<MemberVO>(no,HttpStatus.OK);
 			}else{
-				
-				MemberVO m =new MemberVO();
-				m.setId(id);
-				m.setPw(pw);
-				MemberVO find = mservice.selectMember(m);
-				if(find == null){
-					MemberVO noPw = new MemberVO();
-					noPw.setMno(-2);
-					entity = new ResponseEntity<MemberVO>(noPw,HttpStatus.OK);
+				if(vo.isIsleave()==true){
+					MemberVO isleave = new MemberVO();
+					isleave.setMno(-3);
+					entity = new ResponseEntity<MemberVO>(isleave,HttpStatus.OK);
 				}else{
-					find.setTitle("회원");
-					find.setPw("");
-					entity = new ResponseEntity<MemberVO>(find,HttpStatus.OK);
-					session.setAttribute("androidLogin", find);
+					MemberVO m =new MemberVO();
+					m.setId(id);
+					m.setPw(pw);
+					MemberVO find = mservice.selectMember(m);
+					if(find == null){
+						MemberVO noPw = new MemberVO();
+						noPw.setMno(-2);
+						entity = new ResponseEntity<MemberVO>(noPw,HttpStatus.OK);
+					}else{
+						find.setTitle("회원");
+						find.setPw("");
+						entity = new ResponseEntity<MemberVO>(find,HttpStatus.OK);
+						session.setAttribute("androidLogin", find);
+					}
 				}
+				
 				
 			}
 			
@@ -96,4 +102,5 @@ public class RestLoginController {
 		}
 		return entity;
 	}
+	
 }

@@ -12,7 +12,7 @@
 		select count(*) from class where tno = #{tno}
 	</select>
 	<select id="selectByTime" resultType="ClassVO">
-		select level from class where time = #{time};
+		select * from class where time = #{time};
 	</select>
 	<select id="selectByTimeLevel" resultType="ClassVO">
 		select cno from class where time = #{time} and level = #{level};

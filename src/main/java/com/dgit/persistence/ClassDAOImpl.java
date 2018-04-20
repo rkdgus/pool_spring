@@ -71,4 +71,19 @@ public class ClassDAOImpl implements ClassDAO{
 		return session.selectList(namespace+".selectClassTno",map);
 	}
 
+
+	@Override
+	public List<ClassVO> selectByTime(String time) {
+		return session.selectList(namespace+".selectByTime",time);
+	}
+
+
+	@Override
+	public ClassVO selectByTimeLevel(String time, String level) {
+		HashMap<String,String> map = new HashMap<>();
+		map.put("time",time);
+		map.put("level",level);
+		return session.selectOne(namespace+".selectByTimeLevel",map);
+	}
+
 }

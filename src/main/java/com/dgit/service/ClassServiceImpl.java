@@ -46,4 +46,14 @@ public class ClassServiceImpl implements ClassService{
 		return dao.selectClassTno(tno,search, s_day, cri);
 	}
 
+	@Override
+	public List<ClassVO> selectByTime(String time) {
+		return dao.selectByTime(time);
+	}
+
+	@Override
+	public ClassVO selectByTimeLevel(String time, String level) {
+		return dao.selectByTimeLevel(time, level);
+	}
+
 }

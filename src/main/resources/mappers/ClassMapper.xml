@@ -11,7 +11,12 @@
 	<select id="countBytno" resultType="int">
 		select count(*) from class where tno = #{tno}
 	</select>
-	
+	<select id="selectByTime" resultType="ClassVO">
+		select level from class where time = #{time};
+	</select>
+	<select id="selectByTimeLevel" resultType="ClassVO">
+		select cno from class where time = #{time} and level = #{level};
+	</select>
 	<select id="selectAllClass" resultType="ClassVO">
 		select * from class where tno = #{tno}
 		order by s_day desc limit #{cri.pageStart},15

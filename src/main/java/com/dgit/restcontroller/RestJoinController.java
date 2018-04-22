@@ -46,6 +46,7 @@ public class RestJoinController {
 	
 	@RequestMapping(value="/idCheck",method=RequestMethod.POST)
 	public ResponseEntity<String> idCheck(String id){
+		logger.info("============ id check post =======");
 		ResponseEntity<String> entity =null;
 		try{
 			MemberVO m = service.findMemberId(id);

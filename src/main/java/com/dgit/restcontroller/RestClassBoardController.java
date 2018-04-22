@@ -49,7 +49,7 @@ public class RestClassBoardController {
 	public ResponseEntity<HashMap<String,Object>> postClasslist(String time,SearchCriteria cri){
 		logger.info("POST classList");
 		ResponseEntity<HashMap<String,Object>> entity = null;
-		
+		cri.setPerPageNum(25);
 		try{
 			List<ClassVO> lists = service.selectByTime(time);
 			HashMap<String, Object> map = new HashMap<>();
@@ -88,66 +88,32 @@ public class RestClassBoardController {
 		}
 		return entity;
 	}
-	@RequestMapping(value="/classlist2",method=RequestMethod.POST)
-	public ResponseEntity<ClassVO> postClasslist2(String time,String level){
-		logger.info("POST classList2");
-		ResponseEntity<ClassVO> entity = null;
-		
+	@RequestMapping(value="/classboardlist",method=RequestMethod.POST)
+	public ResponseEntity<List<ClassBoardVO>> postClasslist2(int cno,SearchCriteria cri){
+		logger.info("POST classboardlist");
+		ResponseEntity<List<ClassBoardVO>> entity = null;
+		cri.setPerPageNum(25);
 		try{
-			ClassVO vo = service.selectByTimeLevel(time, level);
-			entity = new ResponseEntity<ClassVO>(vo,HttpStatus.OK);
+			List<ClassBoardVO> list = serviceBoard.selectByCno(cno, cri);
+			entity = new ResponseEntity<List<ClassBoardVO>>(list,HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
-			entity = new ResponseEntity<ClassVO>(HttpStatus.OK);
+			entity = new ResponseEntity<List<ClassBoardVO>>(HttpStatus.OK);
 		}
 		return entity;
 	}
-	
-	@RequestMapping(value="/classboard",method=RequestMethod.POST)
-	public ResponseEntity<HashMap<String,Object>> classboard(int cno,SearchCriteria cri){
-		logger.info("get classboard");
-		ResponseEntity<HashMap<String,Object>> entity = null;
-		HashMap<String,Object> map = new HashMap<>();
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setDisplayPageNum(5);
-		pageMaker.setCri(cri);
-		int totalcount = serviceBoard.count(cno,cri);
-		pageMaker.setTotalCount(totalcount);
-		int pageSize = 0;
-		logger.info("page : "+pageMaker.getCri().getPage());
-		logger.info("endPage : "+pageMaker.getEndPage());
+	@RequestMapping(value="/read",method=RequestMethod.GET)
+	public ResponseEntity<ClassBoardVO> getRead(int bno){
+		logger.info("GET Read");
+		ResponseEntity<ClassBoardVO> entity = null;
 		try{
-			for(int i=pageMaker.getCri().getPage(); i <=pageMaker.getEndPage(); i++){
-				SearchCriteria cri2 = new SearchCriteria();
-				cri2.setPage(i);
-				List<ClassBoardVO> lists = serviceBoard.selectByCno(cno, cri2);
-				String listName = "list_"+pageSize;
-				map.put(listName, lists);
-				pageSize++;
-			}
-			map.put("pageSize",pageSize);
-			map.put("page",cri.getPage());
-			entity = new ResponseEntity<HashMap<String,Object>>(map,HttpStatus.OK);
+			ClassBoardVO vo = serviceBoard.read(bno);
+			entity = new ResponseEntity<ClassBoardVO>(vo,HttpStatus.OK);
+			return entity;
 		}catch(Exception e){
 			e.printStackTrace();
-			entity = new ResponseEntity<HashMap<String,Object>>(HttpStatus.OK);
+			entity = new ResponseEntity<ClassBoardVO>(HttpStatus.OK);
+			return entity;
 		}
-		return entity;
-	}
-	@RequestMapping(value="/test",method=RequestMethod.GET)
-	public ResponseEntity<HashMap<String,Object>> classboard2(int cno,SearchCriteria cri){
-		logger.info("get test");
-		ResponseEntity<HashMap<String,Object>> entity = null;
-		HashMap<String,Object> map = new HashMap<>();
-		map.put("cri",cri);
-		try{
-			List<ClassBoardVO> lists = serviceBoard.selectByCno(cno, cri);
-			map.put("lists",lists);
-			entity = new ResponseEntity<HashMap<String,Object>>(map,HttpStatus.OK);
-		}catch(Exception e){
-			e.printStackTrace();
-			entity = new ResponseEntity<HashMap<String,Object>>(HttpStatus.OK);
-		}
-		return entity;
 	}
 }

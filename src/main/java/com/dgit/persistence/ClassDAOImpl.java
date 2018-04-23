@@ -73,6 +73,10 @@ public class ClassDAOImpl implements ClassDAO{
 
 
 	@Override
+	public List<ClassVO> selectByTno(int tno) {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".selectByTno",tno);
+	}
 	public List<ClassVO> selectByTime(String time) {
 		return session.selectList(namespace+".selectByTime",time);
 	}

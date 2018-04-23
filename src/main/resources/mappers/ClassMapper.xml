@@ -35,6 +35,13 @@
 		<include refid="search" />
 		order by s_day desc limit #{cri.pageStart},15
 	</select>
+	
+	<select id="selectByTno" resultType="ClassVO">
+		select * from class where tno = #{tno}
+	</select>
+
+	
+	
 	<sql id="search">
 		<if test="search == 'to'.toString()">
 			and s_day = #{s_day} 

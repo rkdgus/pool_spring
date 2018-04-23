@@ -106,4 +106,12 @@ public class MemberDAOImpl implements MemberDAO {
 		return session.selectList(namespace+".selectRegisterMember",cno);
 	}
 
+	@Override
+	public MemberVO findIdBytell(String name, String tell) {
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("name", name);
+		map.put("tell", tell);
+		return session.selectOne(namespace+".findIdBytell",map);
+	}
+
 }

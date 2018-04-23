@@ -93,4 +93,10 @@ public class MemberServiceImpl implements MemberService {
 		return dao.selectRegisterMember(cno);
 	}
 
+	@Override
+	public MemberVO findIdBytell(String name, String tell) {
+		// TODO Auto-generated method stub
+		return dao.findIdBytell(name, tell);
+	}
+
 }

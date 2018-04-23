@@ -103,4 +103,58 @@ public class RestLoginController {
 		return entity;
 	}
 	
+	
+	@RequestMapping(value="/findIdBytell",method=RequestMethod.POST)
+	public ResponseEntity<String> findIdBytell(String name,String tell){
+		logger.info("=================findIdBytell post====================");
+		
+		ResponseEntity<String> entity = null;
+		
+		
+		try{
+			MemberVO vo = mservice.findIdBytell(name, tell);
+			
+			if(vo==null){
+				entity = new ResponseEntity<String>("no Id",HttpStatus.OK);
+			}else{
+				if(vo.getId()==null){
+					entity = new ResponseEntity<String>("null",HttpStatus.OK);
+				}else{
+					entity = new ResponseEntity<String>(vo.getId(),HttpStatus.OK);
+				}
+				
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+
+	@RequestMapping(value="/findIdByEmail",method=RequestMethod.POST)
+	public ResponseEntity<String> findIdByEmail(String name,String email){
+		ResponseEntity<String> entity = null;
+		try{
+			MemberVO vo = new MemberVO();
+			vo.setName(name);
+			vo.setEmail(email);
+			MemberVO result = mservice.findMember(vo);
+			if(result==null){
+				entity = new ResponseEntity<String>("no Id",HttpStatus.OK);
+			}else{
+				if(result.getId()==null){
+					entity = new ResponseEntity<String>("null",HttpStatus.OK);
+				}else{
+					entity = new ResponseEntity<String>(result.getId(),HttpStatus.OK);
+				}	
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 }

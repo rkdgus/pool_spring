@@ -11,7 +11,9 @@
 	<select id="findMember" resultType="MemberVO">
 		select * from member where name=#{name} and email=#{email}
 	</select>
-	
+	<select id="findIdBytell" resultType="MemberVO">
+		select * from member where name=#{name} and tell=#{tell}
+	</select>
 	<select id="findPw" resultType="MemberVO">
 		select * from member where name=#{name} and email=#{email} and id=#{id}
 	</select>

@@ -7,7 +7,7 @@
 		select * from classboard where cno = #{cno} 
 		<include refid="search"></include>
 		order by regdate desc,bno desc  
-		limit #{cri.pageStart},15
+		limit #{cri.pageStart},#{cri.perPageNum}
 	</select>
 	<select id="countByCno" resultType="int">
 		select count(*) from classboard where cno = #{cno}
@@ -31,6 +31,7 @@
 	<select id="selectByClass" resultType="ClassVO">
 		select cno,level,time from class;
 	</select>
+	
 	<insert id="insertReply">
 		insert into classreply(bno,id,replytext) values(#{bno},#{id},#{replytext})
 	</insert>

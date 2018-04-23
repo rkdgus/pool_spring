@@ -34,7 +34,6 @@ public class PageMaker {
 		if(endPage*cri.getPerPageNum() >=totalCount){
 			next = false;
 		}
-		
 	}
 	
 	public int getTotalCount() {

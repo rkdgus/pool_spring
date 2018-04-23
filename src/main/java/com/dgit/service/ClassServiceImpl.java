@@ -51,5 +51,14 @@ public class ClassServiceImpl implements ClassService{
 		// TODO Auto-generated method stub
 		return dao.selectByTno(tno);
 	}
+	@Override
+	public List<ClassVO> selectByTime(String time) {
+		return dao.selectByTime(time);
+	}
+
+	@Override
+	public ClassVO selectByTimeLevel(String time, String level) {
+		return dao.selectByTimeLevel(time, level);
+	}
 
 }

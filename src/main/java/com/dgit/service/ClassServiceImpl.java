@@ -46,4 +46,10 @@ public class ClassServiceImpl implements ClassService{
 		return dao.selectClassTno(tno,search, s_day, cri);
 	}
 
+	@Override
+	public List<ClassVO> selectByTno(int tno) {
+		// TODO Auto-generated method stub
+		return dao.selectByTno(tno);
+	}
+
 }

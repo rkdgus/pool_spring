@@ -71,4 +71,11 @@ public class ClassDAOImpl implements ClassDAO{
 		return session.selectList(namespace+".selectClassTno",map);
 	}
 
+
+	@Override
+	public List<ClassVO> selectByTno(int tno) {
+		// TODO Auto-generated method stub
+		return session.selectList(namespace+".selectByTno",tno);
+	}
+
 }

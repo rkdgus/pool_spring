@@ -20,13 +20,13 @@ public class AttendanceServiceImpl implements AttendanceService {
 	private AttendanceServiceImpl() {}
 
 	@Override
-	public AttendanceVO selectByMno(int mno,String Date) {
-		return dao.selectByMno(mno,Date);
+	public List<AttendanceVO> selectByMno(int mno,String date) {
+		return dao.selectByMno(mno,date);
 	}
 
 	@Override
 	public List<AttendanceVO> selectByMnoAndDate(int mno, String date) {
 		return dao.selectByMnoAndDate(mno, date);
-	}
+	}                        
 
 }

@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.dgit.domain.ClassBoardVO;
 import com.dgit.domain.ClassVO;
@@ -115,5 +116,13 @@ public class RestClassBoardController {
 			entity = new ResponseEntity<ClassBoardVO>(HttpStatus.OK);
 			return entity;
 		}
+	}
+	
+	@RequestMapping(value="/upload",method=RequestMethod.GET)
+	public ResponseEntity<String> upload(MultipartFile filename){
+		logger.info("upload ");
+		ResponseEntity<String> entity = null;
+		
+		return entity;
 	}
 }

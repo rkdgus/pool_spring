@@ -22,12 +22,13 @@ public class RestClassInfoController {
 	private ClassService service;
 	
 	@RequestMapping(value="/classlist",method=RequestMethod.GET)
-	public ResponseEntity<List<ClassVO>> getClasslist(int tno){
+	public ResponseEntity<List<ClassVO>> getClasslist(int tno,String s_day){
 		logger.info("GET classList");
 		ResponseEntity<List<ClassVO>> entity = null;
 		
 		try{
-			List<ClassVO> lists = service.selectByTno(tno);
+			List<ClassVO> lists = service.selectByTno(tno,s_day);
+		
 			entity = new ResponseEntity<List<ClassVO>>(lists,HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();

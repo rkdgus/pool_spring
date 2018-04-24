@@ -107,10 +107,11 @@ public class MemberDAOImpl implements MemberDAO {
 	}
 
 	@Override
-	public MemberVO findIdBytell(String name, String tell) {
+	public MemberVO findIdBytell(String name, String tell,int age) {
 		HashMap<String,Object> map = new HashMap<>();
 		map.put("name", name);
 		map.put("tell", tell);
+		map.put("age", age);
 		return session.selectOne(namespace+".findIdBytell",map);
 	}
 

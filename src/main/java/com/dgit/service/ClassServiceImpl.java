@@ -1,5 +1,6 @@
 package com.dgit.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +48,10 @@ public class ClassServiceImpl implements ClassService{
 	}
 
 	@Override
-	public List<ClassVO> selectByTno(int tno) {
+	public List<ClassVO> selectByTno(int tno,String s_day) {
 		// TODO Auto-generated method stub
-		return dao.selectByTno(tno);
+	
+		return dao.selectByTno(tno,s_day);
 	}
 	@Override
 	public List<ClassVO> selectByTime(String time) {

@@ -5,6 +5,6 @@ import java.util.List;
 import com.dgit.domain.AttendanceVO;
 
 public interface AttendanceDAO {
-	public AttendanceVO selectByMno(int mno,String Date);
+	public List<AttendanceVO> selectByMno(int mno,String date);
 	public List<AttendanceVO> selectByMnoAndDate(int mno,String date);
 }

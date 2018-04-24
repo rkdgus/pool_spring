@@ -3,7 +3,7 @@ $(function(){
 		e.preventDefault();
 		if($("#teacher").is(":checked")){
 			$.ajax({
-				url:"/pool/login/teacherId",
+				url:"teacherId",
 				type:"post",
 				dataType:"text",
 				data:{"id":$("#id").val()},
@@ -25,7 +25,7 @@ $(function(){
 			})
 		}else{
 			$.ajax({
-				url:"/pool/login/memberId",
+				url:"memberId",
 				type:"post",
 				dataType:"json",
 				data:{"id":$("#id").val()},
@@ -53,7 +53,7 @@ $(function(){
 function checkMember(){
 	
 	$.ajax({
-		url:"/pool/login/member",
+		url:"member",
 		type:"post",
 		dataType:"text",
 		data:{"id":$("#id").val(),
@@ -76,7 +76,7 @@ function checkMember(){
 function checkTeacher(){
 	
 	$.ajax({
-		url:"/pool/login/teacher",
+		url:"teacher",
 		type:"post",
 		dataType:"text",
 		data:{"id":$("#id").val(),

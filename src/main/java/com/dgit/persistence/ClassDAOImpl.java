@@ -73,9 +73,12 @@ public class ClassDAOImpl implements ClassDAO{
 
 
 	@Override
-	public List<ClassVO> selectByTno(int tno) {
+	public List<ClassVO> selectByTno(int tno,String s_day) {
 		// TODO Auto-generated method stub
-		return session.selectList(namespace+".selectByTno",tno);
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("tno", tno);
+		map.put("s_day", s_day);
+		return session.selectList(namespace+".selectByTno",map);
 	}
 	public List<ClassVO> selectByTime(String time) {
 		return session.selectList(namespace+".selectByTime",time);

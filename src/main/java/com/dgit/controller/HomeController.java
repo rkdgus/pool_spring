@@ -48,11 +48,12 @@ public class HomeController {
 		List<GalleryVO> list = galleryService.selectAll();
 		List<NoticeBoardVO> board = noticeService.selectByMain();
 		if(list.size()>6){
-			list.subList(0, 5);
+			list = list.subList(0, 6);
+			System.out.println(list.size());
 		}
 		
-		model.addAttribute("list",list);
-		model.addAttribute("board",board);
+		model.addAttribute("list",list);                      
+		model.addAttribute("board",board);                                
 		
 		return "home";  
 	}

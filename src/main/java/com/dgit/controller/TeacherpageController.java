@@ -257,7 +257,7 @@ public class TeacherpageController {
 				date.setMonth(monthLast-1);
 				date.setDate(days.get(i));
 				String s_day = sdf.format(date);
-				AttendanceVO vo2 = service5.selectByMno(vo.getMno(),s_day);
+				AttendanceVO vo2 = service5.selectByMno(vo.getMno(),s_day).get(0);
 				lists.add(vo2);
 				
 			}

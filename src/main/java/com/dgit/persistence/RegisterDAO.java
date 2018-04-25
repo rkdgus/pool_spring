@@ -11,6 +11,7 @@ import com.dgit.domain.SearchCriteria;
 public interface RegisterDAO {
 	public List<RegisterVO> selectAll(int mno);
 	public List<RegisterVO> selectByCno(int cno);
-
+	public int selectByTnoCount(ClassVO vo);
+	public int reenter(ClassVO vo);
 }
  

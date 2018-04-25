@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.dgit.domain.ClassVO;
 import com.dgit.domain.RegisterVO;
 import com.dgit.persistence.RegisterDAO;
 
@@ -23,5 +24,17 @@ public class RegisterServiceImpl implements RegisterService{
 	@Override
 	public List<RegisterVO> selectByCno(int cno) {
 		return dao.selectByCno(cno);
+	}
+
+	@Override
+	public int selectByTnoCount(ClassVO vo) {
+		// TODO Auto-generated method stub
+		return dao.selectByTnoCount(vo);
+	}
+
+	@Override
+	public int reenter(ClassVO vo) {
+		// TODO Auto-generated method stub
+		return dao.reenter(vo);
 	}
 }

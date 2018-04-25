@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.dgit.domain.ClassVO;
 import com.dgit.domain.RegisterVO;
 
 @Repository
@@ -24,6 +25,18 @@ public class RegisterDAOImpl implements RegisterDAO {
 	@Override
 	public List<RegisterVO> selectByCno(int cno) {
 		return session.selectList(namespace+".selectByCno",cno);
+	}
+
+	@Override
+	public int selectByTnoCount(ClassVO vo) {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+".selectByTnoCount",vo);
+	}
+
+	@Override
+	public int reenter(ClassVO vo) {
+		// TODO Auto-generated method stub
+		return session.selectOne(namespace+".reenter",vo);
 	}
 
 }

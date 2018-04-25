@@ -11,5 +11,12 @@
 	<select id="selectByCno" resultType="RegisterVO">
 		select * from register where cno =#{cno}
 	</select>
-
+	
+	<select id="selectByTnoCount" parameterType="ClassVO" resultType="int">
+		select count(*) from register where cno in (select cno from class where tno = #{tno} and s_day=#{level})
+	</select>            
+                                                                          
+	<select id="reenter" resultType="int" parameterType="ClassVO">
+		select count(*) from register where cno in (select cno from class where tno = #{tno} and s_day=#{level}) and reentrance=true
+	</select>
 </mapper>

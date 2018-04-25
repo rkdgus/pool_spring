@@ -20,6 +20,6 @@ public interface MemberService {
 	public void chagePw(String id,String pw);
 	public void updateIsleave(String id);
 	public List<MemberVO> selectRegisterMember(int cno);
-	public MemberVO findIdBytell(String name,String tell);
+	public MemberVO findIdBytell(String name,String tell,int age);
 }
  

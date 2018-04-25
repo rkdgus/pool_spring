@@ -1,14 +1,20 @@
 package com.dgit.restcontroller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +22,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.dgit.domain.ClassBoardVO;
 import com.dgit.domain.ClassVO;
-import com.dgit.domain.PageMaker;
 import com.dgit.domain.SearchCriteria;
 import com.dgit.service.ClassBoardService;
 import com.dgit.service.ClassService;
@@ -31,6 +36,7 @@ public class RestClassBoardController {
 	@Autowired
 	private ClassBoardService serviceBoard;
 	
+	private String innerUploadPath = "/resources/upload";
 	@RequestMapping(value="/classlist",method=RequestMethod.GET)
 	public ResponseEntity<List<ClassVO>> getClasslist(String time){
 		logger.info("GET classList");
@@ -118,11 +124,43 @@ public class RestClassBoardController {
 		}
 	}
 	
-	@RequestMapping(value="/upload",method=RequestMethod.GET)
-	public ResponseEntity<String> upload(MultipartFile filename){
+	@RequestMapping(value="/upload",method=RequestMethod.POST)
+	public ResponseEntity<String> upload(HttpServletRequest request,MultipartFile uploaded_file) throws IOException{
 		logger.info("upload ");
 		ResponseEntity<String> entity = null;
+		String root_path = request.getSession().getServletContext().getRealPath("/");
+		File dirPath = new File(root_path+"/"+innerUploadPath+"/classboard");
+		String r = request.getContextPath();
+		String projectName = r.substring(r.lastIndexOf("/"),r.length());
+		if (!dirPath.exists()) {
+			dirPath.mkdirs();
+		}
+		String filePath = projectName +innerUploadPath+"/classboard/";
 		
+		String savedName = uploaded_file.getOriginalFilename();
+		File target = new File(root_path+innerUploadPath+"/classboard", savedName);
+		FileCopyUtils.copy(uploaded_file.getBytes(), target);
+		
+		logger.info(uploaded_file.getOriginalFilename());
+		
+		return entity;   
+	}
+	@RequestMapping(value="/insert",method=RequestMethod.POST)
+	public ResponseEntity<String> insert(ClassBoardVO vo,String time, String level,String imgPathcheck){
+		logger.info("==============insert=============");
+		ResponseEntity<String> entity = null;
+		try{
+			ClassVO cls= service.selectByTimeLevel(time, level);
+			vo.setCno(cls.getCno());
+			if(imgPathcheck !=null){
+				vo.setImgpath(imgPathcheck);
+			}
+			serviceBoard.create(vo);
+			entity = new ResponseEntity<String>("success",HttpStatus.OK);
+		}catch(Exception e){
+			entity = new ResponseEntity<String>(HttpStatus.OK);
+		}
 		return entity;
 	}
+	
 }

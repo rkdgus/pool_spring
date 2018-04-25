@@ -167,7 +167,7 @@ table{
 				<table>
 					<tr>
 						<td>작성자</td>
-						<td><input type="text" name="id"></td>
+						<td><input type="text" name="id" value="${login.name }" readonly="readonly"></td>
 					</tr>
 					<tr>
 						<td>반</td>

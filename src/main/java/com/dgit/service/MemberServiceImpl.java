@@ -94,9 +94,9 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberVO findIdBytell(String name, String tell) {
+	public MemberVO findIdBytell(String name, String tell,int age) {
 		// TODO Auto-generated method stub
-		return dao.findIdBytell(name, tell);
+		return dao.findIdBytell(name, tell, age);
 	}
 
 }

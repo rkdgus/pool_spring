@@ -177,7 +177,7 @@ public class AdminController {
 		String root_path = request.getSession().getServletContext().getRealPath("/");
 		if(fileList.getSize()!=0){
 			
-			File dirPath = new File(root_path+"/"+innerUploadPath+"/강사사진");
+			File dirPath = new File(root_path+"/"+innerUploadPath+"/teacher");
 		                                                                         
 			if (!dirPath.exists()) {
 				dirPath.mkdirs();
@@ -191,10 +191,10 @@ public class AdminController {
 			}
 			UUID uid = UUID.randomUUID();// 중복방지를 위하여 랜덤값 생성
 			String savedName = uid.toString() + "_" + fileList.getOriginalFilename();
-			File target = new File(root_path+"/"+innerUploadPath+"/강사사진", savedName);
+			File target = new File(root_path+"/"+innerUploadPath+"/teacher", savedName);
 			try {                
 				FileCopyUtils.copy(fileList.getBytes(), target);
-				savedName="/pool/"+innerUploadPath+"/강사사진/"+savedName;
+				savedName="/pool/"+innerUploadPath+"/teacher/"+savedName;
 			} catch (IOException e) {
 				e.printStackTrace();                                         
 			}       

@@ -56,6 +56,9 @@
 	<update id="updateEmailTell">
 		update member set email=#{email},tell=#{tell} where id=#{id}
 	</update>
+	<update id="updateEmail">
+		update member set email=#{email} where id=#{id}
+	</update>
 	<sql id="search">
 		<if test="cri.searchType =='name'.toString()">
 		 where name like CONCAT('%',#{cri.keyword},'%')

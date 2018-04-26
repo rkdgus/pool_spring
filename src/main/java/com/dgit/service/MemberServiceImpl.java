@@ -99,4 +99,10 @@ public class MemberServiceImpl implements MemberService {
 		return dao.findIdBytell(name, tell, age);
 	}
 
+	@Override
+	public void updateEmail(String id, String email) {
+		dao.updateEmail(id, email);
+		
+	}
+
 }

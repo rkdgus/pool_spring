@@ -115,4 +115,14 @@ public class MemberDAOImpl implements MemberDAO {
 		return session.selectOne(namespace+".findIdBytell",map);
 	}
 
+	@Override
+	public void updateEmail(String id, String email) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("email", email);
+		
+		session.update(namespace+".updateEmail",map);
+		
+	}
+
 }

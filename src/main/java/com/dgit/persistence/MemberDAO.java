@@ -21,5 +21,6 @@ public interface MemberDAO {
 	public void updateIsleave(String id);
 	public List<MemberVO> selectRegisterMember(int cno);
 	public MemberVO findIdBytell(String name,String tell,int age);
+	public void updateEmail(String id,String email);
 }
  

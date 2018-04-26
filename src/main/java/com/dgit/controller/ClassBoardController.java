@@ -116,6 +116,7 @@ public class ClassBoardController {
 		
 		ResponseEntity<String> entity = null;
 		String root_path = request.getSession().getServletContext().getRealPath("/");
+		logger.info(root_path);
 		File dirPath = new File(root_path+"/"+innerUploadPath+"/classboard");
 		String imgpath = null;
 		String r = request.getContextPath();

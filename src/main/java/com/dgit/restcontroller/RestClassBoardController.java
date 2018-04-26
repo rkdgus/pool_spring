@@ -174,4 +174,16 @@ public class RestClassBoardController {
 		}
 		return entity;
 	}
+	@RequestMapping(value="/update",method=RequestMethod.POST)
+	public ResponseEntity<String> update(ClassBoardVO vo){
+		ResponseEntity<String> entity = null;
+		try{
+			serviceBoard.modify(vo);
+			entity = new ResponseEntity<String>("success",HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail",HttpStatus.OK);
+		}
+		return entity;
+	}
 }

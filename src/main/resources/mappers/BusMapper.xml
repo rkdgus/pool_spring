@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dgit.mapper.BusMapper">
+	<update id="update">
+		update bus set map = #{map} where bno = 1
+	</update> 
+	<select id="selectAll" resultType="String">
+		select map from bus where bno = 1
+	</select>
+
+
+</mapper>

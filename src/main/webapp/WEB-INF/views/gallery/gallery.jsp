@@ -86,7 +86,7 @@ j(function() {
 				<c:if test="${list.size()!=0 }">
 					<c:forEach items="${list }" var="item">
 						<div><img
-						src="displayFile?filename=${item.gallery_path}"></div>            
+						src="${item.gallery_path}"></div>            
 					</c:forEach>         
 				</c:if>                                                                
 			</div>
@@ -94,7 +94,7 @@ j(function() {
 			<div class="slider-nav">
 				<c:forEach items="${list }" var="item">
 					<div><img
-					src="displayFile?filename=${item.gallery_path}"></div>
+					src="${item.gallery_path}"></div>
 				</c:forEach>
 			</div>                
 			

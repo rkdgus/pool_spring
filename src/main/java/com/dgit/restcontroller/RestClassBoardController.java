@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.dgit.domain.ClassBoardVO;
 import com.dgit.domain.ClassVO;
+import com.dgit.domain.ClassreplyVO;
 import com.dgit.domain.SearchCriteria;
 import com.dgit.service.ClassBoardService;
 import com.dgit.service.ClassService;
@@ -53,45 +54,17 @@ public class RestClassBoardController {
 	}
 	
 	@RequestMapping(value="/classlist",method=RequestMethod.POST)
-	public ResponseEntity<HashMap<String,Object>> postClasslist(String time,SearchCriteria cri){
+	public ResponseEntity<List<ClassBoardVO>> postClasslist(String time,String level,SearchCriteria cri){
 		logger.info("POST classList");
-		ResponseEntity<HashMap<String,Object>> entity = null;
-		cri.setPerPageNum(25);
+		ResponseEntity<List<ClassBoardVO>> entity = null;
+		cri.setPerPageNum(10);
 		try{
-			List<ClassVO> lists = service.selectByTime(time);
-			HashMap<String, Object> map = new HashMap<>();
-			
-			for(ClassVO vo : lists){
-				logger.info("cno  =>" + vo.getCno());
-				List<ClassBoardVO> list = new ArrayList<>();
-				switch (vo.getLevel()) {
-				case "초급":
-					list = serviceBoard.selectByCno(vo.getCno(), cri);
-					map.put("lists_0",list);
-					break;
-				case "중급":
-					list = serviceBoard.selectByCno(vo.getCno(), cri);
-					map.put("lists_1",list);
-					break;
-				case "고급":
-					list = serviceBoard.selectByCno(vo.getCno(), cri);
-					map.put("lists_2",list);
-					break;
-				case "상급":
-					list = serviceBoard.selectByCno(vo.getCno(), cri);
-					map.put("lists_3",list);
-					break;
-				case "연수":
-					list = serviceBoard.selectByCno(vo.getCno(), cri);
-					map.put("lists_4",list);
-					break;
-				}
-			}
-			
-			entity = new ResponseEntity<HashMap<String,Object>>(map,HttpStatus.OK);
+			ClassVO vo = service.selectByTimeLevel(time, level);
+			List<ClassBoardVO> list = serviceBoard.selectByCno(vo.getCno(), cri);
+			entity = new ResponseEntity<List<ClassBoardVO>>(list,HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
-			entity = new ResponseEntity<HashMap<String,Object>>(HttpStatus.OK);
+			entity = new ResponseEntity<List<ClassBoardVO>>(HttpStatus.OK);
 		}
 		return entity;
 	}
@@ -99,7 +72,7 @@ public class RestClassBoardController {
 	public ResponseEntity<List<ClassBoardVO>> postClasslist2(int cno,SearchCriteria cri){
 		logger.info("POST classboardlist");
 		ResponseEntity<List<ClassBoardVO>> entity = null;
-		cri.setPerPageNum(25);
+		cri.setPerPageNum(10);
 		try{
 			List<ClassBoardVO> list = serviceBoard.selectByCno(cno, cri);
 			entity = new ResponseEntity<List<ClassBoardVO>>(list,HttpStatus.OK);
@@ -109,7 +82,7 @@ public class RestClassBoardController {
 		}
 		return entity;
 	}
-	@RequestMapping(value="/read",method=RequestMethod.GET)
+	@RequestMapping(value="/read",method=RequestMethod.POST)
 	public ResponseEntity<ClassBoardVO> getRead(int bno){
 		logger.info("GET Read");
 		ResponseEntity<ClassBoardVO> entity = null;
@@ -163,4 +136,42 @@ public class RestClassBoardController {
 		return entity;
 	}
 	
+	@RequestMapping(value="/readreply",method=RequestMethod.POST)
+	public ResponseEntity<List<ClassreplyVO>> readreply(int bno){
+		ResponseEntity<List<ClassreplyVO>> entity = null;
+		
+		try{
+			List<ClassreplyVO> list = serviceBoard.replySelectByBno(bno);
+			entity = new ResponseEntity<List<ClassreplyVO>>(list,HttpStatus.OK);
+		}catch(Exception e){
+			entity = new ResponseEntity<List<ClassreplyVO>>(HttpStatus.OK);
+		}
+		return entity;
+	}
+	@RequestMapping(value="/delete",method=RequestMethod.POST)
+	public ResponseEntity<String> delete(int bno){
+		logger.info("==============delete=============");
+		ResponseEntity<String> entity = null;
+		try{
+			serviceBoard.remove(bno);
+			entity = new ResponseEntity<String>("success",HttpStatus.OK);
+		}catch(Exception e){
+			entity = new ResponseEntity<String>("fail",HttpStatus.OK);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="/insertreply",method=RequestMethod.POST)
+	public ResponseEntity<List<ClassreplyVO>> insertreply(ClassreplyVO vo){
+		logger.info("==============insertreply=============");
+		ResponseEntity<List<ClassreplyVO>> entity = null;
+		try{
+			serviceBoard.createReply(vo);
+			List<ClassreplyVO> list =serviceBoard.replySelectByBno(vo.getBno());
+			entity = new ResponseEntity<List<ClassreplyVO>>(list,HttpStatus.OK);
+		}catch(Exception e){
+			entity = new ResponseEntity<List<ClassreplyVO>>(HttpStatus.OK);
+		}
+		return entity;
+	}
 }

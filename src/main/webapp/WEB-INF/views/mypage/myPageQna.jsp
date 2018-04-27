@@ -72,15 +72,15 @@
 							<tr class="list_tr">
 								<td class="bno">${list.bno }</td>
 								<td id="list_title">${list.title }</td>
+								<fmt:formatDate value="${list.regdate }" pattern="yyyy-MM-dd"
+									var="date" />
+								<td>${date }</td>
 								<c:if test="${list.replycheck==false }">
 									<td>X</td>
 								</c:if>
 								<c:if test="${list.replycheck==true }">
 									<td>O</td>
 								</c:if>
-								<fmt:formatDate value="${list.regdate }" pattern="yyyy-MM-dd"
-									var="date" />
-								<td>${date }</td>
 							</tr>
 						</c:forEach>
 					</c:if>

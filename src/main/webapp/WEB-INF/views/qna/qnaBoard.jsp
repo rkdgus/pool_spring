@@ -8,6 +8,11 @@
 <meta charset="UTF-8">
 <title>문의하기 : 질문 및 답변 : 대구 아이티 수영장</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath }/resources/qna/qnaBoard.css">
+<style>
+	.reply{
+		font-weight: bold;
+	}
+</style>
 </head>
 <body>
 	<jsp:include page="../include/header.jsp" />
@@ -71,7 +76,11 @@
 						<c:forEach var="item" items="${list }">
 							<tr data-bno='${item.bno }' class="data_tr">
 								<td class="td bno">${item.bno }</td>
-								<td class='td_title'>${item.title }</td>
+								<td class='td_title'>${item.title }
+									<c:if test="${item.replycheck == true }">
+										<span class="reply">[1]</span>
+									</c:if>
+								</td>
 								<td class="td">${item.writer }</td>
 								<fmt:formatDate value="${item.regdate }" pattern="yyyy-MM-dd"
 									var="date" />

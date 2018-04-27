@@ -26,6 +26,19 @@ public class RestInfoUpdateController {
 	@Autowired
 	TeacherService tService;
 	
+	@RequestMapping(value="/findMember",method=RequestMethod.POST)
+	public ResponseEntity<MemberVO> findMember(int mno){
+		ResponseEntity<MemberVO> entity = null;
+		try{
+			MemberVO vo = mService.selectMemberByMno(mno);
+			entity = new ResponseEntity<MemberVO>(vo,HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<MemberVO>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
 	@RequestMapping(value="/isleave",method = RequestMethod.POST)
 	public ResponseEntity<String> isleave(String pw,String id){
 		
@@ -65,6 +78,19 @@ public class RestInfoUpdateController {
 				entity = new ResponseEntity<String>("success",HttpStatus.OK);
 			}
 			
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="/updateTell",method=RequestMethod.POST)
+	public ResponseEntity<String> tellUpdate(int mno,String tell){
+		ResponseEntity<String> entity = null;
+		try{
+			mService.updateTell(tell, mno);
+			entity = new ResponseEntity<String>("success",HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
 			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);

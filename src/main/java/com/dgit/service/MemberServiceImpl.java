@@ -105,4 +105,10 @@ public class MemberServiceImpl implements MemberService {
 		
 	}
 
+	@Override
+	public void updateTell(String tell, int mno) {
+		dao.updateTell(tell, mno);
+
+	}
+
 }

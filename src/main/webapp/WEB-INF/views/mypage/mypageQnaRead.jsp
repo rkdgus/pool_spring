@@ -54,7 +54,7 @@
 						<tr>
 							<td colspan="2" id="qnaContent">
 								
-									<c:if test="${qna.imgpath !='null' }">
+								<c:if test="${qna.imgpath !='null' || qna.imgpath != null}">
 									<c:forEach items="${qna.imgpath }" var = "img">
 										<img src="displayFile?filename=${img }"><br>
 									</c:forEach>

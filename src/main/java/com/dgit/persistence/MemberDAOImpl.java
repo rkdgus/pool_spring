@@ -125,4 +125,13 @@ public class MemberDAOImpl implements MemberDAO {
 		
 	}
 
+	@Override
+	public void updateTell(String tell, int mno) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("tell", tell);
+		map.put("mno", mno);
+		session.update(namespace+".updateTell",map);
+		
+	}
+
 }

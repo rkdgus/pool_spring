@@ -10,7 +10,7 @@ $(function(){
 				success:function(result){
 					console.log(result);
 					if(result.tno==-1){
-						alert("관리자가 아닙니다. 아이디를 확인해주세요.");
+						alert("입력하신 관리자 아이디,비밀번호 중 일치하지 않은 정보가 있습니다.");
 						$("#id").focus();
 						$("#pw").val("");
 					}else if(result.title=="퇴사"){
@@ -33,7 +33,7 @@ $(function(){
 					console.log(result);
 					if(result.mno ==-1)
 						{
-						alert("회원이 아닙니다. 아이디를 확인해주세요.");
+						alert("입력하신 회원 아이디,비밀번호 중 일치하지 않은 정보가 있습니다.");
 						$("#id").focus();
 						$("#pw").val("");
 						return;
@@ -61,7 +61,7 @@ function checkMember(){
 		success:function(result){
 			console.log(result);
 			if(result.length==0){
-				alert("비밀번호가 일치하지 않습니다. 비밀번호를 확인해주세요.");
+				alert("입력하신 회원 아이디,비밀번호 중 일치하지 않은 정보가 있습니다.");
 				$("#pw").val("");
 				$("#pw").focus();
 			}else{
@@ -84,7 +84,7 @@ function checkTeacher(){
 		success:function(result){
 			console.log(result);
 			if(result.length==0){
-				alert("비밀번호가 일치하지 않습니다. 비밀번호를 확인해주세요.");
+				alert("입력하신 관리자 아이디,비밀번호 중 일치하지 않은 정보가 있습니다.");
 				$("#pw").val("");
 				$("#pw").focus();
 			}else{

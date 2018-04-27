@@ -52,4 +52,15 @@ public class TeacherServiceImpl implements TeacherService {
 	public void updatePw(TeacherVO vo) {
 		dao.updatePw(vo);
 	}
+
+	@Override
+	public void updateTell(int tno, String tell) {
+		dao.updateTell(tno, tell);
+		
+	}
+
+	@Override
+	public void updateInfo(int tno, String info) {
+		dao.updateInfo(tno, info);
+	}
 }

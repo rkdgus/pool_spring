@@ -107,4 +107,54 @@ public class RestInfoUpdateController {
 		}
 		return entity;
 	}
+	
+	@RequestMapping(value="/tupdateTell",method=RequestMethod.POST)
+	public ResponseEntity<String> updateTell(String tell,int tno){
+		ResponseEntity<String> entity = null;
+		try{
+			tService.updateTell(tno, tell);
+			entity = new ResponseEntity<String>("update",HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="/tupdatePw",method=RequestMethod.POST)
+	public ResponseEntity<String> updatePw(String id,String pw,String newPw){
+		ResponseEntity<String> entity = null;
+		try{
+			TeacherVO vo = new TeacherVO();
+			vo.setId(id);
+			vo.setPw(pw);
+			TeacherVO t = tService.selectTeacher(vo);
+			if(t==null){
+				entity = new ResponseEntity<String>("no",HttpStatus.OK);
+			}else{
+				vo.setPw(newPw);
+				tService.updatePw(vo);
+				entity = new ResponseEntity<String>("update",HttpStatus.OK);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	@RequestMapping(value="/updateInfo",method=RequestMethod.POST)
+	public ResponseEntity<String> updateInfo(int tno,String info){
+		logger.info("================ update info post =========");
+		logger.info(info);
+		ResponseEntity<String> entity = null;
+		try{
+			tService.updateInfo(tno, info);
+			entity = new ResponseEntity<String>("success",HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity  =new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 }

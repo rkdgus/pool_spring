@@ -1,5 +1,6 @@
 package com.dgit.persistence;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -55,5 +56,22 @@ public class TeacherDAOImpl implements TeacherDAO {
 	@Override
 	public void updatePw(TeacherVO vo) {
 		session.update(namespace+".updatePw",vo);
+	}
+
+	@Override
+	public void updateTell(int tno, String tell) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("tno", tno);
+		map.put("tell", tell);
+		session.update(namespace+".updateTell",map);
+		
+	}
+
+	@Override
+	public void updateInfo(int tno, String info) {
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("tno", tno);
+		map.put("info", info);
+		session.update(namespace+".updateInfo",map);
 	}
 }

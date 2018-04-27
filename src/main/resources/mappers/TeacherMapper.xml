@@ -31,4 +31,10 @@
 	<update id="updatePw">
 		update teacher set pw=password(#{pw}) where id=#{id}
 	</update>
+	<update id="updateTell">
+		update teacher set tell=#{tell} where tno=#{tno}
+	</update>
+	<update id="updateInfo">
+		update teacher set info=#{info} where tno=#{tno}
+	</update>
 </mapper>

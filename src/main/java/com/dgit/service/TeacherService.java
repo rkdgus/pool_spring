@@ -12,5 +12,7 @@ public interface TeacherService {
 	public TeacherVO selectNo(int tno);
 	public List<TeacherVO> select(String title);
 	public void updatePw(TeacherVO vo);
+	public void updateTell(int tno,String tell);
+	public void updateInfo(int tno,String info);
 }
  

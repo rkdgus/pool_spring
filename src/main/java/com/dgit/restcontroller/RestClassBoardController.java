@@ -2,10 +2,8 @@ package com.dgit.restcontroller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -97,6 +95,25 @@ public class RestClassBoardController {
 		}
 	}
 	
+	@RequestMapping(value="/readupdate",method=RequestMethod.POST)
+	public ResponseEntity<HashMap<String,Object>> readupdate(int bno){
+		logger.info("GET Read");
+		ResponseEntity<HashMap<String,Object>> entity = null;
+		HashMap<String,Object> map = new HashMap<>();
+		try{
+			ClassBoardVO vo = serviceBoard.read(bno);
+			map.put("vo", vo);
+			ClassVO vo2 = service.selectAll(vo.getCno());
+			map.put("class", vo2);
+			entity = new ResponseEntity<HashMap<String,Object>>(map,HttpStatus.OK);
+			return entity;
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<HashMap<String,Object>>(HttpStatus.OK);
+			return entity;
+		}
+	}
+	
 	@RequestMapping(value="/upload",method=RequestMethod.POST)
 	public ResponseEntity<String> upload(HttpServletRequest request,MultipartFile uploaded_file) throws IOException{
 		logger.info("upload ");
@@ -129,7 +146,7 @@ public class RestClassBoardController {
 				vo.setImgpath(imgPathcheck);
 			}
 			serviceBoard.create(vo);
-			entity = new ResponseEntity<String>("success",HttpStatus.OK);
+			entity = new ResponseEntity<String>(vo.getCno()+"",HttpStatus.OK);
 		}catch(Exception e){
 			entity = new ResponseEntity<String>(HttpStatus.OK);
 		}

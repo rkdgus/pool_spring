@@ -24,6 +24,14 @@
 		select * from teacher where tno = #{tno}
 	</select>
 	
+	<select id="findIdByTell" resultType="TeacherVO">
+		select * from teacher where tno=#{tno} and name=#{name} and tell=#{tell}
+	</select>
+	
+	<select id="findIdByEmail" resultType="TeacherVO">
+		select * from teacher where tno=#{tno} and name=#{name}
+	</select>
+	
 	<update id="update">
 		update teacher set img_path = #{img_path},tell = #{tell},info = #{info},title = #{title} where tno=#{tno}
 	</update>

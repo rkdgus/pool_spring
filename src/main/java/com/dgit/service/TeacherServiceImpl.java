@@ -63,4 +63,14 @@ public class TeacherServiceImpl implements TeacherService {
 	public void updateInfo(int tno, String info) {
 		dao.updateInfo(tno, info);
 	}
+
+	@Override
+	public TeacherVO findIdByTell(String name, String tell, int tno) {
+		return dao.findIdByTell(name, tno, tell);
+	}
+
+	@Override
+	public TeacherVO findIdByEmail(String name, int tno) {
+		return dao.findIdByEmail(name, tno);
+	}
 }

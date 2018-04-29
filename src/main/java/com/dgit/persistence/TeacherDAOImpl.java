@@ -74,4 +74,21 @@ public class TeacherDAOImpl implements TeacherDAO {
 		map.put("info", info);
 		session.update(namespace+".updateInfo",map);
 	}
+
+	@Override
+	public TeacherVO findIdByTell(String name, int tno, String tell) {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("name", name);
+		map.put("tno", tno);
+		map.put("tell", tell);
+		return session.selectOne(namespace+".findIdByTell",map);
+	}
+
+	@Override
+	public TeacherVO findIdByEmail(String name, int tno) {
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("name", name);
+		map.put("tno", tno);
+		return session.selectOne(namespace+".findIdByEmail",map);
+	}
 }

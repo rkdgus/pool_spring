@@ -74,4 +74,13 @@ public class TeacherDAOImpl implements TeacherDAO {
 		map.put("info", info);
 		session.update(namespace+".updateInfo",map);
 	}
+
+	@Override
+	public void updateImgpath(int tno, String imgpath) {
+		HashMap<String,Object> map = new HashMap<>();
+		map.put("tno", tno);
+		map.put("img_path", imgpath);
+		session.update(namespace+".updateInfo",map);
+		
+	}
 }

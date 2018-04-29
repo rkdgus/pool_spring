@@ -1,13 +1,20 @@
 package com.dgit.restcontroller;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.dgit.domain.MemberVO;
 import com.dgit.domain.TeacherVO;
@@ -25,6 +32,8 @@ public class RestInfoUpdateController {
 	
 	@Autowired
 	TeacherService tService;
+	
+	private String innerUploadPath = "/resources/upload";
 	
 	@RequestMapping(value="/isleave",method = RequestMethod.POST)
 	public ResponseEntity<String> isleave(String pw,String id){
@@ -157,4 +166,43 @@ public class RestInfoUpdateController {
 		}
 		return entity;
 	}
+	
+	@RequestMapping(value="/updateImgpath",method=RequestMethod.POST)
+	public ResponseEntity<String> updateImgpath(int tno,String imgpath){
+		logger.info("================ update imgpath post =========");
+		logger.info(imgpath);
+		ResponseEntity<String> entity = null;
+		try{
+			tService.updateImgpath(tno, imgpath);
+			entity = new ResponseEntity<String>("success",HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity  =new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="/upload",method=RequestMethod.POST)
+	public ResponseEntity<String> upload(HttpServletRequest request,MultipartFile uploaded_file) throws IOException{
+		logger.info("upload ");
+		ResponseEntity<String> entity = null;
+		String root_path = request.getSession().getServletContext().getRealPath("/");
+		File dirPath = new File(root_path+"/"+innerUploadPath+"/teacher");
+		String r = request.getContextPath();
+		String projectName = r.substring(r.lastIndexOf("/"),r.length());
+		if (!dirPath.exists()) {
+			dirPath.mkdirs();
+		}
+		String filePath = projectName +innerUploadPath+"/teacher/";
+		
+		String savedName = uploaded_file.getOriginalFilename();
+		File target = new File(root_path+innerUploadPath+"/teacher", savedName);
+		FileCopyUtils.copy(uploaded_file.getBytes(), target);
+		
+		logger.info(uploaded_file.getOriginalFilename());
+		
+		return entity;   
+	}
+	
+	
 }

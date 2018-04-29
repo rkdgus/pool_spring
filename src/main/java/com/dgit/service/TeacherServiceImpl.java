@@ -63,4 +63,9 @@ public class TeacherServiceImpl implements TeacherService {
 	public void updateInfo(int tno, String info) {
 		dao.updateInfo(tno, info);
 	}
+
+	@Override
+	public void updateImgpath(int tno, String imgpath) {
+		dao.updateImgpath(tno, imgpath);
+	}
 }

@@ -14,5 +14,6 @@ public interface TeacherService {
 	public void updatePw(TeacherVO vo);
 	public void updateTell(int tno,String tell);
 	public void updateInfo(int tno,String info);
+	public void updateImgpath(int tno,String imgpath);
 }
  

@@ -37,4 +37,7 @@
 	<update id="updateInfo">
 		update teacher set info=#{info} where tno=#{tno}
 	</update>
+	<update id="updateImgpath">
+	    update teacher set img_path=#{img_path} where tno=#{tno}
+	</update>
 </mapper>

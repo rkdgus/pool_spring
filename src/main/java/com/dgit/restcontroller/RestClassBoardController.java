@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
@@ -192,9 +193,21 @@ public class RestClassBoardController {
 		return entity;
 	}
 	@RequestMapping(value="/update",method=RequestMethod.POST)
-	public ResponseEntity<String> update(ClassBoardVO vo){
+	public ResponseEntity<String> update(HttpServletRequest request,ClassBoardVO vo,String time, String level,String oriImgPath,String imgPathcheck ){
 		ResponseEntity<String> entity = null;
+		logger.info("===============update");
 		try{
+			ClassVO cls= service.selectByTimeLevel(time, level);
+			vo.setCno(cls.getCno());
+			logger.info("===============update : " + imgPathcheck);
+			if(imgPathcheck !=null){
+				vo.setImgpath(imgPathcheck);
+			}
+			if(oriImgPath !=null){
+				String root_path = request.getSession().getServletContext().getRealPath("/");
+				File file = new File(root_path+oriImgPath.replace("/pool", ""));
+				file.delete();
+			}
 			serviceBoard.modify(vo);
 			entity = new ResponseEntity<String>("success",HttpStatus.OK);
 		}catch(Exception e){

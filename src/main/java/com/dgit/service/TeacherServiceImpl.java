@@ -73,4 +73,10 @@ public class TeacherServiceImpl implements TeacherService {
 	public TeacherVO findIdByEmail(String name, int tno) {
 		return dao.findIdByEmail(name, tno);
 	}
+	
+	@Override
+	public void updateImgpath(int tno, String imgpath) {
+		dao.updateImgpath(tno, imgpath);
+
+	}
 }

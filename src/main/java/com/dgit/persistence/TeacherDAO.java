@@ -14,6 +14,7 @@ public interface TeacherDAO {
 	public void updatePw(TeacherVO vo);
 	public void updateTell(int tno,String tell);
 	public void updateInfo(int tno,String info);
+	public void updateImgpath(int tno,String imgpath);
 	public TeacherVO findIdByTell(String name,int tno,String tell);
 	public TeacherVO findIdByEmail(String name,int tno);
 }

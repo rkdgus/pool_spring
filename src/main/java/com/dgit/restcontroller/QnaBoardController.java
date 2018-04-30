@@ -53,4 +53,17 @@ public class QnaBoardController {
 		}
 		return entity;
 	}
+	@RequestMapping(value="/read",method=RequestMethod.GET)
+	public ResponseEntity<QnaBoardVO> readQna(int bno,SearchCriteria cri){
+		logger.info("============== qna read ===========");
+		ResponseEntity<QnaBoardVO> entity = null;
+		try{
+			QnaBoardVO vo = service.selectByBno(bno);
+			entity = new ResponseEntity<QnaBoardVO>(vo,HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<QnaBoardVO>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 }

@@ -68,18 +68,18 @@ public class EventController {
 		logger.info(vo.toString());
 		String root_path = request.getSession().getServletContext().getRealPath("/");
 		ResponseEntity<String> entity = null;
-		File dirPath = new File(root_path+"/"+innerUploadPath+"/문의");
+		File dirPath = new File(root_path+"/"+innerUploadPath+"/notice");
 		String imgpath = null;
 		if (!dirPath.exists()) {
 			dirPath.mkdirs();
 		}
 		if(fileList.size()!=0){ 
 			imgpath="";
-			String filePath = "/pool/"+innerUploadPath+"/문의/";
+			String filePath = "/pool/"+innerUploadPath+"/notice/";
 			for (int i = 0; i < fileList.size(); i++) {
 					UUID uid = UUID.randomUUID();
 					String savedName = uid.toString() + "_" + fileList.get(i).getOriginalFilename();
-					File target = new File(root_path+"/"+innerUploadPath+"/문의", savedName);
+					File target = new File(root_path+"/"+innerUploadPath+"/notice", savedName);
 					try {                
 						FileCopyUtils.copy(fileList.get(i).getBytes(), target);
 						
@@ -199,7 +199,7 @@ public class EventController {
 		logger.info(imgPath);
 		if(fileList.size() > 0){
 			for (int i = 0; i < fileList.size(); i++) {
-				String filePath = "/pool/"+innerUploadPath+"/문의/";
+				String filePath = "/pool/"+innerUploadPath+"/notice/";
 				
 					UUID uid = UUID.randomUUID();
 					String savedName = uid.toString() + "_" + fileList.get(i).getOriginalFilename();
@@ -224,7 +224,7 @@ public class EventController {
 		vo.setImgpath(imgPath);
 		logger.info(vo.toString());
 		service.modify(vo);
-		return entity;
+		return entity;                  
 	}
 
 }

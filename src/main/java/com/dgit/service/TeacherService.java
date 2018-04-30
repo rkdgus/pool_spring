@@ -17,5 +17,6 @@ public interface TeacherService {
 	public void updateImgpath(int tno,String imgpath);
 	public TeacherVO findIdByTell(String name,String tell,int tno);
 	public TeacherVO findIdByEmail(String name,int tno);
+	public TeacherVO findTeacherInfo(TeacherVO vo);
 }
  

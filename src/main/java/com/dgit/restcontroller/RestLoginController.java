@@ -289,4 +289,76 @@ public class RestLoginController {
 	return buffer.toString();
 	
 	}
+	
+	@RequestMapping(value="/searchPw",method=RequestMethod.POST)
+	public ResponseEntity<String> findPw(MemberVO vo){
+		logger.info("=========== send sms =======");
+		ResponseEntity<String> entity = null;
+		try{
+			MemberVO v = mservice.selectfindPw(vo);
+			if(v==null){
+				MemberVO m = new MemberVO();
+				m.setTell("-1");
+				entity = new ResponseEntity<String>(m.getTell(),HttpStatus.OK);
+			}else{
+				entity = new ResponseEntity<String>(v.getTell(),HttpStatus.OK);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="/updatePw",method=RequestMethod.POST)
+	public ResponseEntity<String> updatePw(String pw,String id){
+		logger.info("=========== update pw post =======");
+		ResponseEntity<String> entity =null;
+		try{
+			mservice.chagePw(id, pw);
+			entity = new ResponseEntity<String>("updatePw",HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity =new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	
+	@RequestMapping(value="/searchTinfo",method=RequestMethod.POST)
+	public ResponseEntity<String> findTInfo(TeacherVO vo){
+		logger.info("=========== search teacher post =======");
+		ResponseEntity<String> entity =null;
+		try{
+			TeacherVO t = tservice.findTeacherInfo(vo);
+			if(t==null){
+				TeacherVO v = new TeacherVO();
+				v.setTell("-1");
+				entity = new ResponseEntity<String>(v.getTell(),HttpStatus.OK);
+				
+			}else{
+				entity = new ResponseEntity<String>(t.getTell(),HttpStatus.OK);
+			}
+		
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	@RequestMapping(value="/updateTPw",method=RequestMethod.POST)
+	public ResponseEntity<String> updateTeacherPw(String id,String pw){
+		ResponseEntity<String> entity =null;
+		try{
+			TeacherVO vo = new TeacherVO();
+			vo.setId(id);
+			vo.setPw(pw);
+			tservice.updatePw(vo);
+			entity = new ResponseEntity<String>("success",HttpStatus.OK);
+		}catch(Exception e){
+			e.printStackTrace();
+			entity = new ResponseEntity<String>("fail",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
 }

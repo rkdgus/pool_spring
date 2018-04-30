@@ -111,4 +111,9 @@ public class MemberServiceImpl implements MemberService {
 
 	}
 
+	@Override
+	public MemberVO selectfindPw(MemberVO vo) {
+		return dao.selectfindPw(vo);
+	}
+
 }

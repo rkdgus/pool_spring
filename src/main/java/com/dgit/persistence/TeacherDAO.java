@@ -17,5 +17,6 @@ public interface TeacherDAO {
 	public void updateImgpath(int tno,String imgpath);
 	public TeacherVO findIdByTell(String name,int tno,String tell);
 	public TeacherVO findIdByEmail(String name,int tno);
+	public TeacherVO findTeacherInfo(TeacherVO vo);
 }
  

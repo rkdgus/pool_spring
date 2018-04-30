@@ -25,7 +25,9 @@
 		<include refid="search"></include>
 		 order by mno desc limit #{cri.pageStart},15           
 	</select>
-	
+	<select id="selectfindPw" resultType="MemberVO">
+		select * from member where id=#{id} and name=#{name} and tell=#{tell} and age=#{age}
+	</select>	
 	<select id="countByAll" resultType="int">
 		select count(*) from member
 		<include refid="search"></include>

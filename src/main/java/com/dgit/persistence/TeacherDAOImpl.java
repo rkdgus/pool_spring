@@ -100,4 +100,9 @@ public class TeacherDAOImpl implements TeacherDAO {
 		map.put("tno", tno);
 		return session.selectOne(namespace+".findIdByEmail",map);
 	}
+
+	@Override
+	public TeacherVO findTeacherInfo(TeacherVO vo) {
+		return session.selectOne(namespace+".findTeacherInfo",vo);
+	}
 }

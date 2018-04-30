@@ -134,4 +134,9 @@ public class MemberDAOImpl implements MemberDAO {
 		
 	}
 
+	@Override
+	public MemberVO selectfindPw(MemberVO vo) {
+		return session.selectOne(namespace+".selectfindPw",vo);
+	}
+
 }

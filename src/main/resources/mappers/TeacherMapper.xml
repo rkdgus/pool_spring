@@ -27,7 +27,9 @@
 	<select id="findIdByTell" resultType="TeacherVO">
 		select * from teacher where tno=#{tno} and name=#{name} and tell=#{tell}
 	</select>
-	
+	<select id="findTeacherInfo" resultType="TeacherVO">
+		select * from teacher where tno=#{tno} and name=#{name} and tell=#{tell} and id=#{id}
+	</select>
 	<select id="findIdByEmail" resultType="TeacherVO">
 		select * from teacher where tno=#{tno} and name=#{name}
 	</select>

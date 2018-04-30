@@ -79,4 +79,9 @@ public class TeacherServiceImpl implements TeacherService {
 		dao.updateImgpath(tno, imgpath);
 
 	}
+
+	@Override
+	public TeacherVO findTeacherInfo(TeacherVO vo) {
+		return dao.findTeacherInfo(vo);
+	}
 }

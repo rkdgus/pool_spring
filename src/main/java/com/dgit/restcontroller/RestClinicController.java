@@ -17,7 +17,7 @@ import com.dgit.domain.SearchCriteria;
 import com.dgit.service.ClinicService;
 
 @RestController
-@RequestMapping("/clinic/*")
+@RequestMapping("/restclinic/*")
 public class RestClinicController {
 	private static final Logger logger = LoggerFactory.getLogger(RestBusController.class);
 	

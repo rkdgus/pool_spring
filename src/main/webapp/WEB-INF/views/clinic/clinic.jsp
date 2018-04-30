@@ -67,7 +67,7 @@
 
 .clinic_list_div img {
 	float: left;
-	padding:0px 34px;
+	padding:0px;
 }
 
 .clinic_list_div p {
@@ -94,7 +94,11 @@
 .list_title img {
 	float: left;
 }
-
+.contentimg{
+	padding:0px 34px !important;
+	width:90%;
+	text-align: center;
+}
 .list_title p {
 	float: left;
 	padding-left: 10px;
@@ -172,7 +176,7 @@
 							if(json[i].clinic_path !="" && json[i].clinic_path !=null ){
 								var imgArr = json[i].clinic_path.split(",");
 								for(var j=0; j<imgArr.length; j++){
-									var imgpath = "<img src='"+imgArr[j]+"'>";
+									var imgpath = "<img src='"+imgArr[j]+"' class='contentimg'>";
 									div_content.append(imgpath);
 								}
 							}

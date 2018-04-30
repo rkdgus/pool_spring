@@ -80,7 +80,7 @@
 }
 
 #sel {
-	width: 90px;
+	width: 100px;
 	height: 27px;
 }
 #insert_btn{

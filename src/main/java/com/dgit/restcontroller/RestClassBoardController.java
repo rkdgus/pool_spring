@@ -216,4 +216,30 @@ public class RestClassBoardController {
 		}
 		return entity;
 	}
+	@RequestMapping(value="/deletereply",method=RequestMethod.POST)
+	public ResponseEntity<List<ClassreplyVO>> deletereply(int rno,int bno){
+		logger.info("==============deletereply=============");
+		ResponseEntity<List<ClassreplyVO>> entity = null;
+		try{
+			serviceBoard.removeReply(rno);
+			List<ClassreplyVO> list =serviceBoard.replySelectByBno(bno);
+			entity = new ResponseEntity<List<ClassreplyVO>>(list,HttpStatus.OK);
+		}catch(Exception e){
+			entity = new ResponseEntity<List<ClassreplyVO>>(HttpStatus.OK);
+		}
+		return entity;
+	}
+	@RequestMapping(value="/updatereply",method=RequestMethod.POST)
+	public ResponseEntity<List<ClassreplyVO>> updatereply(ClassreplyVO vo){
+		logger.info("==============updatereply=============");
+		ResponseEntity<List<ClassreplyVO>> entity = null;
+		try{
+			serviceBoard.modifyReply(vo);
+			List<ClassreplyVO> list =serviceBoard.replySelectByBno(vo.getBno());
+			entity = new ResponseEntity<List<ClassreplyVO>>(list,HttpStatus.OK);
+		}catch(Exception e){
+			entity = new ResponseEntity<List<ClassreplyVO>>(HttpStatus.OK);
+		}
+		return entity;
+	}
 }

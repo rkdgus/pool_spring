@@ -245,7 +245,7 @@ table{
 			$(document).on("click", ".updateImg", function() {
 				var id = $(this).closest(".reply_content").find("td").eq(0).text();
 				$(".reply_replytext_update").val("");
-				if($("#loginId").val() == id){
+				if($("#loginId").val() == id || $("#loginId").val()=="master"){
 					if ($(this).parent().next().css("display") == "none") {
 						$(this).parent().next().css("display", "block");
 					} else {

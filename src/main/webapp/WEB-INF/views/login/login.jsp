@@ -39,9 +39,9 @@
 						<p>- 비회원일 경우, 일부 서비스가 제한됩니다.</p>
 					</div>
 					<div id="other_btn">
-						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/findMem.png"></a>
+						<a href="${pageContext.request.contextPath}/login/search"><img src="${pageContext.request.contextPath }/resources/images/findMem.png"></a>
 							&nbsp; &nbsp; &nbsp;
-						<a href="#"><img src="${pageContext.request.contextPath }/resources/images/line.png"></a>
+						<a href="${pageContext.request.contextPath}/login/search"><img src="${pageContext.request.contextPath }/resources/images/line.png"></a>
 							&nbsp; &nbsp; &nbsp;
 						<a href="${pageContext.request.contextPath }/join/joinStep1"><img src="${pageContext.request.contextPath }/resources/images/newJoin.png"></a>
 					</div>

@@ -29,7 +29,7 @@
 		delete from classboard where bno = #{bno}
 	</delete>
 	<select id="selectByClass" resultType="ClassVO">
-		select cno,level,time from class;
+		select cno,level,time from class where s_day = #{s_day};
 	</select>
 	
 	<insert id="insertReply">

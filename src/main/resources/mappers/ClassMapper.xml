@@ -15,7 +15,7 @@
 		select * from class where time = #{time};
 	</select>
 	<select id="selectByTimeLevel" resultType="ClassVO">
-		select cno from class where time = #{time} and level = #{level};
+		select cno from class where time = #{time} and level = #{level} and s_day = #{s_day};
 	</select>
 	<select id="selectAllClass" resultType="ClassVO">
 		select * from class where tno = #{tno}

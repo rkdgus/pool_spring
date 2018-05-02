@@ -1,5 +1,7 @@
 package com.dgit.persistence;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -57,7 +59,11 @@ public class ClassBoardDAOImpl implements ClassBoardDAO{
  
 	@Override
 	public List<ClassVO> selectByClass() {
-		return session.selectList(namespace+".selectByClass");
+		Date d = new Date();
+		d.setDate(1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String s_day = sdf.format(d);
+		return session.selectList(namespace+".selectByClass",s_day);
 	}
 
 	@Override

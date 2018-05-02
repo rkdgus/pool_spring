@@ -1,5 +1,7 @@
 package com.dgit.persistence;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -86,8 +88,14 @@ public class ClassDAOImpl implements ClassDAO{
 	@Override
 	public ClassVO selectByTimeLevel(String time, String level) {
 		HashMap<String,String> map = new HashMap<>();
+		Date d = new Date();
+		d.setDate(1);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String s_day = sdf.format(d);
 		map.put("time",time);
 		map.put("level",level);
+		map.put("s_day",s_day);
+		
 		return session.selectOne(namespace+".selectByTimeLevel",map);
 	}
 

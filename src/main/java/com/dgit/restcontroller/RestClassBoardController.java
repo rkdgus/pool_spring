@@ -147,7 +147,7 @@ public class RestClassBoardController {
 				vo.setImgpath(imgPathcheck);
 			}
 			serviceBoard.create(vo);
-			entity = new ResponseEntity<String>(vo.getCno()+"",HttpStatus.OK);
+			entity = new ResponseEntity<String>(cls.getCno()+"",HttpStatus.OK);
 		}catch(Exception e){
 			entity = new ResponseEntity<String>(HttpStatus.OK);
 		}

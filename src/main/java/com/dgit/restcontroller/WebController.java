@@ -42,7 +42,7 @@ public class WebController {
 		notification.put("title", "DGIT수영장  긴급공지");
 		notification.put("body", text);
 		notification.put("sound", "default");
-		notification.put("icon", "logo_white");
+		notification.put("icon", "logo");
 		notification.put("color", "#4374D9");
 		
 		

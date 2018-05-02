@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dgit.mapper.NoticeBoardMapper">
 	<select id="selectByAll" resultType="NoticeBoardVO">
-		select * from notice order by regdate desc limit #{page},15
+		select * from notice order by regdate desc limit #{cri.pageStart},15
 	</select>
 	<select id="selectByMain" resultType="NoticeBoardVO">
 		select * from notice order by regdate desc limit 0,5           

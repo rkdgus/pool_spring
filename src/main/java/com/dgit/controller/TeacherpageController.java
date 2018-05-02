@@ -132,6 +132,7 @@ public class TeacherpageController {
 		logger.info("============== teacher mypage class Info get ========");
 		List<ClassVO> list = service2.selectAllClass(tno, cri);
 		model.addAttribute("list", list);
+		model.addAttribute("tno",tno);
 		makePage(model,cri,tno);
 	}
 	
@@ -212,6 +213,7 @@ public class TeacherpageController {
 		String s_day = sdf.format(date);
 		List<ClassVO> lists = service2.selectClassTno(tno,"to", s_day, cri);
 		model.addAttribute("lists",lists);
+		model.addAttribute("tno",tno);
 		makePage(model, cri, tno);
 	}
 	@ResponseBody
@@ -257,8 +259,11 @@ public class TeacherpageController {
 				date.setMonth(monthLast-1);
 				date.setDate(days.get(i));
 				String s_day = sdf.format(date);
-				AttendanceVO vo2 = service5.selectByMno(vo.getMno(),s_day).get(0);
-				lists.add(vo2);
+				if(service5.selectByMno(vo.getMno(),s_day).size() >0){
+					AttendanceVO vo2 = service5.selectByMno(vo.getMno(),s_day).get(0);
+					lists.add(vo2);
+				}
+				
 				
 			}
 			String name = "list"+ index+"";

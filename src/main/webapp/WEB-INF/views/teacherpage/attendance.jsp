@@ -155,16 +155,16 @@
 			</div>
 			<div id="paging">
 				<c:if test="${pageMaker.prev}">
-					<a href="teacherClass?page=${pageMaker.startPage-1 }"><span
+					<a href="attendance?page=${pageMaker.startPage-1 }&tno=${tno}"><span
 						class="paginBtn">&laquo;</span></a>
 				</c:if>
 				<c:forEach begin="${pageMaker.startPage }"
 					end="${pageMaker.endPage }" var="idx">
-					<a href="teacherClass${pageMaker.makeQuery(idx) }"><span
+					<a href="attendance${pageMaker.makeQuery(idx) }&tno=${tno}"><span
 						class="pageNum" ${pageMaker.cri.page == idx? 'id=active' : ''}>${idx }</span></a>
 				</c:forEach>
 				<c:if test="${pageMaker.next}">
-					<a href="teacherClass?page=${pageMaker.endPage+1}"><span
+					<a href="attendance?page=${pageMaker.endPage+1}&tno=${tno}"><span
 						class="paginBtn">&raquo;</span></a>
 				</c:if>
 			</div>
@@ -212,7 +212,6 @@
 				
 				var cno = $(this).find(".cno").text();
 			
-				alert(cno);
 				$.ajax({
 					url:"read",
 					type:"get",

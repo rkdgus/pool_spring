@@ -102,6 +102,9 @@ public class RestRegisterController {
 
 		try {
 			ClassVO vo=new ClassVO();
+			
+			
+			
 			vo.setTno(tno);
 			vo.setLevel(level);
 			int total = service.selectByTnoCount(vo);

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dgit.domain.ClassVO;
 import com.dgit.domain.NoticeBoardVO;
+import com.dgit.domain.SearchCriteria;
 import com.dgit.service.ClassService;
 import com.dgit.service.NoticeBoardService;
 
@@ -24,12 +25,12 @@ public class RestNoticeController {
 	private NoticeBoardService service;
 	
 	@RequestMapping(value="/list",method=RequestMethod.GET)
-	public ResponseEntity<List<NoticeBoardVO>> getNoticeList(){
+	public ResponseEntity<List<NoticeBoardVO>> getNoticeList(SearchCriteria cri){
 		logger.info("GET classList");
 		ResponseEntity<List<NoticeBoardVO>> entity = null;
 		
 		try{
-			List<NoticeBoardVO> lists = service.selectByAll(0);
+			List<NoticeBoardVO> lists = service.selectByAll(cri.getPageStart());
 		
 			entity = new ResponseEntity<List<NoticeBoardVO>>(lists,HttpStatus.OK);
 		}catch(Exception e){

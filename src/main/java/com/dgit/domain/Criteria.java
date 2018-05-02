@@ -12,7 +12,6 @@ public class Criteria {
 	public int getPage() {
 		return page; 
 	}
-
 	public void setPage(int page) {
 		if(page <=0){
 			this.page=1;

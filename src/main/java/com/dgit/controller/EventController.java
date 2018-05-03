@@ -135,14 +135,18 @@ public class EventController {
 		logger.info("=================delete Get====================");
 
 		NoticeBoardVO vo=service.read(nno);
-
 		String root_path = request.getSession().getServletContext().getRealPath("/");
-		String[] delImg = vo.getImgpath().split(",");
-		for(int i=0; i <delImg.length; i++){
-		File file = new File(delImg[i]);
-			file.delete();
+		if(vo.getImgpath()!=null){
+			String[] delImg = vo.getImgpath().split(",");
+			for(int i=0; i <delImg.length; i++){
+			File file = new File(delImg[i]);
+				file.delete();
 
+			}
 		}
+		
+		
+		
 
 		service.remove(nno);
 		
